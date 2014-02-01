@@ -1,0 +1,4 @@
+/coverage/
+/vendor/
+clover.xml
+phploc.xml
