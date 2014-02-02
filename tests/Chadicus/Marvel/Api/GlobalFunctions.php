@@ -11,7 +11,7 @@ final class GlobalFunctions
      *
      * @var callable
      */
-    public static $time;
+    public static $time = null;
 
     /**
      * The custom curl_init implementation to call during these tests.
