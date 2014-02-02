@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>    Marvel API PHP Client &raquo; \Chadicus\Marvel\Api\Client
+    <title>    Marvel API PHP Client &raquo; \Chadicus\Marvel\Api\Collection
 </title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
@@ -120,51 +120,60 @@
             <i class="icon-custom icon-method"></i> Methods
             <ul>
                                                                                                     <li class="method public">
-        <a href="#method___construct" title="__construct :: Construct a new Client.">
-            <span class="description">Construct a new Client.</span><pre>__construct</pre>
+        <a href="#method___construct" title="__construct :: Create a new collection.">
+            <span class="description">Create a new collection.</span><pre>__construct</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_search" title="search :: Execute a search request against the Marvel API.">
-            <span class="description">Execute a search request against the Marvel API.</span><pre>search</pre>
+        <a href="#method_count" title="count :: Return the count elements in this collection, @see Countable::count().">
+            <span class="description">Return the count elements in this collection, @see Countable::count().</span><pre>count</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_get" title="get :: Execute a GET request against the Marvel API for a single resource.">
-            <span class="description">Execute a GET request against the Marvel API for a single resource.</span><pre>get</pre>
+        <a href="#method_rewind" title="rewind :: Rewind the Iterator to the first element, @see Iterator::rewind().">
+            <span class="description">Rewind the Iterator to the first element, @see Iterator::rewind().</span><pre>rewind</pre>
         </a>
     </li>
 
-                                                                                                                                                                </ul>
+                                                                                                        <li class="method public">
+        <a href="#method_key" title="key :: Return the key of the current element, @see Iterator::key().">
+            <span class="description">Return the key of the current element, @see Iterator::key().</span><pre>key</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_valid" title="valid :: Checks if current position is valid, @see Iterator::valid().">
+            <span class="description">Checks if current position is valid, @see Iterator::valid().</span><pre>valid</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_next" title="next :: Move forward to next element, @see Iterator::next().">
+            <span class="description">Move forward to next element, @see Iterator::next().</span><pre>next</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_current" title="current :: Return the current element, @see Iterator::current().">
+            <span class="description">Return the current element, @see Iterator::current().</span><pre>current</pre>
+        </a>
+    </li>
+
+                                                </ul>
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                </ul>
+                                                                                                                                                                                                                                                                                                        </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                        <li class="method private">
-                            <a href="#method__send" title="_send :: Send the given API Request.">
-                                <span class="description">Send the given API Request.</span><pre>_send</pre>
-                            </a>
-                        </li>
-                                                                                <li class="method private">
-                            <a href="#method__getFromCache" title="_getFromCache :: Retrieve the Response for the given Request from cache.">
-                                <span class="description">Retrieve the Response for the given Request from cache.</span><pre>_getFromCache</pre>
-                            </a>
-                        </li>
-                                                </ul>
+                                                                                                                                                                                                                                                                                                        </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
             <ul>
-                                <li class="constant ">
-                    <a href="#constant_BASE_URL" title="BASE_URL :: The Marvel API url.">
-                        <span class="description">The Marvel API url.</span><pre>BASE_URL</pre>
-                    </a>
-                </li>
                             </ul>
         </li>
     </ul>
@@ -174,10 +183,11 @@
 
         <div class="span8">
             <div class="element class">
-                <h1>Client</h1>
+                <h1>Collection</h1>
                 <small style="display: block; text-align: right">
-                                                        </small>
-                <p class="short_description">PHP Client for the Marvel API.</p>
+                                                                Implements \Iterator, \Countable
+                                    </small>
+                <p class="short_description">Class for iterating index response to the Marvel API. Collections are readonly.</p>
                 <div class="details">
                     <div class="long_description">
                         
@@ -188,8 +198,8 @@
                     <h3><i class="icon-custom icon-method"></i> Methods</h3>
                                                                 <a id="method___construct"></a>
                         <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
-                            <h2>Construct a new Client.</h2>
-                            <pre>__construct(string $privateApiKey, string $publicApiKey, \Chadicus\Marvel\Api\Adapter $adapter, \Chadicus\Marvel\Api\Cache $cache = null) </pre>
+                            <h2>Create a new collection.</h2>
+                            <pre>__construct(\Chadicus\Marvel\Api\Client $client, string $resource, array $filters = array()) </pre>
                             <div class="labels">
                                                                                                 <span class="label">final</span>                                                                                            </div>
                             <div class="row collapse">
@@ -197,17 +207,6 @@
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>Thrown if $privateApiKey is empty or not a string.</p>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>Thrown if $publicApiKey is empty or not a string.</p>
-                                                                                                    </td>
-                                            </tr>
                                                                                     <tr>
                                                 <th>
                                                     
@@ -219,119 +218,25 @@
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
-                                                <h4>$privateApiKey</h4>
-                                                <code>string</code><p><p>The private api key issued by Marvel.</p></p>
+                                                <h4>$client</h4>
+                                                <code><a href="../classes/Chadicus.Marvel.Api.Client.html">\Chadicus\Marvel\Api\Client</a></code><p><p>A client connection to the API.</p></p>
                                             </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$publicApiKey</h4>
-                                                <code>string</code><p><p>The public api key issued by Marvel.</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$adapter</h4>
-                                                <code><a href="../classes/Chadicus.Marvel.Api.Adapter.html">\Chadicus\Marvel\Api\Adapter</a></code><p><p>Implementation of a client adapter.</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$cache</h4>
-                                                <code><a href="../classes/Chadicus.Marvel.Api.Cache.html">\Chadicus\Marvel\Api\Cache</a></code><p><p>Implementation of Cache.</p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-                        </div>
-                                            <a id="method_search"></a>
-                        <div class="element clickable method public  method_search" data-toggle="collapse" data-target=".method_search .collapse">
-                            <h2>Execute a search request against the Marvel API.</h2>
-                            <pre>search(string $resource, array $filters = array()) : \Chadicus\Marvel\Api\Response</pre>
-                            <div class="labels">
-                                                                                                <span class="label">final</span>                                                                                            </div>
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>Thrown if $resource is empty or not a string.</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$resource</h4>
-                                                <code>string</code><p><p>The API resource to search for.</p></p>
+                                                <code>string</code><p><p>The name of API resource to request.</p></p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$filters</h4>
-                                                <code>array</code><p><p>Array of search criteria to use in request.</p></p>
+                                                <code>array</code><p><p>A key value pair array of search filters.</p></p>
                                             </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code><a href="../classes/Chadicus.Marvel.Api.Response.html">\Chadicus\Marvel\Api\Response</a></code><p></p>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_get"></a>
-                        <div class="element clickable method public  method_get" data-toggle="collapse" data-target=".method_get .collapse">
-                            <h2>Execute a GET request against the Marvel API for a single resource.</h2>
-                            <pre>get(string $resource, integer $id) : \Chadicus\Marvel\Api\Response</pre>
-                            <div class="labels">
-                                                                                                <span class="label">final</span>                                                                                            </div>
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>Thrown if $resource is empty or not a string.</p>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>Thrown if $id is not an integer.</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$resource</h4>
-                                                <code>string</code><p><p>The API resource to search for.</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$id</h4>
-                                                <code>integer</code><p><p>The id of the API resource.</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code><a href="../classes/Chadicus.Marvel.Api.Response.html">\Chadicus\Marvel\Api\Response</a></code><p></p>
-                                                                    </div>
-                            </div>
-                        </div>
-                                            <a id="method__send"></a>
-                        <div class="element clickable method private  method__send" data-toggle="collapse" data-target=".method__send .collapse">
-                            <h2>Send the given API Request.</h2>
-                            <pre>_send(\Chadicus\Marvel\Api\Request $request) : \Chadicus\Marvel\Api\Response</pre>
+                                            <a id="method_count"></a>
+                        <div class="element clickable method public  method_count" data-toggle="collapse" data-target=".method_count .collapse">
+                            <h2>Return the count elements in this collection, @see Countable::count().</h2>
+                            <pre>count() : integer</pre>
                             <div class="labels">
                                                                                                 <span class="label">final</span>                                                                                            </div>
                             <div class="row collapse">
@@ -346,23 +251,25 @@
                                                 <td>
                                                                                                     </td>
                                             </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
                                                                             </table>
 
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$request</h4>
-                                                <code><a href="../classes/Chadicus.Marvel.Api.Request.html">\Chadicus\Marvel\Api\Request</a></code><p><p>The request to send.</p></p>
-                                            </div>
-                                                                            
+                                    
                                                                             <h3>Response</h3>
-                                        <code><a href="../classes/Chadicus.Marvel.Api.Response.html">\Chadicus\Marvel\Api\Response</a></code><p></p>
+                                        <code>integer</code><p></p>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method__getFromCache"></a>
-                        <div class="element clickable method private  method__getFromCache" data-toggle="collapse" data-target=".method__getFromCache .collapse">
-                            <h2>Retrieve the Response for the given Request from cache.</h2>
-                            <pre>_getFromCache(\Chadicus\Marvel\Api\Request $request) : \Chadicus\Marvel\Api\Response|null</pre>
+                                            <a id="method_rewind"></a>
+                        <div class="element clickable method public  method_rewind" data-toggle="collapse" data-target=".method_rewind .collapse">
+                            <h2>Rewind the Iterator to the first element, @see Iterator::rewind().</h2>
+                            <pre>rewind() : void</pre>
                             <div class="labels">
                                                                                                 <span class="label">final</span>                                                                                            </div>
                             <div class="row collapse">
@@ -377,63 +284,255 @@
                                                 <td>
                                                                                                     </td>
                                             </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
                                                                             </table>
 
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$request</h4>
-                                                <code><a href="../classes/Chadicus.Marvel.Api.Request.html">\Chadicus\Marvel\Api\Request</a></code><p><p>The request to send.</p></p>
-                                            </div>
-                                                                            
+                                    
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_key"></a>
+                        <div class="element clickable method public  method_key" data-toggle="collapse" data-target=".method_key .collapse">
+                            <h2>Return the key of the current element, @see Iterator::key().</h2>
+                            <pre>key() : integer</pre>
+                            <div class="labels">
+                                                                                                <span class="label">final</span>                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
                                                                             <h3>Response</h3>
-                                        <code><a href="../classes/Chadicus.Marvel.Api.Response.html">\Chadicus\Marvel\Api\Response</a>|null</code><p><p>Returns the cached Response or null if it does not exist.</p></p>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_valid"></a>
+                        <div class="element clickable method public  method_valid" data-toggle="collapse" data-target=".method_valid .collapse">
+                            <h2>Checks if current position is valid, @see Iterator::valid().</h2>
+                            <pre>valid() : boolean</pre>
+                            <div class="labels">
+                                                                                                <span class="label">final</span>                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_next"></a>
+                        <div class="element clickable method public  method_next" data-toggle="collapse" data-target=".method_next .collapse">
+                            <h2>Move forward to next element, @see Iterator::next().</h2>
+                            <pre>next() : void</pre>
+                            <div class="labels">
+                                                                                                <span class="label">final</span>                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_current"></a>
+                        <div class="element clickable method public  method_current" data-toggle="collapse" data-target=".method_current .collapse">
+                            <h2>Return the current element, @see Iterator::current().</h2>
+                            <pre>current() : array</pre>
+                            <div class="labels">
+                                                                                                <span class="label">final</span>                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
                                                                     </div>
                             </div>
                         </div>
                     
-                                            <h3><i class="icon-custom icon-constant"></i> Constants</h3>
-                                                    <a id="constant_BASE_URL"> </a>
-                            <div class="element clickable constant  constant_BASE_URL" data-toggle="collapse" data-target=".constant_BASE_URL .collapse">
-                                <h2>The Marvel API url.</h2>
-                                <pre>BASE_URL</pre>
-                                <div class="labels">
-                                                                    </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"></div>
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        const
-                                                    </th>
-                                                    <td>
-                                                                                                                    <p>string</p>
-                                                                                                            </td>
-                                                </tr>
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-                                    </div>
-                                </div>
-                            </div>
-                                            
+                    
                                                                 <h3><i class="icon-custom icon-property"></i> Properties</h3>
-                                                    <a id="property_publicApiKey"> </a>
-                            <div class="element clickable property  private property_publicApiKey" data-toggle="collapse" data-target=".property_publicApiKey .collapse">
-                                <h2>The public api key issued by Marvel.</h2>
-                                <pre>publicApiKey : string</pre>
+                                                    <a id="property_client"> </a>
+                            <div class="element clickable property  private property_client" data-toggle="collapse" data-target=".property_client .collapse">
+                                <h2>API Client.</h2>
+                                <pre>client : \Chadicus\Marvel\Api\Client</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Chadicus.Marvel.Api.Client.html">\Chadicus\Marvel\Api\Client</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_limit"> </a>
+                            <div class="element clickable property  private property_limit" data-toggle="collapse" data-target=".property_limit .collapse">
+                                <h2>Limit to give to API.</h2>
+                                <pre>limit : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_offset"> </a>
+                            <div class="element clickable property  private property_offset" data-toggle="collapse" data-target=".property_offset .collapse">
+                                <h2>Offset to give to API.</h2>
+                                <pre>offset : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_resource"> </a>
+                            <div class="element clickable property  private property_resource" data-toggle="collapse" data-target=".property_resource .collapse">
+                                <h2>Resource name for collection.</h2>
+                                <pre>resource : string</pre>
                                 <div class="labels">
                                                                                                         </div>
                                 <div class="row collapse">
@@ -463,10 +562,10 @@
                                                                             </div>
                                 </div>
                             </div>
-                                                    <a id="property_privateApiKey"> </a>
-                            <div class="element clickable property  private property_privateApiKey" data-toggle="collapse" data-target=".property_privateApiKey .collapse">
-                                <h2>The private api key issued by Marvel.</h2>
-                                <pre>privateApiKey : string</pre>
+                                                    <a id="property_filters"> </a>
+                            <div class="element clickable property  private property_filters" data-toggle="collapse" data-target=".property_filters .collapse">
+                                <h2>Array of filters to pass to API.</h2>
+                                <pre>filters : array</pre>
                                 <div class="labels">
                                                                                                         </div>
                                 <div class="row collapse">
@@ -492,14 +591,14 @@
                                                                                     </table>
 
                                                                                     <h3>Type(s)</h3>
-                                            <code>string</code>
+                                            <code>array</code>
                                                                             </div>
                                 </div>
                             </div>
-                                                    <a id="property_adapter"> </a>
-                            <div class="element clickable property  private property_adapter" data-toggle="collapse" data-target=".property_adapter .collapse">
-                                <h2>Adapter implementation.</h2>
-                                <pre>adapter : \Chadicus\Marvel\Api\Adapter</pre>
+                                                    <a id="property_total"> </a>
+                            <div class="element clickable property  private property_total" data-toggle="collapse" data-target=".property_total .collapse">
+                                <h2>Total number of elements in the collection.</h2>
+                                <pre>total : integer</pre>
                                 <div class="labels">
                                                                                                         </div>
                                 <div class="row collapse">
@@ -525,14 +624,14 @@
                                                                                     </table>
 
                                                                                     <h3>Type(s)</h3>
-                                            <code><a href="../classes/Chadicus.Marvel.Api.Adapter.html">\Chadicus\Marvel\Api\Adapter</a></code>
+                                            <code>integer</code>
                                                                             </div>
                                 </div>
                             </div>
-                                                    <a id="property_cache"> </a>
-                            <div class="element clickable property  private property_cache" data-toggle="collapse" data-target=".property_cache .collapse">
-                                <h2>Adapter implementation.</h2>
-                                <pre>cache : \Chadicus\Marvel\Api\Cache</pre>
+                                                    <a id="property_position"> </a>
+                            <div class="element clickable property  private property_position" data-toggle="collapse" data-target=".property_position .collapse">
+                                <h2>Pointer in the paginated results.</h2>
+                                <pre>position : integer</pre>
                                 <div class="labels">
                                                                                                         </div>
                                 <div class="row collapse">
@@ -558,20 +657,53 @@
                                                                                     </table>
 
                                                                                     <h3>Type(s)</h3>
-                                            <code><a href="../classes/Chadicus.Marvel.Api.Cache.html">\Chadicus\Marvel\Api\Cache</a></code>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_results"> </a>
+                            <div class="element clickable property  private property_results" data-toggle="collapse" data-target=".property_results .collapse">
+                                <h2>A paginated set of elements from the API.</h2>
+                                <pre>results : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
                                                                             </div>
                                 </div>
                             </div>
                                                             </div>
             </div>
-            <a id="\Chadicus\Marvel\Api\Client"></a>
+            <a id="\Chadicus\Marvel\Api\Collection"></a>
             <ul class="breadcrumb">
                 <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
                     
     
     <li><span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.Api.html">Api</a></li>
 
-                <li class="active"><span class="divider">\</span><a href="../classes/Chadicus.Marvel.Api.Client.html">Client</a></li>
+                <li class="active"><span class="divider">\</span><a href="../classes/Chadicus.Marvel.Api.Collection.html">Collection</a></li>
             </ul>
         </div>
     </div>
