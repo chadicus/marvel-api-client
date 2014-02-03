@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "dc13f0b724f4d53bff282114a225cb49",
+    "hash": "a1c74bdd4695384ebaffface9f1b717a",
     "packages": [
         {
             "name": "dominionenterprises/filter",
@@ -398,16 +398,16 @@
         },
         {
             "name": "erusev/parsedown",
-            "version": "0.9.0",
+            "version": "0.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "f0fbdaa6ca02e7437da12cc40ff7ea1af380a4ba"
+                "reference": "f5f1706e58664b2c7bb303d602e8a0b004b99fcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/f0fbdaa6ca02e7437da12cc40ff7ea1af380a4ba",
-                "reference": "f0fbdaa6ca02e7437da12cc40ff7ea1af380a4ba",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/f5f1706e58664b2c7bb303d602e8a0b004b99fcf",
+                "reference": "f5f1706e58664b2c7bb303d602e8a0b004b99fcf",
                 "shasum": ""
             },
             "type": "library",
@@ -433,7 +433,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2014-01-22 19:28:29"
+            "time": "2014-02-02 20:27:22"
         },
         {
             "name": "jms/metadata",
@@ -1459,16 +1459,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "1.2.14",
+            "version": "1.2.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "d4b3bc1c4b905cd0b3b356e8608857f26a041c1b"
+                "reference": "6ba4ed2895d538a039d5d5866edc4ec0424c7852"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/d4b3bc1c4b905cd0b3b356e8608857f26a041c1b",
-                "reference": "d4b3bc1c4b905cd0b3b356e8608857f26a041c1b",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/6ba4ed2895d538a039d5d5866edc4ec0424c7852",
+                "reference": "6ba4ed2895d538a039d5d5866edc4ec0424c7852",
                 "shasum": ""
             },
             "require": {
@@ -1516,7 +1516,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-01-31 08:51:59"
+            "time": "2014-02-03 07:44:47"
         },
         {
             "name": "phpunit/php-file-iterator",
