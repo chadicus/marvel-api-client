@@ -199,7 +199,7 @@
                                                                 <a id="method___construct"></a>
                         <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
                             <h2>Create a new collection.</h2>
-                            <pre>__construct(\Chadicus\Marvel\Api\Client $client, string $resource, array $filters = array()) </pre>
+                            <pre>__construct(\Chadicus\Marvel\Api\Client $client, string $resource, array $filters = array(), callable $loader = null) </pre>
                             <div class="labels">
                                                                                                 <span class="label">final</span>                                                                                            </div>
                             <div class="row collapse">
@@ -228,6 +228,10 @@
                                                                                     <div class="subelement argument">
                                                 <h4>$filters</h4>
                                                 <code>array</code><p><p>A key value pair array of search filters.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$loader</h4>
+                                                <code>callable</code><p><p>A custom callable to use when iterating over the collection.</p></p>
                                             </div>
                                                                             
                                                                     </div>
@@ -397,7 +401,7 @@
                                             <a id="method_current"></a>
                         <div class="element clickable method public  method_current" data-toggle="collapse" data-target=".method_current .collapse">
                             <h2>Return the current element, @see Iterator::current().</h2>
-                            <pre>current() : array</pre>
+                            <pre>current() : mixed</pre>
                             <div class="labels">
                                                                                                 <span class="label">final</span>                                                                                            </div>
                             <div class="row collapse">
@@ -423,7 +427,7 @@
 
                                     
                                                                             <h3>Response</h3>
-                                        <code>array</code><p></p>
+                                        <code>mixed</code><p><p>Returns the element in the results array or a custom type defined by $loader.</p></p>
                                                                     </div>
                             </div>
                         </div>
@@ -694,6 +698,39 @@
                                                                             </div>
                                 </div>
                             </div>
+                                                    <a id="property_loader"> </a>
+                            <div class="element clickable property  private property_loader" data-toggle="collapse" data-target=".property_loader .collapse">
+                                <h2>A custom callable to return a defined type when iterating over the collection.</h2>
+                                <pre>loader : callable</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>callable</code>
+                                                                            </div>
+                                </div>
+                            </div>
                                                             </div>
             </div>
             <a id="\Chadicus\Marvel\Api\Collection"></a>
@@ -714,7 +751,7 @@
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Mon, 03 Feb 2014 14:00:40 -0500.<br/>
+            generated on Mon, 03 Feb 2014 15:55:35 -0500.<br/>
     </footer>
     </body>
 </html>

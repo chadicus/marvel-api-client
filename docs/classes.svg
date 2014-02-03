@@ -53,75 +53,75 @@
 <path fill="none" stroke="gray" d="M32,-134C32,-128 38,-122 44,-122"/>
 <text text-anchor="middle" x="164.5" y="-452.1" font-family="Times Roman,serif" font-size="11.00" fill="gray">Api</text>
 </g>
-<!-- \\Chadicus\\Marvel\\Api\\Response -->
-<g id="node5" class="node"><title>\\Chadicus\\Marvel\\Api\\Response</title>
-<polygon fill="none" stroke="black" points="282,-436 214,-436 214,-400 282,-400 282,-436"/>
-<text text-anchor="middle" x="248" y="-415.1" font-family="Times Roman,serif" font-size="11.00">Response</text>
-</g>
-<!-- \\Chadicus\\Marvel\\Api\\Client -->
-<g id="node6" class="node"><title>\\Chadicus\\Marvel\\Api\\Client</title>
-<polygon fill="none" stroke="black" points="275,-382 221,-382 221,-346 275,-346 275,-382"/>
-<text text-anchor="middle" x="248" y="-361.1" font-family="Times Roman,serif" font-size="11.00">Client</text>
-</g>
-<!-- \\Chadicus\\Marvel\\Api\\Request -->
-<g id="node7" class="node"><title>\\Chadicus\\Marvel\\Api\\Request</title>
-<polygon fill="none" stroke="black" points="278,-328 218,-328 218,-292 278,-292 278,-328"/>
-<text text-anchor="middle" x="248" y="-307.1" font-family="Times Roman,serif" font-size="11.00">Request</text>
-</g>
 <!-- \\Chadicus\\Marvel\\Api\\ArrayCache -->
-<g id="node8" class="node"><title>\\Chadicus\\Marvel\\Api\\ArrayCache</title>
-<polygon fill="none" stroke="black" points="287,-274 209,-274 209,-238 287,-238 287,-274"/>
-<text text-anchor="middle" x="248" y="-253.1" font-family="Times Roman,serif" font-size="11.00">ArrayCache</text>
+<g id="node5" class="node"><title>\\Chadicus\\Marvel\\Api\\ArrayCache</title>
+<polygon fill="none" stroke="black" points="287,-436 209,-436 209,-400 287,-400 287,-436"/>
+<text text-anchor="middle" x="248" y="-415.1" font-family="Times Roman,serif" font-size="11.00">ArrayCache</text>
 </g>
 <!-- \\Chadicus\\Marvel\\Api\\Cache -->
-<g id="node12" class="node"><title>\\Chadicus\\Marvel\\Api\\Cache</title>
-<polygon fill="none" stroke="black" points="97,-274 43,-274 43,-238 97,-238 97,-274"/>
-<text text-anchor="middle" x="70" y="-253.1" font-family="Times Roman,serif" font-size="11.00">Cache</text>
+<g id="node11" class="node"><title>\\Chadicus\\Marvel\\Api\\Cache</title>
+<polygon fill="none" stroke="black" points="97,-436 43,-436 43,-400 97,-400 97,-436"/>
+<text text-anchor="middle" x="70" y="-415.1" font-family="Times Roman,serif" font-size="11.00">Cache</text>
 </g>
 <!-- \\Chadicus\\Marvel\\Api\\ArrayCache&#45;&gt;\\Chadicus\\Marvel\\Api\\Cache -->
 <g id="edge6" class="edge"><title>\\Chadicus\\Marvel\\Api\\ArrayCache&#45;&gt;\\Chadicus\\Marvel\\Api\\Cache</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M208.496,-256C178.393,-256 137.214,-256 107.594,-256"/>
-<polygon fill="none" stroke="black" points="107.246,-252.5 97.2463,-256 107.246,-259.5 107.246,-252.5"/>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M208.496,-418C178.393,-418 137.214,-418 107.594,-418"/>
+<polygon fill="none" stroke="black" points="107.246,-414.5 97.2463,-418 107.246,-421.5 107.246,-414.5"/>
+</g>
+<!-- \\Chadicus\\Marvel\\Api\\Response -->
+<g id="node6" class="node"><title>\\Chadicus\\Marvel\\Api\\Response</title>
+<polygon fill="none" stroke="black" points="282,-382 214,-382 214,-346 282,-346 282,-382"/>
+<text text-anchor="middle" x="248" y="-361.1" font-family="Times Roman,serif" font-size="11.00">Response</text>
+</g>
+<!-- \\Chadicus\\Marvel\\Api\\CurlAdapter -->
+<g id="node7" class="node"><title>\\Chadicus\\Marvel\\Api\\CurlAdapter</title>
+<polygon fill="none" stroke="black" points="288,-328 208,-328 208,-292 288,-292 288,-328"/>
+<text text-anchor="middle" x="248" y="-307.1" font-family="Times Roman,serif" font-size="11.00">CurlAdapter</text>
+</g>
+<!-- \\Chadicus\\Marvel\\Api\\Adapter -->
+<g id="node12" class="node"><title>\\Chadicus\\Marvel\\Api\\Adapter</title>
+<polygon fill="none" stroke="black" points="100,-328 40,-328 40,-292 100,-292 100,-328"/>
+<text text-anchor="middle" x="70" y="-307.1" font-family="Times Roman,serif" font-size="11.00">Adapter</text>
+</g>
+<!-- \\Chadicus\\Marvel\\Api\\CurlAdapter&#45;&gt;\\Chadicus\\Marvel\\Api\\Adapter -->
+<g id="edge8" class="edge"><title>\\Chadicus\\Marvel\\Api\\CurlAdapter&#45;&gt;\\Chadicus\\Marvel\\Api\\Adapter</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M207.163,-310C178.094,-310 139.214,-310 110.273,-310"/>
+<polygon fill="none" stroke="black" points="110.096,-306.5 100.096,-310 110.096,-313.5 110.096,-306.5"/>
 </g>
 <!-- \\Chadicus\\Marvel\\Api\\Collection -->
-<g id="node9" class="node"><title>\\Chadicus\\Marvel\\Api\\Collection</title>
-<polygon fill="none" stroke="black" points="282,-166 214,-166 214,-130 282,-130 282,-166"/>
-<text text-anchor="middle" x="248" y="-145.1" font-family="Times Roman,serif" font-size="11.00">Collection</text>
+<g id="node8" class="node"><title>\\Chadicus\\Marvel\\Api\\Collection</title>
+<polygon fill="none" stroke="black" points="282,-274 214,-274 214,-238 282,-238 282,-274"/>
+<text text-anchor="middle" x="248" y="-253.1" font-family="Times Roman,serif" font-size="11.00">Collection</text>
 </g>
 <!-- \\Iterator -->
-<g id="node15" class="node"><title>\\Iterator</title>
+<g id="node16" class="node"><title>\\Iterator</title>
 <ellipse fill="none" stroke="black" cx="70" cy="-72" rx="51.8276" ry="18.3848"/>
 <text text-anchor="middle" x="70" y="-68.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\Iterator</text>
 </g>
 <!-- \\Chadicus\\Marvel\\Api\\Collection&#45;&gt;\\Iterator -->
-<g id="edge8" class="edge"><title>\\Chadicus\\Marvel\\Api\\Collection&#45;&gt;\\Iterator</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M213.68,-133.346C184.749,-120.994 143.232,-103.268 112.259,-90.0433"/>
-<polygon fill="none" stroke="black" points="113.582,-86.8026 103.011,-86.0947 110.834,-93.2404 113.582,-86.8026"/>
+<g id="edge10" class="edge"><title>\\Chadicus\\Marvel\\Api\\Collection&#45;&gt;\\Iterator</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M217.337,-237.88C213.669,-235.126 210.123,-232.145 207,-229 165.564,-187.276 175.731,-160.412 135,-118 126.247,-108.886 115.458,-100.416 105.203,-93.2915"/>
+<polygon fill="none" stroke="black" points="107.025,-90.2998 96.77,-87.6393 103.128,-96.1144 107.025,-90.2998"/>
 </g>
 <!-- \\Countable -->
-<g id="node17" class="node"><title>\\Countable</title>
+<g id="node18" class="node"><title>\\Countable</title>
 <ellipse fill="none" stroke="black" cx="70" cy="-18" rx="65.0538" ry="18.3848"/>
 <text text-anchor="middle" x="70" y="-14.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\Countable</text>
 </g>
 <!-- \\Chadicus\\Marvel\\Api\\Collection&#45;&gt;\\Countable -->
-<g id="edge10" class="edge"><title>\\Chadicus\\Marvel\\Api\\Collection&#45;&gt;\\Countable</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M231.929,-129.922C211.293,-107.574 173.527,-69.5002 135,-45 130.112,-41.8915 124.805,-39.0084 119.402,-36.3738"/>
-<polygon fill="none" stroke="black" points="120.824,-33.1754 110.276,-32.1786 117.901,-39.5355 120.824,-33.1754"/>
+<g id="edge12" class="edge"><title>\\Chadicus\\Marvel\\Api\\Collection&#45;&gt;\\Countable</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M215.883,-237.788C212.625,-235.115 209.575,-232.179 207,-229 151.733,-160.756 196.449,-107.735 135,-45 131.649,-41.5791 127.801,-38.5729 123.687,-35.9345"/>
+<polygon fill="none" stroke="black" points="125.373,-32.8675 114.941,-31.0205 121.944,-38.9702 125.373,-32.8675"/>
 </g>
-<!-- \\Chadicus\\Marvel\\Api\\CurlAdapter -->
-<g id="node10" class="node"><title>\\Chadicus\\Marvel\\Api\\CurlAdapter</title>
-<polygon fill="none" stroke="black" points="288,-220 208,-220 208,-184 288,-184 288,-220"/>
-<text text-anchor="middle" x="248" y="-199.1" font-family="Times Roman,serif" font-size="11.00">CurlAdapter</text>
+<!-- \\Chadicus\\Marvel\\Api\\Request -->
+<g id="node9" class="node"><title>\\Chadicus\\Marvel\\Api\\Request</title>
+<polygon fill="none" stroke="black" points="278,-220 218,-220 218,-184 278,-184 278,-220"/>
+<text text-anchor="middle" x="248" y="-199.1" font-family="Times Roman,serif" font-size="11.00">Request</text>
 </g>
-<!-- \\Chadicus\\Marvel\\Api\\Adapter -->
-<g id="node11" class="node"><title>\\Chadicus\\Marvel\\Api\\Adapter</title>
-<polygon fill="none" stroke="black" points="100,-220 40,-220 40,-184 100,-184 100,-220"/>
-<text text-anchor="middle" x="70" y="-199.1" font-family="Times Roman,serif" font-size="11.00">Adapter</text>
-</g>
-<!-- \\Chadicus\\Marvel\\Api\\CurlAdapter&#45;&gt;\\Chadicus\\Marvel\\Api\\Adapter -->
-<g id="edge12" class="edge"><title>\\Chadicus\\Marvel\\Api\\CurlAdapter&#45;&gt;\\Chadicus\\Marvel\\Api\\Adapter</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M207.163,-202C178.094,-202 139.214,-202 110.273,-202"/>
-<polygon fill="none" stroke="black" points="110.096,-198.5 100.096,-202 110.096,-205.5 110.096,-198.5"/>
+<!-- \\Chadicus\\Marvel\\Api\\Client -->
+<g id="node10" class="node"><title>\\Chadicus\\Marvel\\Api\\Client</title>
+<polygon fill="none" stroke="black" points="275,-166 221,-166 221,-130 275,-130 275,-166"/>
+<text text-anchor="middle" x="248" y="-145.1" font-family="Times Roman,serif" font-size="11.00">Client</text>
 </g>
 </g>
 </svg>
