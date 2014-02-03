@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    DE PHP Utils &raquo; \DominionEnterprises\Util\Http
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">DE PHP Utils</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                API Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/DominionEnterprises.html">DominionEnterprises</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method_parseHeaders" title="parseHeaders :: Parses HTTP headers into an associative array.">
+            <span class="description">Parses HTTP headers into an associative array.</span><pre>parseHeaders</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_buildQueryString" title="buildQueryString :: Generate URL-encoded query string">
+            <span class="description">Generate URL-encoded query string</span><pre>buildQueryString</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getQueryParams" title="getQueryParams :: Get an array of all url parameters.">
+            <span class="description">Get an array of all url parameters.</span><pre>getQueryParams</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getQueryParamsCollapsed" title="getQueryParamsCollapsed :: Get an array of all url parameters.">
+            <span class="description">Get an array of all url parameters.</span><pre>getQueryParamsCollapsed</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>Http</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description">Static class with various HTTP related functions.</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                                                                                                                                                                                            </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method_parseHeaders"></a>
+                        <div class="element clickable method public  method_parseHeaders" data-toggle="collapse" data-target=".method_parseHeaders .collapse">
+                            <h2>Parses HTTP headers into an associative array.</h2>
+                            <pre>parseHeaders(string $rawHeaders) : array</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Example:
+<code>
+$headers = "HTTP/1.1 200 OK\r\n".</p>
+<pre><code>       "content-type: text/html; charset=UTF-8\r\n".
+       "Server: Funky/1.0\r\n".
+       "Set-Cookie: foo=bar\r\n".
+       "Set-Cookie: baz=quux\r\n".
+       "Folds: are\r\n\treformatted\r\n";</code></pre>
+<p>print_r(\DominionEnterprises\HttpUtil::parseHeaders($headers));
+</code>
+The above example will output:</p>
+<pre>
+Array
+(
+    [Response Code] => 200
+    [Response Status] => OK
+    [Content-Type] => text/html; charset=UTF-8
+    [Server] => Funky/1.0
+    [Set-Cookie] => Array
+    (
+      [0] => foo=bar
+      [1] => baz=quux
+    )
+    [Folds] => are reformatted
+)
+</pre></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Thrown if unable to parse the headers</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$rawHeaders</h4>
+                                                <code>string</code><p><p>string containing HTTP headers</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>the parsed headers</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_buildQueryString"></a>
+                        <div class="element clickable method public  method_buildQueryString" data-toggle="collapse" data-target=".method_buildQueryString .collapse">
+                            <h2>Generate URL-encoded query string</h2>
+                            <pre>buildQueryString(array $parameters) : string</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Example:
+<code>
+$parameters = array(
+  'param1' => array('value', 'another value'),
+  'param2' => 'a value',
+);</p>
+<p>$queryString = \DominionEnterprises\HttpUtil::buildQueryString($parameters);</p>
+<p>echo $queryString
+</code></p>
+<p>Output:</p>
+<pre>
+param1=value&param1=another+value&param2=a+value
+</pre></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parameters</h4>
+                                                <code>array</code><p><p>An associative array containing parameter key/value(s)</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>the built query string</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_getQueryParams"></a>
+                        <div class="element clickable method public  method_getQueryParams" data-toggle="collapse" data-target=".method_getQueryParams .collapse">
+                            <h2>Get an array of all url parameters.</h2>
+                            <pre>getQueryParams(string $url) : array</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if $url was not a string</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$url</h4>
+                                                <code>string</code><p><p>The url to parse such as <a href="http://foo.com/bar/?id=boo&amp;another=wee&amp;another=boo">http://foo.com/bar/?id=boo&amp;another=wee&amp;another=boo</a></p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>such as ['id' => ['boo'], 'another' => ['wee', 'boo']]</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_getQueryParamsCollapsed"></a>
+                        <div class="element clickable method public  method_getQueryParamsCollapsed" data-toggle="collapse" data-target=".method_getQueryParamsCollapsed .collapse">
+                            <h2>Get an array of all url parameters.</h2>
+                            <pre>getQueryParamsCollapsed(string $url, array $expectedArrayParams = array()) : array</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if $url was not a string</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if a parameter is given as array but not included in the expected array argument</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$url</h4>
+                                                <code>string</code><p><p>The url to parse such as <a href="http://foo.com/bar/?single=boo&amp;multi=wee&amp;multi=boo">http://foo.com/bar/?single=boo&amp;multi=wee&amp;multi=boo</a></p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$expectedArrayParams</h4>
+                                                <code>array</code><p><p>List of parameter names which are not collapsed.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>such as ['single' => 'boo', 'multi' => ['wee', 'boo']] if 'multi' is given in $expectedArrayParams</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                    
+                    
+                                                        </div>
+            </div>
+            <a id="\DominionEnterprises\Util\Http"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/DominionEnterprises.Util.html">Util</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/DominionEnterprises.Util.Http.html">Http</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Mon, 03 Feb 2014 13:57:22 -0500.<br/>
+    </footer>
+    </body>
+</html>

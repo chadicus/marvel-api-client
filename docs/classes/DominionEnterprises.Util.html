@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    DE PHP Utils &raquo; \DominionEnterprises\Util
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">DE PHP Utils</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                API Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/DominionEnterprises.html">DominionEnterprises</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method_getExceptionInfo" title="getExceptionInfo :: Returns exception info in array.">
+            <span class="description">Returns exception info in array.</span><pre>getExceptionInfo</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_ensure" title="ensure :: Ensures that $valueToEnsure is equal to $valueToCheck or it throws">
+            <span class="description">Ensures that $valueToEnsure is equal to $valueToCheck or it throws</span><pre>ensure</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_ensureNot" title="ensureNot :: Ensures that $valueToThrowOn is not equal to $valueToCheck or it throws">
+            <span class="description">Ensures that $valueToThrowOn is not equal to $valueToCheck or it throws</span><pre>ensureNot</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_raiseException" title="raiseException :: Throws a new ErrorException based on the error information provided. To be
+used as a callback for @see set_error_handler()">
+            <span class="description">Throws a new ErrorException based on the error information provided. To be
+used as a callback for @see set_error_handler()</span><pre>raiseException</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_throwIfNotType" title="throwIfNotType :: Throws an exception if specified variables are not of given types.">
+            <span class="description">Throws an exception if specified variables are not of given types.</span><pre>throwIfNotType</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getExceptionAliases" title="getExceptionAliases :: Return the exception aliases.">
+            <span class="description">Return the exception aliases.</span><pre>getExceptionAliases</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setExceptionAliases" title="setExceptionAliases :: Set the exception aliases.">
+            <span class="description">Set the exception aliases.</span><pre>setExceptionAliases</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_callStatic" title="callStatic :: Call a static (possibly non public) method through reflection. Intended for use in testing, but should only use on methods as one would
+use a package level method in another language, since php does not have the feature.">
+            <span class="description">Call a static (possibly non public) method through reflection. Intended for use in testing, but should only use on methods as one would
+use a package level method in another language, since php does not have the feature.</span><pre>callStatic</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>Util</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description">Static class with various application functions.</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                                                                                                                                                                                            </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method_getExceptionInfo"></a>
+                        <div class="element clickable method public  method_getExceptionInfo" data-toggle="collapse" data-target=".method_getExceptionInfo .collapse">
+                            <h2>Returns exception info in array.</h2>
+                            <pre>getExceptionInfo(\Exception $e) : array</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$e</h4>
+                                                <code>\Exception</code><p><p>the exception to return info on</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>like:</p>
+<pre>
+array(
+    'type' => 'Exception',
+    'message' => 'a message',
+    'code' => 0,
+    'file' => '/somePath',
+    'line' => 434,
+    'trace' => 'a stack trace',
+)
+</pre></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_ensure"></a>
+                        <div class="element clickable method public  method_ensure" data-toggle="collapse" data-target=".method_ensure .collapse">
+                            <h2>Ensures that $valueToEnsure is equal to $valueToCheck or it throws</h2>
+                            <pre>ensure(mixed $valueToEnsure, mixed $valueToCheck, null|string|\Exception $exception = null, array|null $exceptionArgs = null) : mixed</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Can be used like: $result = ensure(true, is_string('boo'))
+Or like: $result = ensure(true, is_string('boo'), 'the message')
+Or like: $result = ensure(true, is_string('boo'), 'MyException', array('the message', 2))
+Or like: $result = ensure(true, is_string('boo'), new MyException('the message', 2))</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if $valueToEnsure !== $valueToCheck</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if $exception was not null, a string, or an Exception</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$valueToEnsure</h4>
+                                                <code>mixed</code><p><p>the value to throw on if $valueToCheck equals it</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$valueToCheck</h4>
+                                                <code>mixed</code><p><p>the value to check against $valueToEnsure</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$exception</h4>
+                                                <code>null|string|\Exception</code><p><p>null, a fully qualified exception class name, string for an Exception message, or an Exception.</p>
+<pre><code>The fully qualified exception class name could also be an alias in getExceptionAliases()</code></pre></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$exceptionArgs</h4>
+                                                <code>array|null</code><p><p>arguments to pass to a new instance of $exception. If using this parameter make sure these arguments</p>
+<pre><code>match the constructor for an exception of type $exception.</code></pre></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>returns $valueToCheck</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_ensureNot"></a>
+                        <div class="element clickable method public  method_ensureNot" data-toggle="collapse" data-target=".method_ensureNot .collapse">
+                            <h2>Ensures that $valueToThrowOn is not equal to $valueToCheck or it throws</h2>
+                            <pre>ensureNot(mixed $valueToThrowOn, mixed $valueToCheck, null|string|\Exception $exception = null, array|null $exceptionArgs = null) : mixed</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Can be used like: $curl = ensureNot(false, curl_init('boo'))
+Or like: $curl = ensureNot(false, curl_init('boo'), 'bad message')
+Or like: $curl = ensureNot(false, curl_init('boo'), 'MyException', array('bad message', 2))
+Or like: $curl = ensureNot(false, curl_init('boo'), new MyException('bad message', 2))</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if $valueToThrowOn === $valueToCheck</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if $exception was not null, a string, or an Exception</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$valueToThrowOn</h4>
+                                                <code>mixed</code><p><p>the value to throw on if $valueToCheck equals it</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$valueToCheck</h4>
+                                                <code>mixed</code><p><p>the value to check against $valueToThrowOn</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$exception</h4>
+                                                <code>null|string|\Exception</code><p><p>null, a fully qualified exception class name, string for an Exception message, or an Exception.</p>
+<pre><code>The fully qualified exception class name could also be an alias in getExceptionAliases()</code></pre></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$exceptionArgs</h4>
+                                                <code>array|null</code><p><p>arguments to pass to a new instance of $exception. If using this parameter make sure these arguments</p>
+<pre><code>match the constructor for an exception of type $exception.</code></pre></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>returns $valueToCheck</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_raiseException"></a>
+                        <div class="element clickable method public  method_raiseException" data-toggle="collapse" data-target=".method_raiseException .collapse">
+                            <h2>Throws a new ErrorException based on the error information provided. To be
+used as a callback for @see set_error_handler()</h2>
+                            <pre>raiseException($level, $message, $file = null, $line = null) : bool</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$level</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$message</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$file</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$line</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>bool</code><p><p>false</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_throwIfNotType"></a>
+                        <div class="element clickable method public  method_throwIfNotType" data-toggle="collapse" data-target=".method_throwIfNotType .collapse">
+                            <h2>Throws an exception if specified variables are not of given types.</h2>
+                            <pre>throwIfNotType(array $typesToVariables, bool $failOnWhitespace = false, bool $allowNulls = false) : void</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if a key in $typesToVariables was not a string</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if a key in $typesToVariables did not have an is_ function</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if a variable is not of correct type</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if a variable is whitespace and $failOnWhitespace is set</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if $failOnWhitespace was not a bool</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if $allowNulls was not a bool</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$typesToVariables</h4>
+                                                <code>array</code><p><p>like array('string' => array($var1, $var2), 'int' => array($var1, $var2))</p>
+<pre><code>or array('string' =&gt; $var1, 'integer' =&gt; array(1, $var2)). Supported types are the suffixes of the is_* functions such as string
+for is_string and int for is_int</code></pre></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$failOnWhitespace</h4>
+                                                <code>bool</code><p><p>whether to fail strings if they are whitespace</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$allowNulls</h4>
+                                                <code>bool</code><p><p>whether to allow null values to pass through</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_getExceptionAliases"></a>
+                        <div class="element clickable method public  method_getExceptionAliases" data-toggle="collapse" data-target=".method_getExceptionAliases .collapse">
+                            <h2>Return the exception aliases.</h2>
+                            <pre>getExceptionAliases() : array</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>array where keys are aliases and values are strings to a fully qualified exception class names.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_setExceptionAliases"></a>
+                        <div class="element clickable method public  method_setExceptionAliases" data-toggle="collapse" data-target=".method_setExceptionAliases .collapse">
+                            <h2>Set the exception aliases.</h2>
+                            <pre>setExceptionAliases(array $aliases) </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$aliases</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_callStatic"></a>
+                        <div class="element clickable method public  method_callStatic" data-toggle="collapse" data-target=".method_callStatic .collapse">
+                            <h2>Call a static (possibly non public) method through reflection. Intended for use in testing, but should only use on methods as one would
+use a package level method in another language, since php does not have the feature.</h2>
+                            <pre>callStatic($method, array $args = array()) : mixed</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if $method was not a string</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>if $method was not static</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$method</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$args</h4>
+                                                <code>array</code><p><p>arguments to pass to the reflected method</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>result of the reflected method call</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property__exceptionAliases"> </a>
+                            <div class="element clickable property  private property__exceptionAliases" data-toggle="collapse" data-target=".property__exceptionAliases .collapse">
+                                <h2>_exceptionAliases</h2>
+                                <pre>_exceptionAliases : </pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\DominionEnterprises\Util"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/DominionEnterprises.html">DominionEnterprises</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/DominionEnterprises.Util.html">Util</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Mon, 03 Feb 2014 13:57:22 -0500.<br/>
+    </footer>
+    </body>
+</html>
