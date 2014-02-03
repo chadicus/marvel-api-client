@@ -65,19 +65,28 @@ class Collection implements \Iterator, \Countable
     private $results;
 
     /**
+     * A custom callable to return a defined type when iterating over the collection.
+     *
+     * @var callable
+     */
+    private $loader;
+
+    /**
      * Create a new collection.
      *
-     * @param Client $client   A client connection to the API.
-     * @param string $resource The name of API resource to request.
-     * @param array  $filters  A key value pair array of search filters.
+     * @param Client   $client   A client connection to the API.
+     * @param string   $resource The name of API resource to request.
+     * @param array    $filters  A key value pair array of search filters.
+     * @param callable $loader   A custom callable to use when iterating over the collection.
      */
-    final public function __construct(Client $client, $resource, array $filters = [])
+    final public function __construct(Client $client, $resource, array $filters = [], callable $loader = null)
     {
         Util::throwIfNotType(array('string' => array($resource)), true);
 
         $this->client = $client;
         $this->resource = $resource;
         $this->filters = $filters;
+        $this->loader = $loader;
         $this->rewind();
     }
 
@@ -169,7 +178,7 @@ class Collection implements \Iterator, \Countable
     /**
      * Return the current element, @see Iterator::current().
      *
-     * @return array
+     * @return mixed Returns the element in the results array or a custom type defined by $loader.
      */
     final public function current()
     {
@@ -184,6 +193,10 @@ class Collection implements \Iterator, \Countable
             ['Collection contains no element at current position']
         );
 
-        return $this->results[$this->position];
+        if ($this->loader === null) {
+            return $this->results[$this->position];
+        }
+
+        return call_user_func_array($this->loader, [$this->results[$this->position]]);
     }
 }

@@ -252,4 +252,35 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
             $this->assertSame(['id' => 0, 'name' => 'a name for item 0'], $item);
         }
     }
+
+    /**
+     * Verify current() returns result from the loader given in the constructor.
+     *
+     * @test
+     * @covers ::current
+     *
+     * @return void
+     */
+    public function currentCustomLoader()
+    {
+        $loader = function (array $data) {
+            $obj = new \StdClass();
+            $obj->id = $data['id'];
+            $obj->name = $data['name'];
+            return $obj;
+        };
+
+        $client = new Client('not under tests', 'not under test', new CollectionAdapter());
+        $collection = new Collection($client, 'not under tests', ['limit' => 3], $loader);
+
+        $iterations = 0;
+        foreach ($collection as $key => $actual) {
+            $this->assertInstanceOf('\StdClass', $actual);
+            $this->assertSame($key, $actual->id);
+            $this->assertSame("a name for item {$key}", $actual->name);
+            ++$iterations;
+        }
+
+        $this->assertSame(5, $iterations);
+    }
 }
