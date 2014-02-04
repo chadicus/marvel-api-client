@@ -36,3 +36,7 @@ With a checkout of the code get [Composer](http://getcomposer.org) in your PATH 
 ```sh
 ./build.php
 ```
+
+## With Great Power Comes Great Responsibility.
+When using the `marvel-api-client` you must follow [Marvel's Rules of Attribution](http://developer.marvel.com/documentation/attribution)
+
