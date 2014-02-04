@@ -1,5 +1,5 @@
 {
-    "name": "chadicus/marvel-client",
+    "name": "chadicus/marvel-api-client",
     "description": "PHP Client for the Marvel API",
     "keywords": ["marvel", "api", "client", "rest"],
     "authors": [
