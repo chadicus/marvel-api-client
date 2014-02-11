@@ -56,6 +56,13 @@ final class GlobalFunctions
     public static $jsonLastError = null;
 
     /**
+     * The custom extension_loaded implementation to call during these tests.
+     *
+     * @var Closure
+     */
+    public static $extensionLoaded = null;
+
+    /**
      * Sets all custom function properties to null.
      *
      * @return void
@@ -69,6 +76,7 @@ final class GlobalFunctions
         self::$curlError = null;
         self::$curlGetinfo = null;
         self::$jsonLastError = null;
+        self::$extensionLoaded = null;
     }
 }
 
@@ -164,4 +172,20 @@ function curl_getinfo($curl, $option = 0)
     }
 
     return \curl_getinfo($curl, $option);
+}
+
+/**
+ * Custom override of \extension_loaded().
+ *
+ * @param string $name The extension name.
+ *
+ * @return boolean
+ */
+function extension_loaded($name)
+{
+    if (GlobalFunctions::$extensionLoaded !== null) {
+        return call_user_func(GlobalFunctions::$extensionLoaded, [$name]);
+    }
+
+    return \extension_loaded($name);
 }

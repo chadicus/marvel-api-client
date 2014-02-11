@@ -133,7 +133,7 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
         return [
             'defaultTimeToLive is not an integer' => ['a string'],
             'defaultTimeToLive is less than 1' => [0],
-            'defaultTimeToLive is greater than ArrayCache::MAX_TTL' => [Cache::MAX_TTL + 1],
+            'defaultTimeToLive is greater than Cache::MAX_TTL' => [Cache::MAX_TTL + 1],
             'defaultTimeToLive is null' => [null],
         ];
     }
