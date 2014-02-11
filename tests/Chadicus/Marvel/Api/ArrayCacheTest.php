@@ -45,7 +45,7 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function setTtlIsGreaterThanMax()
     {
-        (new ArrayCache())->set(new Request('not under test', 'not under test', [], []), new Response(200, [], []), ArrayCache::MAX_TTL + 1);
+        (new ArrayCache())->set(new Request('not under test', 'not under test', [], []), new Response(200, [], []), Cache::MAX_TTL + 1);
     }
 
     /**
@@ -133,7 +133,7 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
         return [
             'defaultTimeToLive is not an integer' => ['a string'],
             'defaultTimeToLive is less than 1' => [0],
-            'defaultTimeToLive is greater than ArrayCache::MAX_TTL' => [ArrayCache::MAX_TTL + 1],
+            'defaultTimeToLive is greater than ArrayCache::MAX_TTL' => [Cache::MAX_TTL + 1],
             'defaultTimeToLive is null' => [null],
         ];
     }

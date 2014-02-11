@@ -12,13 +12,6 @@ use DominionEnterprises\Util\Arrays;
 final class ArrayCache implements Cache
 {
     /**
-     * The maximum ttl for cached responses (24 hours).
-     *
-     * @const integer
-     */
-    const MAX_TTL = 86400;
-
-    /**
      * Default time to live in seconds.
      *
      * @var integer
@@ -39,10 +32,10 @@ final class ArrayCache implements Cache
      *
      * @throws \InvalidArgumentException Throw if $defaultTimeToLive is not an integer between 0 and 86400.
      */
-    public function __construct($defaultTimeToLive = self::MAX_TTL)
+    public function __construct($defaultTimeToLive = Cache::MAX_TTL)
     {
         if ($defaultTimeToLive < 1 || $defaultTimeToLive > 86400) {
-            throw new \InvalidArgumentException('$defaultTimeToLive must be an integer >= 1 and <= ' . self::MAX_TTL);
+            throw new \InvalidArgumentException('$defaultTimeToLive must be an integer >= 1 and <= ' . Cache::MAX_TTL);
         }
 
         $this->defaultTimeToLive = $defaultTimeToLive;
@@ -66,8 +59,8 @@ final class ArrayCache implements Cache
             $timeToLive = $this->defaultTimeToLive;
         }
 
-        if ($timeToLive < 1 || $timeToLive > self::MAX_TTL) {
-            throw new \InvalidArgumentException('$timeToLive must be an integer >= 1 and <= ' . self::MAX_TTL);
+        if ($timeToLive < 1 || $timeToLive > Cache::MAX_TTL) {
+            throw new \InvalidArgumentException('$timeToLive must be an integer >= 1 and <= ' . Cache::MAX_TTL);
         }
 
         $this->cache[$request->getUrl()] = ['response' => $response, 'expires' => time() + $timeToLive];
