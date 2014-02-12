@@ -37,6 +37,19 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Verify basic behavior of getUrl.
+     *
+     * @test
+     * @covers ::getUrl
+     *
+     * @return void
+     */
+    public function getUrl()
+    {
+        $this->assertSame('a url/portrait_small.an extension', (new Image('a url', 'an extension'))->getUrl(ImageVariant::PORTRAIT_SMALL()));
+    }
+
+    /**
      * Verify invalid constructor parameters cause exceptions.
      *
      * @param mixed $path      The full URL (including scheme, domain, and path).

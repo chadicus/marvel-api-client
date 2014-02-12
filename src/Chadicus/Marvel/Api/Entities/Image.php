@@ -54,4 +54,16 @@ class Image
     {
          return $this->extension;
     }
+
+    /**
+     * Returns the full image url.
+     *
+     * @param ImageVariant $variant The image variant to use in the url.
+     *
+     * @return string
+     */
+    final public function getUrl(ImageVariant $variant)
+    {
+        return "{$this->getPath()}/{$variant}.{$this->getExtension()}";
+    }
 }
