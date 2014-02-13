@@ -2,6 +2,7 @@
 namespace Chadicus\Marvel\Api\Entities;
 
 use DominionEnterprises\Util;
+use DominionEnterprises\Util\Arrays;
 
 /**
  * Represents an Image entity type within the Marvel API.
@@ -65,5 +66,26 @@ class Image
     final public function getUrl(ImageVariant $variant)
     {
         return "{$this->getPath()}/{$variant}.{$this->getExtension()}";
+    }
+
+    /**
+     * Filters the given array $input into a Image.
+     *
+     * @param array $input The value to be filtered.
+     *
+     * @return Image
+     *
+     * @throws \Chadicus\Filter\Exception Thrown if the input did not pass validation.
+     */
+    final public static function fromArray(array $input)
+    {
+        $filters = ['path' => [['string']], 'extension' => [['string']]];
+
+        list($success, $result, $error) = \DominionEnterprises\Filterer::filter($filters, $input);
+        if (!$success) {
+            throw new \Chadicus\Filter\Exception($error);
+        }
+
+        return new Image(Arrays::get($result, 'path', 0), Arrays::get($result, 'extension', 0));
     }
 }

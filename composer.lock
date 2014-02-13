@@ -3,8 +3,63 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "bf7a8312c293daa73fbb6d3a44705471",
+    "hash": "803dca1c85515b3eb6f7e57252f49244",
     "packages": [
+        {
+            "name": "dominionenterprises/filter",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dominionenterprises/filter-php.git",
+                "reference": "1e5ec46cf5b6e1edfd4aac0a37a183c0532537b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dominionenterprises/filter-php/zipball/1e5ec46cf5b6e1edfd4aac0a37a183c0532537b6",
+                "reference": "1e5ec46cf5b6e1edfd4aac0a37a183c0532537b6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "dominionenterprises/dws-coding-standard": "~1.1",
+                "lib-libxml": "*",
+                "phpunit/phpunit": "~3.7.19"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "DominionEnterprises": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Spencer Rinehart",
+                    "email": "anubis@overthemonkey.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Jonathan Gaillard",
+                    "email": "jonathan.gaillard@dominionenterprises.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Chad Gray",
+                    "email": "chadwickgray@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A filtering implementation for verifying correct data and performing typical modifications to data",
+            "keywords": [
+                "utility"
+            ],
+            "time": "2014-01-08 17:41:47"
+        },
         {
             "name": "dominionenterprises/util",
             "version": "v1.1.0",
@@ -1940,16 +1995,16 @@
         },
         {
             "name": "sebastian/version",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/version.git",
-                "reference": "5d879c9144bf41d5a06132f3d194c01ef6c6b3f4"
+                "reference": "b5d32aad75602e50b6b588583bd62f338f0f7a50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/version/zipball/5d879c9144bf41d5a06132f3d194c01ef6c6b3f4",
-                "reference": "5d879c9144bf41d5a06132f3d194c01ef6c6b3f4",
+                "url": "https://api.github.com/repos/sebastianbergmann/version/zipball/b5d32aad75602e50b6b588583bd62f338f0f7a50",
+                "reference": "b5d32aad75602e50b6b588583bd62f338f0f7a50",
                 "shasum": ""
             },
             "type": "library",
@@ -1971,7 +2026,7 @@
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
-            "time": "2013-05-29 10:02:00"
+            "time": "2014-02-12 16:30:13"
         },
         {
             "name": "squizlabs/php_codesniffer",

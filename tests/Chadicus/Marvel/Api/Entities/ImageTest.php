@@ -83,4 +83,33 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
             'extension is not a string' => ['a path', false],
         ];
     }
+
+    /**
+     * Verify basic functionality of fromArray().
+     *
+     * @test
+     * @covers ::fromArray
+     *
+     * @return void
+     */
+    public function fromArray()
+    {
+        $image = Image::fromArray(['path' => 'a path', 'extension' => 'an extension']);
+        $this->assertSame('a path', $image->getPath());
+        $this->assertSame('an extension', $image->getExtension());
+    }
+
+    /**
+     * Verify fromArray() throws filter exception.
+     *
+     * @test
+     * @covers ::fromArray
+     * @expectedException \Chadicus\Filter\Exception
+     *
+     * @return void
+     */
+    public function fromArrayInvalidPath()
+    {
+        $image = Image::fromArray(['path' => 1, 'extension' => 'an extension']);
+    }
 }
