@@ -2,6 +2,7 @@
 namespace Chadicus\Marvel\Api\Entities;
 
 use DominionEnterprises\Util;
+use DominionEnterprises\Util\Arrays;
 
 /**
  * Represents a Url entity type within the Marvel API.
@@ -53,5 +54,47 @@ class Url
     final public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Filters the given array $input into a Url.
+     *
+     * @param array $input The value to be filtered.
+     *
+     * @return Url
+     *
+     * @throws \Chadicus\Filter\Exception Thrown if the input did not pass validation.
+     */
+    final public static function fromArray(array $input)
+    {
+        $filters = ['type' => [['string']], 'url' => [['string']]];
+
+        list($success, $result, $error) = \DominionEnterprises\Filterer::filter($filters, $input);
+        if (!$success) {
+            throw new \Chadicus\Filter\Exception($error);
+        }
+
+        return new Url(Arrays::get($result, 'type'), Arrays::get($result, 'url'));
+    }
+
+    /**
+     * Filters the given array[] $inputs into Url[].
+     *
+     * @param array[] $inputs The value to be filtered.
+     *
+     * @return Url[]
+     *
+     * @throws \Chadicus\Filter\Exception Thrown if the inputs did not pass validation.
+     */
+    final public static function fromArrays(array $inputs)
+    {
+        Util::throwIfNotType(['array' => $inputs]);
+
+        $urls = [];
+        foreach ($inputs as $key => $input) {
+            $urls[$key] = self::fromArray($input);
+        }
+
+        return $urls;
     }
 }
