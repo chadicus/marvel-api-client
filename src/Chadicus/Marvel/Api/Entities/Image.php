@@ -86,6 +86,6 @@ class Image
             throw new \Chadicus\Filter\Exception($error);
         }
 
-        return new Image(Arrays::get($result, 'path', 0), Arrays::get($result, 'extension', 0));
+        return new Image(Arrays::get($result, 'path'), Arrays::get($result, 'extension'));
     }
 }
