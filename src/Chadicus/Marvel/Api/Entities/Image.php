@@ -88,4 +88,25 @@ class Image
 
         return new Image(Arrays::get($result, 'path'), Arrays::get($result, 'extension'));
     }
+
+    /**
+     * Filters the given array[] $inputs into Image[].
+     *
+     * @param array[] $inputs The value to be filtered.
+     *
+     * @return Image[]
+     *
+     * @throws \Chadicus\Filter\Exception Thrown if the inputs did not pass validation.
+     */
+    final public static function fromArrays(array $inputs)
+    {
+        Util::throwIfNotType(['array' => $inputs]);
+
+        $images = [];
+        foreach ($inputs as $key => $input) {
+            $images[$key] = self::fromArray($input);
+        }
+
+        return $images;
+    }
 }

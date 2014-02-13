@@ -112,4 +112,47 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
     {
         $image = Image::fromArray(['path' => 1, 'extension' => 'an extension']);
     }
+
+    /**
+     * Verify basic behavior of fromArrays().
+     *
+     * @test
+     * @covers ::fromArrays
+     *
+     * @return void
+     */
+    public function fromArrays()
+    {
+        $images = Image::fromArrays(
+            [
+                ['path' => 'a path', 'extension' => 'an extension'],
+                ['path' => 'another path', 'extension' => 'another extension'],
+            ]
+        );
+
+        $this->assertSame(2, count($images));
+        $this->assertSame('an extension', $images[0]->getExtension());
+        $this->assertSame('a path', $images[0]->getPath());
+        $this->assertSame('another extension', $images[1]->getExtension());
+        $this->assertSame('another path', $images[1]->getPath());
+    }
+
+    /**
+     * Verify fromArrays throws when input is invalid.
+     *
+     * @test
+     * @covers ::fromArrays
+     * @expectedException \Chadicus\Filter\Exception
+     *
+     * @return void
+     */
+    public function fromArraysWithInvalidInput()
+    {
+        Image::fromArrays(
+            [
+                ['path' => 'a path', 'extension' => 'an extension'],
+                ['path' => 'another path', 'extension' => true],
+            ]
+        );
+    }
 }
