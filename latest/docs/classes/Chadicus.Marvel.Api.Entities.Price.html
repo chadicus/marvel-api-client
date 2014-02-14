@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>    Marvel API PHP Client &raquo; \Chadicus\Marvel\Api\ArrayCache
+    <title>    Marvel API PHP Client &raquo; \Chadicus\Marvel\Api\Entities\Price
 </title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
@@ -120,26 +120,32 @@
             <i class="icon-custom icon-method"></i> Methods
             <ul>
                                                                                                     <li class="method public">
-        <a href="#method___construct" title="__construct :: Construct a new instance of ArrayCache.">
-            <span class="description">Construct a new instance of ArrayCache.</span><pre>__construct</pre>
+        <a href="#method___construct" title="__construct :: Construct a new instance of Price.">
+            <span class="description">Construct a new instance of Price.</span><pre>__construct</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_set" title="set :: Store the api $response as the cached result of the api $request.">
-            <span class="description">Store the api $response as the cached result of the api $request.</span><pre>set</pre>
+        <a href="#method_getType" title="getType :: Returns the description of the price.">
+            <span class="description">Returns the description of the price.</span><pre>getType</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_get" title="get :: Retrieve the cached results of the api $request.">
-            <span class="description">Retrieve the cached results of the api $request.</span><pre>get</pre>
+        <a href="#method_getAmount" title="getAmount :: Returns the amount in USD.">
+            <span class="description">Returns the amount in USD.</span><pre>getAmount</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_clear" title="clear :: Clears this cache.">
-            <span class="description">Clears this cache.</span><pre>clear</pre>
+        <a href="#method_fromArray" title="fromArray :: Filters the given array $input into a Price.">
+            <span class="description">Filters the given array $input into a Price.</span><pre>fromArray</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_fromArrays" title="fromArrays :: Filters the given array[] $inputs into Price[].">
+            <span class="description">Filters the given array[] $inputs into Price[].</span><pre>fromArrays</pre>
         </a>
     </li>
 
@@ -147,11 +153,11 @@
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                            </ul>
+                                                                                                                                                                                                                                </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                            </ul>
+                                                                                                                                                                                                                                </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -165,11 +171,10 @@
 
         <div class="span8">
             <div class="element class">
-                <h1>ArrayCache</h1>
+                <h1>Price</h1>
                 <small style="display: block; text-align: right">
-                                                                Implements <a href="../classes/Chadicus.Marvel.Api.Cache.html">\Chadicus\Marvel\Api\Cache</a>
-                                    </small>
-                <p class="short_description">Concrete implementation of Cache using an array.</p>
+                                                        </small>
+                <p class="short_description">Represents a ComicPrice entity type within the Marvel API.</p>
                 <div class="details">
                     <div class="long_description">
                         
@@ -180,94 +185,10 @@
                     <h3><i class="icon-custom icon-method"></i> Methods</h3>
                                                                 <a id="method___construct"></a>
                         <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
-                            <h2>Construct a new instance of ArrayCache.</h2>
-                            <pre>__construct(integer $defaultTimeToLive = \Chadicus\Marvel\Api\Cache::MAX_TTL) </pre>
+                            <h2>Construct a new instance of Price.</h2>
+                            <pre>__construct(string $type, float $amount) </pre>
                             <div class="labels">
-                                                                                                                                                                                            </div>
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>Throw if $defaultTimeToLive is not an integer between 0 and 86400.</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$defaultTimeToLive</h4>
-                                                <code>integer</code><p><p>The default time to live in seconds.</p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-                        </div>
-                                            <a id="method_set"></a>
-                        <div class="element clickable method public  method_set" data-toggle="collapse" data-target=".method_set .collapse">
-                            <h2>Store the api $response as the cached result of the api $request.</h2>
-                            <pre>set(\Chadicus\Marvel\Api\Request $request, \Chadicus\Marvel\Api\Response $response, integer $timeToLive = null) : void</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>Throw if $timeToLive is not an integer between 0 and 86400.</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$request</h4>
-                                                <code><a href="../classes/Chadicus.Marvel.Api.Request.html">\Chadicus\Marvel\Api\Request</a></code><p><p>The request for which the response will be cached.</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$response</h4>
-                                                <code><a href="../classes/Chadicus.Marvel.Api.Response.html">\Chadicus\Marvel\Api\Response</a></code><p><p>The reponse to cache.</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$timeToLive</h4>
-                                                <code>integer</code><p><p>The time in seconds that the cache should live.</p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-                        </div>
-                                            <a id="method_get"></a>
-                        <div class="element clickable method public  method_get" data-toggle="collapse" data-target=".method_get .collapse">
-                            <h2>Retrieve the cached results of the api $request.</h2>
-                            <pre>get(\Chadicus\Marvel\Api\Request $request) : \Chadicus\Marvel\Api\Response|null</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
+                                                                                                <span class="label">final</span>                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -284,21 +205,23 @@
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
-                                                <h4>$request</h4>
-                                                <code><a href="../classes/Chadicus.Marvel.Api.Request.html">\Chadicus\Marvel\Api\Request</a></code><p><p>A request for which the response may be cached.</p></p>
+                                                <h4>$type</h4>
+                                                <code>string</code><p><p>The description of the price.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$amount</h4>
+                                                <code>float</code><p><p>The amount of the price.</p></p>
                                             </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code><a href="../classes/Chadicus.Marvel.Api.Response.html">\Chadicus\Marvel\Api\Response</a>|null</code><p></p>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_clear"></a>
-                        <div class="element clickable method public  method_clear" data-toggle="collapse" data-target=".method_clear .collapse">
-                            <h2>Clears this cache.</h2>
-                            <pre>clear() : void</pre>
+                                            <a id="method_getType"></a>
+                        <div class="element clickable method public  method_getType" data-toggle="collapse" data-target=".method_getType .collapse">
+                            <h2>Returns the description of the price.</h2>
+                            <pre>getType() : string</pre>
                             <div class="labels">
-                                                                                                                                                                                            </div>
+                                                                                                <span class="label">final</span>                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -321,16 +244,131 @@
                                                                             </table>
 
                                     
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_getAmount"></a>
+                        <div class="element clickable method public  method_getAmount" data-toggle="collapse" data-target=".method_getAmount .collapse">
+                            <h2>Returns the amount in USD.</h2>
+                            <pre>getAmount() : float</pre>
+                            <div class="labels">
+                                                                                                <span class="label">final</span>                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>float</code><p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_fromArray"></a>
+                        <div class="element clickable method public  method_fromArray" data-toggle="collapse" data-target=".method_fromArray .collapse">
+                            <h2>Filters the given array $input into a Price.</h2>
+                            <pre>fromArray(array $input) : \Chadicus\Marvel\Api\Entities\Price</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                <span class="label">final</span>                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Thrown if the input did not pass validation.</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$input</h4>
+                                                <code>array</code><p><p>The value to be filtered.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Chadicus.Marvel.Api.Entities.Price.html">\Chadicus\Marvel\Api\Entities\Price</a></code><p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_fromArrays"></a>
+                        <div class="element clickable method public  method_fromArrays" data-toggle="collapse" data-target=".method_fromArrays .collapse">
+                            <h2>Filters the given array[] $inputs into Price[].</h2>
+                            <pre>fromArrays(array[] $inputs) : \Chadicus\Marvel\Api\Entities\Price[]</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                <span class="label">final</span>                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Thrown if the inputs did not pass validation.</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$inputs</h4>
+                                                <code>array[]</code><p><p>The value to be filtered.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>\Chadicus\Marvel\Api\Entities\Price[]</code><p></p>
                                                                     </div>
                             </div>
                         </div>
                     
                     
                                                                 <h3><i class="icon-custom icon-property"></i> Properties</h3>
-                                                    <a id="property_defaultTimeToLive"> </a>
-                            <div class="element clickable property  private property_defaultTimeToLive" data-toggle="collapse" data-target=".property_defaultTimeToLive .collapse">
-                                <h2>Default time to live in seconds.</h2>
-                                <pre>defaultTimeToLive : integer</pre>
+                                                    <a id="property_type"> </a>
+                            <div class="element clickable property  private property_type" data-toggle="collapse" data-target=".property_type .collapse">
+                                <h2>A description of the price (e.g. print price, digital price).</h2>
+                                <pre>type : string</pre>
                                 <div class="labels">
                                                                                                         </div>
                                 <div class="row collapse">
@@ -356,14 +394,14 @@
                                                                                     </table>
 
                                                                                     <h3>Type(s)</h3>
-                                            <code>integer</code>
+                                            <code>string</code>
                                                                             </div>
                                 </div>
                             </div>
-                                                    <a id="property_cache"> </a>
-                            <div class="element clickable property  private property_cache" data-toggle="collapse" data-target=".property_cache .collapse">
-                                <h2>Array containing the cached responses.</h2>
-                                <pre>cache : array</pre>
+                                                    <a id="property_amount"> </a>
+                            <div class="element clickable property  private property_amount" data-toggle="collapse" data-target=".property_amount .collapse">
+                                <h2>The amount (all prices in USD).</h2>
+                                <pre>amount : float</pre>
                                 <div class="labels">
                                                                                                         </div>
                                 <div class="row collapse">
@@ -389,20 +427,20 @@
                                                                                     </table>
 
                                                                                     <h3>Type(s)</h3>
-                                            <code>array</code>
+                                            <code>float</code>
                                                                             </div>
                                 </div>
                             </div>
                                                             </div>
             </div>
-            <a id="\Chadicus\Marvel\Api\ArrayCache"></a>
+            <a id="\Chadicus\Marvel\Api\Entities\Price"></a>
             <ul class="breadcrumb">
                 <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
                     
     
-    <li><span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.Api.html">Api</a></li>
+    <li><span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.Api.Entities.html">Entities</a></li>
 
-                <li class="active"><span class="divider">\</span><a href="../classes/Chadicus.Marvel.Api.ArrayCache.html">ArrayCache</a></li>
+                <li class="active"><span class="divider">\</span><a href="../classes/Chadicus.Marvel.Api.Entities.Price.html">Price</a></li>
             </ul>
         </div>
     </div>
