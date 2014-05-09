@@ -1,3 +1,5 @@
+branches:
+  except: incubator
 language: php
 php:
   - hhvm
