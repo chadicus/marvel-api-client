@@ -2,14 +2,10 @@ branches:
   except: incubator
 language: php
 php:
-  - hhvm
   - 5.6
   - 5.5
   - 5.4
 services: mongodb
-matrix:                                                                                                                  
-  allow_failures:                                                                                                        
-      php: hhvm 
 before_script:
   - composer self-update || true
   - echo 'extension="mongo.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
