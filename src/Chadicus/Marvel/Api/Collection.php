@@ -162,6 +162,12 @@ class Collection implements \Iterator, \Countable
         }
 
         $this->offset += $this->limit;
+        if (!isset($this->filters['offset'])) {
+            $this->filters['offset'] = $this->offset;
+        }
+        if (!isset($this->filters['limit'])) {
+            $this->filters['limit'] = $this->limit === 0 ? 20 : $this->limit;
+        }
         $indexResponse = $this->client->search($this->resource, $this->filters);
 
         $httpCode = $indexResponse->getHttpCode();
