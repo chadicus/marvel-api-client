@@ -33,6 +33,7 @@ final class CurlAdapter implements Adapter
             CURLOPT_HEADER => true,
             CURLOPT_FORBID_REUSE => true,
             CURLOPT_HTTPHEADER => $curlHeaders,
+            CURLOPT_ENCODING => 'gzip,deflate',
         );
 
         if (strtoupper($request->getMethod()) !== 'GET') {
