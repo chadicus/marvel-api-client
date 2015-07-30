@@ -46,7 +46,10 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function getUrl()
     {
-        $this->assertSame('a url/portrait_small.an extension', (new Image('a url', 'an extension'))->getUrl(ImageVariant::PORTRAIT_SMALL()));
+        $this->assertSame(
+            'a url/portrait_small.an extension',
+            (new Image('a url', 'an extension'))->getUrl(ImageVariant::PORTRAIT_SMALL())
+        );
     }
 
     /**

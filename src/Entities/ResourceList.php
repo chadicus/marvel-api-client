@@ -42,7 +42,8 @@ class ResourceList
      *
      * @param integer $available     The number of total available resources in this list.
      * @param integer $returned      The number of resources returned in this resource list (up to 20).
-     * @param string  $collectionURI The path to the list of full view representations of the items in this resource list.
+     * @param string  $collectionURI The path to the list of full view representations of the items in this resource
+     *                               list.
      * @param array[] $items         A list of summary views of the items in this resource list.
      */
     final public function __construct($available, $returned, $collectionURI, array $items)

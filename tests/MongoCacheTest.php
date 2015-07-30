@@ -35,7 +35,11 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        (new MongoCache(self::_getMongoCollection()))->set(new Request('not under test', 'not under test', [], []), new Response(200, [], []), 0);
+        (new MongoCache(self::getMongoCollection()))->set(
+            new Request('not under test', 'not under test', [], []),
+            new Response(200, [], []),
+            0
+        );
     }
 
     /**
@@ -55,7 +59,11 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        (new MongoCache(self::_getMongoCollection()))->set(new Request('not under test', 'not under test', [], []), new Response(200, [], []), Cache::MAX_TTL + 1);
+        (new MongoCache(self::getMongoCollection()))->set(
+            new Request('not under test', 'not under test', [], []),
+            new Response(200, [], []),
+            Cache::MAX_TTL + 1
+        );
     }
 
     /**
@@ -73,7 +81,7 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        $cache = new MongoCache(self::_getMongoCollection());
+        $cache = new MongoCache(self::getMongoCollection());
         $request = new Request('not under test', 'not under test', [], []);
         $this->assertNull($cache->get($request));
     }
@@ -99,7 +107,7 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
             return strtotime('-1 year');
         };
 
-        $collection = self::_getMongoCollection();
+        $collection = self::getMongoCollection();
         $cache = new MongoCache($collection);
         $request = new Request('not under test', 'not under test', [], []);
         $cache->set($request, new Response(200, [], []));
@@ -137,7 +145,7 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
             return false;
         };
 
-        new MongoCache(self::_getMongoCollection());
+        new MongoCache(self::getMongoCollection());
     }
 
     /**
@@ -176,10 +184,10 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
         }
 
         return [
-            'defaultTimeToLive is not an integer' => [self::_getMongoCollection(), 'a string'],
-            'defaultTimeToLive is less than 1' => [self::_getMongoCollection(), 0],
-            'defaultTimeToLive is greater than Cache::MAX_TTL' => [self::_getMongoCollection(), Cache::MAX_TTL + 1],
-            'defaultTimeToLive is null' => [self::_getMongoCollection(), null],
+            'defaultTimeToLive is not an integer' => [self::getMongoCollection(), 'a string'],
+            'defaultTimeToLive is less than 1' => [self::getMongoCollection(), 0],
+            'defaultTimeToLive is greater than Cache::MAX_TTL' => [self::getMongoCollection(), Cache::MAX_TTL + 1],
+            'defaultTimeToLive is null' => [self::getMongoCollection(), null],
         ];
     }
 
@@ -188,7 +196,7 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
      *
      * @return \MongoCollection
      */
-    private static function _getMongoCollection()
+    private static function getMongoCollection()
     {
         $collection = (new \MongoClient())->selectDb('testing')->selectCollection('cache');
         $collection->drop();

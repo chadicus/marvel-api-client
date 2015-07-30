@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fc40d3337dbfae7bc7c1b60d7c522632",
+    "hash": "17c35aea4cb2a18e4eccb624b403f02c",
     "packages": [
         {
             "name": "dominionenterprises/filter",
@@ -119,43 +119,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "chadicus/coding-standard",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/chadicus/coding-standard.git",
-                "reference": "350a2d61fec9a41ba0a5ad027affb4dc0cc7c65a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/chadicus/coding-standard/zipball/350a2d61fec9a41ba0a5ad027affb4dc0cc7c65a",
-                "reference": "350a2d61fec9a41ba0a5ad027affb4dc0cc7c65a",
-                "shasum": ""
-            },
-            "require": {
-                "squizlabs/php_codesniffer": "~2.0"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Chad Gray",
-                    "email": "chadwickgray@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Chadicus Coding standard",
-            "keywords": [
-                "coding",
-                "phpcs",
-                "standard"
-            ],
-            "time": "2015-07-06 15:10:35"
-        },
         {
             "name": "cilex/cilex",
             "version": "1.1.0",
@@ -4002,8 +3965,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "dominionenterprises/filter": 20,
-        "chadicus/coding-standard": 20
+        "dominionenterprises/filter": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

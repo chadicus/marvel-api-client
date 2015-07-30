@@ -61,7 +61,10 @@ final class ResourceListTest extends \PHPUnit_Framework_TestCase
      */
     public function getItems()
     {
-        $this->assertSame([['doesnt' => 'matter']], (new ResourceList(0, 0, 'not under test', [['doesnt' => 'matter']]))->getItems());
+        $this->assertSame(
+            [['doesnt' => 'matter']],
+            (new ResourceList(0, 0, 'not under test', [['doesnt' => 'matter']]))->getItems()
+        );
     }
 
     /**
@@ -69,7 +72,8 @@ final class ResourceListTest extends \PHPUnit_Framework_TestCase
      *
      * @param mixed $available     The number of total available resources in this list.
      * @param mixed $returned      The number of resources returned in this resource list (up to 20).
-     * @param mixed $collectionURI The path to the list of full view representations of the items in this resource list.
+     * @param mixed $collectionURI The path to the list of full view representations of the items in this resource
+     *                             list.
      * @param array $items         A list of summary views of the items in this resource list.
      *
      * @test
@@ -119,7 +123,10 @@ final class ResourceListTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(100, $resourceList->getAvailable());
         $this->assertSame(1, $resourceList->getReturned());
         $this->assertSame('a collection uri', $resourceList->getCollectionURI());
-        $this->assertSame([['name' => 'a name', 'type' => 'a type', 'resourceURI' => 'a resource uri']], $resourceList->getItems());
+        $this->assertSame(
+            [['name' => 'a name', 'type' => 'a type', 'resourceURI' => 'a resource uri']],
+            $resourceList->getItems()
+        );
     }
 
     /**

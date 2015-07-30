@@ -90,7 +90,7 @@ class Client
         $filters['hash'] = md5($timestamp . $this->privateApiKey . $this->publicApiKey);
         $url = self::BASE_URL . urlencode($resource) . '?' . http_build_query($filters);
 
-        return $this->_send(new Request($url, 'GET', ['Accept' =>  'application/json']));
+        return $this->send(new Request($url, 'GET', ['Accept' =>  'application/json']));
     }
 
     /**
@@ -123,7 +123,7 @@ class Client
 
         $url = self::BASE_URL . urlencode($resource) . "/{$id}?" . http_build_query($query);
 
-        return $this->_send(new Request($url, 'GET', ['Accept' =>  'application/json']));
+        return $this->send(new Request($url, 'GET', ['Accept' =>  'application/json']));
     }
 
     /**
@@ -133,9 +133,9 @@ class Client
      *
      * @return Response
      */
-    final private function _send(Request $request)
+    final private function send(Request $request)
     {
-        $response = $this->_getFromCache($request);
+        $response = $this->getFromCache($request);
         if ($response !== null) {
             return $response;
         }
@@ -156,7 +156,7 @@ class Client
      *
      * @return Response|null Returns the cached Response or null if it does not exist.
      */
-    final private function _getFromCache(Request $request)
+    final private function getFromCache(Request $request)
     {
         if ($this->cache === null) {
             return null;

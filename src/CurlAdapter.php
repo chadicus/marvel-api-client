@@ -46,8 +46,17 @@ final class CurlAdapter implements Adapter
 
         $result = Util::ensureNot(false, curl_exec($curl), curl_error($curl));
 
-        $headerSize = Util::ensureNot(false, curl_getinfo($curl, CURLINFO_HEADER_SIZE), 'Unable to determine header size');
-        $httpCode = Util::ensureNot(false, curl_getinfo($curl, CURLINFO_HTTP_CODE), 'Unable to determine response HTTP code');
+        $headerSize = Util::ensureNot(
+            false,
+            curl_getinfo($curl, CURLINFO_HEADER_SIZE),
+            'Unable to determine header size'
+        );
+
+        $httpCode = Util::ensureNot(
+            false,
+            curl_getinfo($curl, CURLINFO_HTTP_CODE),
+            'Unable to determine response HTTP code'
+        );
 
         $headers = Http::parseHeaders(substr($result, 0, $headerSize - 1));
         $body = json_decode(substr($result, $headerSize), true);

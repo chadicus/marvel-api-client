@@ -45,7 +45,11 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function setTtlIsGreaterThanMax()
     {
-        (new ArrayCache())->set(new Request('not under test', 'not under test', [], []), new Response(200, [], []), Cache::MAX_TTL + 1);
+        (new ArrayCache())->set(
+            new Request('not under test', 'not under test', [], []),
+            new Response(200, [], []),
+            Cache::MAX_TTL + 1
+        );
     }
 
     /**
