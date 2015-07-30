@@ -1,5 +1,6 @@
 # Marvel API Client
 [![Build Status](https://travis-ci.org/chadicus/marvel-api-client.png)](https://travis-ci.org/chadicus/marvel-api-client)
+[![Code Coverage](http://img.shields.io/coveralls/chadicus/marvel-api-client.svg?style=flat)](https://coveralls.io/r/chadicus/marvel-api-client)
 
 A PHP client for use with the Marvel API.  This project is still under heavy development.
 

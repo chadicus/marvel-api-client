@@ -29,8 +29,6 @@ foreach ($xml->xpath('//file/metrics') as $metric) {
     }
 }
 
-unlink('clover.xml');
-
 echo "Code coverage was 100%\n";
 
 passthru('./vendor/bin/phploc --quiet --log-xml="phploc.xml" src', $returnStatus);
