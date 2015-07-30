@@ -103,7 +103,7 @@ class Character
             'description' => [['string']],
             'modified' => [['date']],
             'resourceURI' => [['string']],
-            'urls' => [['array', 0], ['ofArrays', ['url' => [['string']], 'type' => [['string']]]]],
+            'urls' => ['default' => [], ['array', 0], ['\Chadicus\Marvel\Api\Entities\Url::fromArrays']],
             'thumbnail' => [['array'], ['\Chadicus\Marvel\Api\Entities\Image::fromArray']],
             'comics' => [['array'], ['\Chadicus\Marvel\Api\Entities\ResourceList::fromArray']],
             'stories' => [['array'], ['\Chadicus\Marvel\Api\Entities\ResourceList::fromArray']],
@@ -120,10 +120,7 @@ class Character
         $this->description = Arrays::get($filteredData, 'description');
         $this->modified = Arrays::get($filteredData, 'modified');
         $this->resourceURI = Arrays::get($filteredData, 'resourceURI');
-        $this->urls = [];
-        foreach (Arrays::get($filteredData, 'urls', []) as $url) {
-            $this->urls[] = new Url($url['type'], $url['url']);
-        }
+        $this->urls = $filteredData['urls'];
 
         $this->thumbnail = Arrays::get($filteredData, 'thumbnail', new Image(null, null));
         $this->comics = Arrays::get($filteredData, 'comics', new ResourceList(0, 0, null, []));
