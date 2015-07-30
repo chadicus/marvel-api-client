@@ -5,6 +5,7 @@ namespace Chadicus\Marvel\Api;
  * Unit tests for the Collection class.
  *
  * @coversDefaultClass \Chadicus\Marvel\Api\Collection
+ * @covers ::<private>
  */
 final class CollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -88,6 +89,7 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      * Verifies code does not explode when current() consectutively.
      *
      * @test
+     * @covers ::current
      *
      * @return void
      */
@@ -103,6 +105,7 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      * Verifies code does not explode when next() consectutively.
      *
      * @test
+     * @covers ::next
      *
      * @return void
      */
@@ -123,7 +126,7 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function count()
+    public function countBasic()
     {
         $client = new Client('not under tests', 'not under test', new CollectionAdapter());
         $collection = new Collection($client, 'not under tests', ['limit' => 3]);
@@ -164,6 +167,7 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      * Verfies current() throws when collection is empty.
      *
      * @test
+     * @covers ::current
      * @expectedException \OutOfBoundsException
      *
      * @return void
@@ -179,6 +183,7 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      * Verfies key() throws when collection is empty.
      *
      * @test
+     * @covers ::key
      * @expectedException \OutOfBoundsException
      *
      * @return void
