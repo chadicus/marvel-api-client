@@ -97,6 +97,8 @@ class Character
      */
     final public function __construct(array $data)
     {
+        $emptyResourceList = new ResourceList(0, 0, null, []);
+        $resourceListFilter = '\Chadicus\Marvel\Api\Entities\ResourceList::fromArray';
         $filters = [
             'id' => ['required' => true, ['uint']],
             'name' => [['string']],
@@ -104,29 +106,23 @@ class Character
             'modified' => [['date']],
             'resourceURI' => [['string']],
             'urls' => ['default' => [], ['array', 0], ['\Chadicus\Marvel\Api\Entities\Url::fromArrays']],
-            'thumbnail' => [['array'], ['\Chadicus\Marvel\Api\Entities\Image::fromArray']],
-            'comics' => [['array'], ['\Chadicus\Marvel\Api\Entities\ResourceList::fromArray']],
-            'stories' => [['array'], ['\Chadicus\Marvel\Api\Entities\ResourceList::fromArray']],
-            'events' => [['array'], ['\Chadicus\Marvel\Api\Entities\ResourceList::fromArray']],
-            'series' => [['array'], ['\Chadicus\Marvel\Api\Entities\ResourceList::fromArray']],
+            'thumbnail' => [
+                'default' => new Image(null, null),
+                ['array'],
+                ['\Chadicus\Marvel\Api\Entities\Image::fromArray']
+            ],
+            'comics' => ['default' => $emptyResourceList, ['array'], [$resourceListFilter]],
+            'stories' => ['default' => clone $emptyResourceList, ['array'], [$resourceListFilter]],
+            'events' => ['default' => clone $emptyResourceList, ['array'], [$resourceListFilter]],
+            'series' => ['default' => clone $emptyResourceList, ['array'], [$resourceListFilter]],
         ];
 
         list($status, $filteredData, $error) = Filterer::filter($filters, $data, ['allowUnknowns' => true]);
         Util::ensure(true, $status, $error);
 
-        $this->id = $filteredData['id'];
-
-        $this->name = Arrays::get($filteredData, 'name');
-        $this->description = Arrays::get($filteredData, 'description');
-        $this->modified = Arrays::get($filteredData, 'modified');
-        $this->resourceURI = Arrays::get($filteredData, 'resourceURI');
-        $this->urls = $filteredData['urls'];
-
-        $this->thumbnail = Arrays::get($filteredData, 'thumbnail', new Image(null, null));
-        $this->comics = Arrays::get($filteredData, 'comics', new ResourceList(0, 0, null, []));
-        $this->stories = Arrays::get($filteredData, 'stories', new ResourceList(0, 0, null, []));
-        $this->events = Arrays::get($filteredData, 'events', new ResourceList(0, 0, null, []));
-        $this->series = Arrays::get($filteredData, 'series', new ResourceList(0, 0, null, []));
+        foreach ($filteredData as $key => $value) {
+            $this->$key = $value;
+        }
     }
 
     /**
