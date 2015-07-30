@@ -39,7 +39,8 @@ Developers may be contacted at:
 With a checkout of the code get [Composer](http://getcomposer.org) in your PATH and run:
 
 ```sh
-./build.php
+composer install
+./vendor/bin/phpunit
 ```
 
 ## With Great Power Comes Great Responsibility.
