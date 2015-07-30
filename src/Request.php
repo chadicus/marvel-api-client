@@ -25,7 +25,7 @@ class Request
     /**
      * The body for this request.
      *
-     * @var string
+     * @var array
      */
     private $body;
 

@@ -60,7 +60,7 @@ class Collection implements \Iterator, \Countable
     /**
      * A paginated set of elements from the API.
      *
-     * @var array
+     * @var null|array
      */
     private $results;
 
