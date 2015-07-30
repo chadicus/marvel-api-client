@@ -1,13 +1,11 @@
-branches:
-  except: incubator
 language: php
 php:
   - 5.6
   - 5.5
   - 5.4
+install: composer install 
 services: mongodb
 before_script:
-  - composer self-update || true
   - echo 'extension="mongo.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 script: ./vendor/bin/phpunit --coverage-clover clover.xml
 after_success: ./vendor/bin/coveralls -v
