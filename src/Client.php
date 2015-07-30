@@ -2,6 +2,8 @@
 
 namespace Chadicus\Marvel\Api;
 
+use DominionEnterprises\Util;
+
 /**
  * PHP Client for the Marvel API.
  */
@@ -49,19 +51,10 @@ class Client
      * @param string  $publicApiKey  The public api key issued by Marvel.
      * @param Adapter $adapter       Implementation of a client adapter.
      * @param Cache   $cache         Implementation of Cache.
-     *
-     * @throws \InvalidArgumentException Thrown if $privateApiKey is empty or not a string.
-     * @throws \InvalidArgumentException Thrown if $publicApiKey is empty or not a string.
      */
     final public function __construct($privateApiKey, $publicApiKey, Adapter $adapter, Cache $cache = null)
     {
-        if (!is_string($privateApiKey) || trim($privateApiKey) == '') {
-            throw new \InvalidArgumentException('$privateApiKey must be a non-empty string');
-        }
-
-        if (!is_string($publicApiKey) || trim($publicApiKey) == '') {
-            throw new \InvalidArgumentException('$publicApiKey must be a non-empty string');
-        }
+        Util::throwIfNotType(['string' => [$privateApiKey, $publicApiKey]], true);
 
         $this->privateApiKey = $privateApiKey;
         $this->publicApiKey = $publicApiKey;
@@ -101,19 +94,10 @@ class Client
      * @param integer $id       The id of the API resource.
      *
      * @return Response
-     *
-     * @throws \InvalidArgumentException Thrown if $resource is empty or not a string.
-     * @throws \InvalidArgumentException Thrown if $id is not an integer.
      */
     final public function get($resource, $id)
     {
-        if (!is_string($resource) || trim($resource) == '') {
-            throw new \InvalidArgumentException('$resource must be a non-empty string');
-        }
-
-        if (!is_int($id) || $id < 1) {
-            throw new \InvalidArgumentException('$id must be unsigned integer');
-        }
+        Util::throwIfNotType(['string' => [$resource], 'int' => [$id]], true);
 
         $timestamp = time();
         $query = [
