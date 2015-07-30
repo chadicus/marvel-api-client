@@ -152,9 +152,10 @@ final class CharacterTest extends \PHPUnit_Framework_TestCase
      */
     public function findAllParametersSetProperly()
     {
+        $now = new \DateTime();
         $criteria = [
             'name' => 'a name',
-            'modifiedSince' => \time(),
+            'modifiedSince' => $now->format('r'),
             'comics' => [1,2,3],
             'series' => [2,4,6],
             'events' => [1,3,5],
@@ -169,7 +170,7 @@ final class CharacterTest extends \PHPUnit_Framework_TestCase
 
         $expectedParameters = [
             'name' => 'a name',
-            'modifiedSince' => date('c', $criteria['modifiedSince']),
+            'modifiedSince' => $now->format('c'),
             'comics' => '1,2,3',
             'series' => '2,4,6',
             'events' => '1,3,5',

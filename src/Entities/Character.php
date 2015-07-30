@@ -254,7 +254,7 @@ class Character
     {
         $filters = [
             'name' => [['string']],
-            'modifiedSince' => [['uint']],
+            'modifiedSince' => [['date']],
             'comics' => [['ofScalars', [['uint']]], ['implode', ',']],
             'series' => [['ofScalars', [['uint']]], ['implode', ',']],
             'events' => [['ofScalars', [['uint']]], ['implode', ',']],
@@ -266,7 +266,7 @@ class Character
 
         $modifiedSince = Arrays::get($filteredCriteria, 'modifiedSince');
         if ($modifiedSince !== null) {
-            $filteredCriteria['modifiedSince'] = date('c', $modifiedSince);
+            $filteredCriteria['modifiedSince'] = $modifiedSince->format('c');
         }
 
         return new Collection(
