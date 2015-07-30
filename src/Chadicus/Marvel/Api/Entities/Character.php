@@ -101,7 +101,7 @@ class Character
             'id' => ['required' => true, ['uint']],
             'name' => [['string']],
             'description' => [['string']],
-            'modified' => [['\Chadicus\Filter\DateTime::filter']],
+            'modified' => [['date']],
             'resourceURI' => [['string']],
             'urls' => [['array', 0], ['ofArrays', ['url' => [['string']], 'type' => [['string']]]]],
             'thumbnail' => [['array'], ['\Chadicus\Marvel\Api\Entities\Image::fromArray']],

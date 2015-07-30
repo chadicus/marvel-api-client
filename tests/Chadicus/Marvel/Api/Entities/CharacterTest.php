@@ -34,13 +34,13 @@ final class CharacterTest extends \PHPUnit_Framework_TestCase
     {
         $client = new Client('not under test', 'not under test', new CharacterAdapter());
 
-        $now = time();
+        $now = new \DateTime();
 
         $data = [
             'id' => 1,
             'name' => 'a name',
             'description' => 'a description',
-            'modified' => $now,
+            'modified' => $now->format('r'),
             'resourceURI' => 'a resource uri',
             'urls' => [['type' => 'a type', 'url' => 'a url']],
             'thumbnail' => ['path' => 'a path', 'extension' => 'an extension'],
@@ -74,7 +74,7 @@ final class CharacterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $character->getId());
         $this->assertSame('a name', $character->getName());
         $this->assertSame('a description', $character->getDescription());
-        $this->assertSame($now, $character->getModified()->getTimestamp());
+        $this->assertSame($now->getTimestamp(), $character->getModified()->getTimestamp());
         $this->assertSame('a resource uri', $character->getResourceURI());
         $this->assertSame(1, count($character->getUrls()));
         $this->assertSame('a type', $character->getUrls()[0]->getType());

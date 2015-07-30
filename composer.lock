@@ -4,28 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "870095f934529c7865c8a46c17cd9737",
+    "hash": "a909bdef26bb2a177c8e207365f1e257",
     "packages": [
         {
             "name": "dominionenterprises/filter",
-            "version": "v1.6.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dominionenterprises/filter-php.git",
-                "reference": "14f8930eda5e64cee67889ff9654f3159ebac62e"
+                "reference": "a783839a17268000d1ae1fe5e9b62f1d61b4a83b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dominionenterprises/filter-php/zipball/14f8930eda5e64cee67889ff9654f3159ebac62e",
-                "reference": "14f8930eda5e64cee67889ff9654f3159ebac62e",
+                "url": "https://api.github.com/repos/dominionenterprises/filter-php/zipball/a783839a17268000d1ae1fe5e9b62f1d61b4a83b",
+                "reference": "a783839a17268000d1ae1fe5e9b62f1d61b4a83b",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.2"
+                "php": "~5.4"
             },
             "require-dev": {
                 "dominionenterprises/dws-coding-standard": "~1.1",
-                "phpunit/phpunit": "~4.1"
+                "phpunit/phpunit": "~4.1",
+                "satooshi/php-coveralls": "~0.6.1"
             },
             "type": "library",
             "autoload": {
@@ -58,7 +59,7 @@
             "keywords": [
                 "utility"
             ],
-            "time": "2014-08-08 16:20:31"
+            "time": "2015-07-30 13:59:55"
         },
         {
             "name": "dominionenterprises/util",
@@ -3838,6 +3839,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "dominionenterprises/filter": 20,
         "chadicus/coding-standard": 20
     },
     "prefer-stable": false,
