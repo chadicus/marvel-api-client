@@ -75,7 +75,7 @@ class Image
      *
      * @return Image
      *
-     * @throws \Chadicus\Filter\Exception Thrown if the input did not pass validation.
+     * @throws \Exception Thrown if the input did not pass validation.
      */
     final public static function fromArray(array $input)
     {
@@ -83,7 +83,7 @@ class Image
 
         list($success, $result, $error) = \DominionEnterprises\Filterer::filter($filters, $input);
         if (!$success) {
-            throw new \Chadicus\Filter\Exception($error);
+            throw new \Exception($error);
         }
 
         return new Image(Arrays::get($result, 'path'), Arrays::get($result, 'extension'));
@@ -96,7 +96,7 @@ class Image
      *
      * @return Image[]
      *
-     * @throws \Chadicus\Filter\Exception Thrown if the inputs did not pass validation.
+     * @throws \Exception Thrown if the inputs did not pass validation.
      */
     final public static function fromArrays(array $inputs)
     {

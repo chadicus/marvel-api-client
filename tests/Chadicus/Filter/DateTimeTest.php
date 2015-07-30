@@ -48,7 +48,7 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
      * @test
      * @covers ::filter
      * @dataProvider badData
-     * @expectedException \Chadicus\Filter\Exception
+     * @expectedException \Exception
      *
      * @return void
      */

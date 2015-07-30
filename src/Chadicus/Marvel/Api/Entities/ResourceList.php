@@ -103,7 +103,7 @@ class ResourceList
      *
      * @return ResourceList
      *
-     * @throws \Chadicus\Filter\Exception Thrown if the input did not pass validation.
+     * @throws \Exception Thrown if the input did not pass validation.
      */
     final public static function fromArray(array $input)
     {
@@ -116,7 +116,7 @@ class ResourceList
 
         list($success, $result, $error) = \DominionEnterprises\Filterer::filter($filters, $input);
         if (!$success) {
-            throw new \Chadicus\Filter\Exception($error);
+            throw new \Exception($error);
         }
 
         return new ResourceList(

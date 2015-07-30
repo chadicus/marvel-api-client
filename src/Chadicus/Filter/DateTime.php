@@ -13,7 +13,7 @@ class DateTime
      *
      * @return \DateTime
      *
-     * @throws Exception Thrown if the value did not pass validation.
+     * @throws \Exception Thrown if the value did not pass validation.
      */
     public static function filter($value)
     {
@@ -22,13 +22,9 @@ class DateTime
         }
 
         if (!is_string($value) || trim($value) == '') {
-            throw new Exception('$value is not a string or integer');
+            throw new \Exception('$value is not a string or integer');
         }
 
-        try {
-            return new \DateTime($value);
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
+        return new \DateTime($value);
     }
 }

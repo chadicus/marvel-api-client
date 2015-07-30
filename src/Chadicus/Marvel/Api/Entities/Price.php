@@ -63,7 +63,7 @@ class Price
      *
      * @return Price
      *
-     * @throws \Chadicus\Filter\Exception Thrown if the input did not pass validation.
+     * @throws \Exception Thrown if the input did not pass validation.
      */
     final public static function fromArray(array $input)
     {
@@ -71,7 +71,7 @@ class Price
 
         list($success, $result, $error) = \DominionEnterprises\Filterer::filter($filters, $input);
         if (!$success) {
-            throw new \Chadicus\Filter\Exception($error);
+            throw new \Exception($error);
         }
 
         return new Price(Arrays::get($result, 'type'), Arrays::get($result, 'amount'));
@@ -84,7 +84,7 @@ class Price
      *
      * @return Price[]
      *
-     * @throws \Chadicus\Filter\Exception Thrown if the inputs did not pass validation.
+     * @throws \Exception Thrown if the inputs did not pass validation.
      */
     final public static function fromArrays(array $inputs)
     {

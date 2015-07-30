@@ -127,7 +127,7 @@ final class ResourceListTest extends \PHPUnit_Framework_TestCase
      *
      * @test
      * @covers ::fromArray
-     * @expectedException \Chadicus\Filter\Exception
+     * @expectedException \Exception
      *
      * @return void
      */
