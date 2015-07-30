@@ -70,7 +70,7 @@ final class CharacterTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $character = new Character($client, $data);
+        $character = new Character($data);
         $this->assertSame(1, $character->getId());
         $this->assertSame('a name', $character->getName());
         $this->assertSame('a description', $character->getDescription());

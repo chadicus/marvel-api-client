@@ -93,10 +93,9 @@ class Character
     /**
      * Construct a new instance of a Character.
      *
-     * @param Client $client A Marvel API Client.
      * @param array  $data   The values for this Character.
      */
-    final public function __construct(Client $client, array $data)
+    final public function __construct(array $data)
     {
         $filters = [
             'id' => ['required' => true, ['uint']],
@@ -305,8 +304,8 @@ class Character
             $client,
             'characters',
             $parameters,
-            function (array $data) use ($client) {
-                return new Character($client, $data);
+            function (array $data) {
+                return new Character($data);
             }
         );
     }
