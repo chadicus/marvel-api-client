@@ -1,7 +1,5 @@
 <?php
-/**
- * Contains the Chadicus\Marvel\Api\Adapter interface
- */
+
 namespace Chadicus\Marvel\Api;
 
 /**

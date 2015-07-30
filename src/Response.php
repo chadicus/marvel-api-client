@@ -1,7 +1,5 @@
 <?php
-/**
- * Defines the Chadicus\Marvel\Api\Response class
- */
+
 namespace Chadicus\Marvel\Api;
 
 /**

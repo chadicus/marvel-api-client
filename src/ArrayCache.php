@@ -1,7 +1,5 @@
 <?php
-/**
- * Contains the Chadicus\Marvel\Api\ArrayCache class
- */
+
 namespace Chadicus\Marvel\Api;
 
 use DominionEnterprises\Util\Arrays;

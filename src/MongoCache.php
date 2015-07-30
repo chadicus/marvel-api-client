@@ -1,7 +1,5 @@
 <?php
-/**
- * Contains the Chadicus\Marvel\Api\MongoCache class
- */
+
 namespace Chadicus\Marvel\Api;
 
 /**
