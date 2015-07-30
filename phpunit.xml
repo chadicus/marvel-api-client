@@ -1,4 +1,4 @@
-<phpunit bootstrap="./tests/bootstrap.php" colors="true" forceCoversAnnotation="true" strict="true">  
+<phpunit bootstrap="./tests/bootstrap.php" colors="true" forceCoversAnnotation="true">
     <filter>
         <whitelist>
             <directory>src</directory>
