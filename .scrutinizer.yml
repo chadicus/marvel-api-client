@@ -2,6 +2,7 @@ filter:
     excluded_paths:
         - 'vendor/*'
         - 'tests/*'
+        - 'examples/*'
 before_commands:
     - 'composer install --prefer-source'
 tools:
@@ -15,6 +16,7 @@ tools:
         excluded_dirs:
             - vendor
             - tests
+            - examples
     php_pdepend: true
     php_sim: true
 build_failure_conditions:
