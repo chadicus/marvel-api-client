@@ -8,7 +8,7 @@ use DominionEnterprises\Util\Arrays;
 /**
  * Represents a Url entity type within the Marvel API.
  */
-class Url
+class Url extends AbstractEntity
 {
     /**
      * A text identifier for the URL.
@@ -76,26 +76,5 @@ class Url
         }
 
         return new Url(Arrays::get($result, 'type'), Arrays::get($result, 'url'));
-    }
-
-    /**
-     * Filters the given array[] $inputs into Url[].
-     *
-     * @param array[] $inputs The value to be filtered.
-     *
-     * @return Url[]
-     *
-     * @throws \Exception Thrown if the inputs did not pass validation.
-     */
-    final public static function fromArrays(array $inputs)
-    {
-        Util::throwIfNotType(['array' => $inputs]);
-
-        $urls = [];
-        foreach ($inputs as $key => $input) {
-            $urls[$key] = self::fromArray($input);
-        }
-
-        return $urls;
     }
 }

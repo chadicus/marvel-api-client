@@ -8,7 +8,7 @@ use DominionEnterprises\Util\Arrays;
 /**
  * Represents an Image entity type within the Marvel API.
  */
-class Image
+class Image extends AbstractEntity
 {
     /**
      * The directory path of to the image.
@@ -88,26 +88,5 @@ class Image
         }
 
         return new Image(Arrays::get($result, 'path'), Arrays::get($result, 'extension'));
-    }
-
-    /**
-     * Filters the given array[] $inputs into Image[].
-     *
-     * @param array[] $inputs The value to be filtered.
-     *
-     * @return Image[]
-     *
-     * @throws \Exception Thrown if the inputs did not pass validation.
-     */
-    final public static function fromArrays(array $inputs)
-    {
-        Util::throwIfNotType(['array' => $inputs]);
-
-        $images = [];
-        foreach ($inputs as $key => $input) {
-            $images[$key] = self::fromArray($input);
-        }
-
-        return $images;
     }
 }

@@ -8,7 +8,7 @@ use DominionEnterprises\Util\Arrays;
 /**
  * Represents a ComicPrice entity type within the Marvel API.
  */
-class Price
+class Price extends AbstractEntity
 {
     /**
      * A description of the price (e.g. print price, digital price).
@@ -76,26 +76,5 @@ class Price
         }
 
         return new Price(Arrays::get($result, 'type'), Arrays::get($result, 'amount'));
-    }
-
-    /**
-     * Filters the given array[] $inputs into Price[].
-     *
-     * @param array[] $inputs The value to be filtered.
-     *
-     * @return Price[]
-     *
-     * @throws \Exception Thrown if the inputs did not pass validation.
-     */
-    final public static function fromArrays(array $inputs)
-    {
-        Util::throwIfNotType(['array' => $inputs]);
-
-        $prices = [];
-        foreach ($inputs as $key => $input) {
-            $prices[$key] = self::fromArray($input);
-        }
-
-        return $prices;
     }
 }
