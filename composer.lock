@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a909bdef26bb2a177c8e207365f1e257",
+    "hash": "cd7f79b14b0437e863dd67b8717b229f",
     "packages": [
         {
             "name": "dominionenterprises/filter",

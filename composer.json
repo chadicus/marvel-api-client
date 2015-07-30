@@ -25,6 +25,6 @@
         "ext-mongo": "~1.3"
     },
     "autoload": {
-        "psr-0": { "Chadicus": ["src", "tests"] }
+        "psr-4": { "Chadicus\\Marvel\\Api\\": ["src", "tests"] }
     }
 }
