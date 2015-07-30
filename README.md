@@ -1,5 +1,10 @@
 # Marvel API Client
 [![Build Status](https://travis-ci.org/chadicus/marvel-api-client.png)](https://travis-ci.org/chadicus/marvel-api-client)
+[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/chadicus/marvel-api-client.svg?style=flat)](https://scrutinizer-ci.com/g/chadicus/marvel-api-client/)
+[![Code Coverage](http://img.shields.io/coveralls/chadicus/marvel-api-client.svg?style=flat)](https://coveralls.io/r/chadicus/marvel-api-client)
+[![Latest Stable Version](http://img.shields.io/packagist/v/chadicus/marvel-api-client.svg?style=flat)](https://packagist.org/packages/chadicus/marvel-api-client)
+[![Total Downloads](http://img.shields.io/packagist/dt/chadicus/marvel-api-client.svg?style=flat)](https://packagist.org/packages/chadicus/marvel-api-client)
+[![License](http://img.shields.io/packagist/l/chadicus/marvel-api-client.svg?style=flat)](https://packagist.org/packages/chadicus/marvel-api-client)
 
 A PHP client for use with the Marvel API.  This project is still under heavy development.
 
@@ -34,7 +39,8 @@ Developers may be contacted at:
 With a checkout of the code get [Composer](http://getcomposer.org) in your PATH and run:
 
 ```sh
-./build.php
+composer install
+./vendor/bin/phpunit
 ```
 
 ## With Great Power Comes Great Responsibility.
