@@ -5,7 +5,7 @@ namespace Chadicus\Marvel\Api\Entities;
 /**
  * Class representing all image variant options.
  */
-final class ImageVariant
+final class ImageVariant extends \Chadicus\Spl\Types\AbstractEnum
 {
     const PORTRAIT_SMALL = 'portrait_small';
     const PORTRAIT_MEDIUM = 'portrait_medium';
@@ -25,52 +25,4 @@ final class ImageVariant
     const LANDSCAPE_XLARGE = 'landscape_xlarge';
     const LANDSCAPE_AMAZING = 'landscape_amazing';
     const LANDSCAPE_INCREDIBLE = 'landscape_incredible';
-
-    /**
-     * The current Enum value.
-     *
-     * @var string
-     */
-    private $value;
-
-    /**
-     * Construct a new instance of a Enum object.
-     *
-     * @param string $value The value of the enum.
-     */
-    private function __construct($value)
-    {
-        $this->value = strtolower($value);
-    }
-
-    /**
-     * Returns the string value of the Enum.
-     *
-     * @return string The string value.
-     */
-    public function __toString()
-    {
-        return $this->value;
-    }
-
-    /**
-     * Returns a new instance of ImageVariant.
-     *
-     * @param string $name      The name of the constant.
-     * @param array  $arguments This parameter is not used.
-     *
-     * @return ImageVariant
-     *
-     * @throws \InvalidArgumentException Thrown if $name is not the value of a defined constant.
-     *
-     * @SuppressWarnings("unused")
-     */
-    public static function __callStatic($name, array $arguments = [])
-    {
-        if (!\defined(__CLASS__ . "::{$name}")) {
-            throw new \InvalidArgumentException("Invalid value '{$name}' given");
-        }
-
-        return new static($name);
-    }
 }

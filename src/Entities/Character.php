@@ -255,55 +255,24 @@ class Character
         $filters = [
             'name' => [['string']],
             'modifiedSince' => [['uint']],
-            'comics' => [['ofScalars', [['uint']]]],
-            'series' => [['ofScalars', [['uint']]]],
-            'events' => [['ofScalars', [['uint']]]],
-            'stories' => [['ofScalars', [['uint']]]],
+            'comics' => [['ofScalars', [['uint']]], ['implode', ',']],
+            'series' => [['ofScalars', [['uint']]], ['implode', ',']],
+            'events' => [['ofScalars', [['uint']]], ['implode', ',']],
+            'stories' => [['ofScalars', [['uint']]], ['implode', ',']],
             'orderBy' => [['in', ['name', 'modified', '-name', '-modified']]],
         ];
         list($success, $filteredCriteria, $error) = Filterer::filter($filters, $criteria);
         Util::ensure(true, $success, $error);
 
-        $parameters = [];
-        $name = Arrays::get($filteredCriteria, 'name');
-        if ($name !== null) {
-            $parameters['name'] = $name;
-        }
-
         $modifiedSince = Arrays::get($filteredCriteria, 'modifiedSince');
         if ($modifiedSince !== null) {
-            $parameters['modifiedSince'] = date('c', $modifiedSince);
-        }
-
-        $comics = Arrays::get($filteredCriteria, 'comics');
-        if ($comics !== null) {
-            $parameters['comics'] = implode(',', $comics);
-        }
-
-        $series = Arrays::get($filteredCriteria, 'series');
-        if ($series !== null) {
-            $parameters['series'] = implode(',', $series);
-        }
-
-        $events = Arrays::get($filteredCriteria, 'events');
-        if ($events !== null) {
-            $parameters['events'] = implode(',', $events);
-        }
-
-        $stories = Arrays::get($filteredCriteria, 'stories');
-        if ($stories !== null) {
-            $parameters['stories'] = implode(',', $stories);
-        }
-
-        $orderBy = Arrays::get($filteredCriteria, 'orderBy');
-        if ($orderBy !== null) {
-            $parameters['orderBy'] = $orderBy;
+            $filteredCriteria['modifiedSince'] = date('c', $modifiedSince);
         }
 
         return new Collection(
             $client,
             'characters',
-            $parameters,
+            $filteredCriteria,
             function (array $data) {
                 return new Character($data);
             }

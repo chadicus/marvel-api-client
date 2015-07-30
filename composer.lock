@@ -4,8 +4,55 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4c5219fcdce388f20930cb9a44095530",
+    "hash": "a22e591892b343e4d46369805f3d22dc",
     "packages": [
+        {
+            "name": "chadicus/spl-types",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chadicus/spl-types-php.git",
+                "reference": "69c17fd43c16c61adf1696370bec5672bd4e6dfd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chadicus/spl-types-php/zipball/69c17fd43c16c61adf1696370bec5672bd4e6dfd",
+                "reference": "69c17fd43c16c61adf1696370bec5672bd4e6dfd",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~5.4 || ~7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "satooshi/php-coveralls": "~0.6.1",
+                "squizlabs/php_codesniffer": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Chadicus\\Spl\\Types\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chad Gray",
+                    "email": "chadwickgray@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A collection of classes which provide various typehandling.",
+            "keywords": [
+                "enum",
+                "spl",
+                "types"
+            ],
+            "time": "2015-07-22 13:42:03"
+        },
         {
             "name": "dominionenterprises/filter",
             "version": "dev-master",
