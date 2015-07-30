@@ -62,6 +62,8 @@ final class ImageVariant
      * @return ImageVariant
      *
      * @throws \InvalidArgumentException Thrown if $name is not the value of a defined constant.
+     *
+     * @SuppressWarnings("unused")
      */
     public static function __callStatic($name, array $arguments = [])
     {
