@@ -81,44 +81,33 @@ final class CharacterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('a url', $character->getUrls()[0]->getUrl());
         $this->assertSame('a path', $character->getThumbnail()->getPath());
         $this->assertSame('an extension', $character->getThumbnail()->getExtension());
+
         $this->assertSame(2, $character->getComics()->getAvailable());
         $this->assertSame(1, $character->getComics()->getReturned());
         $this->assertSame('a comics collection uri', $character->getComics()->getCollectionURI());
-        $this->assertSame(
-            [['resourceURI' => 'a comics resource uri', 'name' => 'a comics name']],
-            $character->getComics()->getItems()
-        );
-        $this->assertSame(2, $character->getComics()->getAvailable());
-        $this->assertSame(1, $character->getComics()->getReturned());
-        $this->assertSame('a comics collection uri', $character->getComics()->getCollectionURI());
-        $this->assertSame(
-            [['resourceURI' => 'a comics resource uri', 'name' => 'a comics name']],
-            $character->getComics()->getItems()
-        );
+        $this->assertSame(1, count($character->getComics()->getItems()));
+        $this->assertSame('a comics resource uri', $character->getComics()->getItems()[0]->getResourceURI());
+        $this->assertSame('a comics name', $character->getComics()->getItems()[0]->getName());
 
         $this->assertSame(2, $character->getStories()->getAvailable());
         $this->assertSame(1, $character->getStories()->getReturned());
-        $this->assertSame('a stories collection uri', $character->getStories()->getCollectionURI());
-        $this->assertSame(
-            [['resourceURI' => 'a stories resource uri', 'name' => 'a stories name']],
-            $character->getStories()->getItems()
-        );
+        $this->assertSame(1, count($character->getStories()->getItems()));
+        $this->assertSame('a stories resource uri', $character->getStories()->getItems()[0]->getResourceURI());
+        $this->assertSame('a stories name', $character->getStories()->getItems()[0]->getName());
 
         $this->assertSame(2, $character->getEvents()->getAvailable());
         $this->assertSame(1, $character->getEvents()->getReturned());
         $this->assertSame('a events collection uri', $character->getEvents()->getCollectionURI());
-        $this->assertSame(
-            [['resourceURI' => 'a events resource uri', 'name' => 'a events name']],
-            $character->getEvents()->getItems()
-        );
+        $this->assertSame(1, count($character->getEvents()->getItems()));
+        $this->assertSame('a events resource uri', $character->getEvents()->getItems()[0]->getResourceURI());
+        $this->assertSame('a events name', $character->getEvents()->getItems()[0]->getName());
 
         $this->assertSame(2, $character->getSeries()->getAvailable());
         $this->assertSame(1, $character->getSeries()->getReturned());
         $this->assertSame('a series collection uri', $character->getSeries()->getCollectionURI());
-        $this->assertSame(
-            [['resourceURI' => 'a series resource uri', 'name' => 'a series name']],
-            $character->getSeries()->getItems()
-        );
+        $this->assertSame(1, count($character->getSeries()->getItems()));
+        $this->assertSame('a series resource uri', $character->getSeries()->getItems()[0]->getResourceURI());
+        $this->assertSame('a series name', $character->getSeries()->getItems()[0]->getName());
     }
 
     /**

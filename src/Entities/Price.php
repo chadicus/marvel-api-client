@@ -2,8 +2,8 @@
 
 namespace Chadicus\Marvel\Api\Entities;
 
+use DominionEnterprises\Filterer;
 use DominionEnterprises\Util;
-use DominionEnterprises\Util\Arrays;
 
 /**
  * Represents a ComicPrice entity type within the Marvel API.
@@ -18,23 +18,23 @@ class Price extends AbstractEntity
     private $type;
 
     /**
-     * The amount (all prices in USD).
+     * The price (all prices in USD).
      *
      * @var float
      */
-    private $amount;
+    private $price;
 
     /**
      * Construct a new instance of Price.
      *
      * @param string $type   The description of the price.
-     * @param float  $amount The amount of the price.
+     * @param float  $price The price of the price.
      */
-    final public function __construct($type, $amount)
+    final public function __construct($type, $price)
     {
-         Util::throwIfNotType(['string' => [$type], 'float' => [$amount]], true, true);
+         Util::throwIfNotType(['string' => [$type], 'float' => [$price]], true, true);
          $this->type = $type;
-         $this->amount = $amount;
+         $this->price = $price;
     }
 
     /**
@@ -48,13 +48,13 @@ class Price extends AbstractEntity
     }
 
     /**
-     * Returns the amount in USD.
+     * Returns the price in USD.
      *
      * @return float
      */
-    final public function getAmount()
+    final public function getPrice()
     {
-        return $this->amount;
+        return $this->price;
     }
 
     /**
@@ -68,13 +68,13 @@ class Price extends AbstractEntity
      */
     final public static function fromArray(array $input)
     {
-        $filters = ['type' => [['string']], 'amount' => [['float']]];
+        $filters = [
+            'type' => ['default' => null, ['string', true]],
+            'price' => ['default' => null, ['float', true]]];
 
-        list($success, $result, $error) = \DominionEnterprises\Filterer::filter($filters, $input);
-        if (!$success) {
-            throw new \Exception($error);
-        }
+        list($success, $result, $error) = Filterer::filter($filters, $input);
+        Util::ensure(true, $success, $error);
 
-        return new Price(Arrays::get($result, 'type'), Arrays::get($result, 'amount'));
+        return new Price($result['type'], $result['price']);
     }
 }
