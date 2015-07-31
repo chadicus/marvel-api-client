@@ -123,10 +123,10 @@ final class ResourceListTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(100, $resourceList->getAvailable());
         $this->assertSame(1, $resourceList->getReturned());
         $this->assertSame('a collection uri', $resourceList->getCollectionURI());
-        $this->assertSame(
-            [['name' => 'a name', 'type' => 'a type', 'resourceURI' => 'a resource uri']],
-            $resourceList->getItems()
-        );
+        $this->assertSame(1, count($resourceList->getItems()));
+        $this->assertSame('a name', $resourceList->getItems()[0]->getName());
+        $this->assertSame('a type', $resourceList->getItems()[0]->getType());
+        $this->assertSame('a resource uri', $resourceList->getItems()[0]->getResourceUri());
     }
 
     /**

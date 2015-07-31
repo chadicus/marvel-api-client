@@ -2,8 +2,8 @@
 
 namespace Chadicus\Marvel\Api\Entities;
 
+use DominionEnterprises\Filterer;
 use DominionEnterprises\Util;
-use DominionEnterprises\Util\Arrays;
 
 /**
  * Resource lists are collections of summary views within the context of another entity type.
@@ -45,9 +45,9 @@ class ResourceList
      * @param integer $returned      The number of resources returned in this resource list (up to 20).
      * @param string  $collectionURI The path to the list of full view representations of the items in this resource
      *                               list.
-     * @param array[] $items         A list of summary views of the items in this resource list.
+     * @param array   $items         An array of Summary objects of the items in this resource list.
      */
-    final public function __construct($available, $returned, $collectionURI, array $items)
+    final public function __construct($available, $returned, $collectionURI, array $items = [])
     {
         Util::throwIfNotType(['int' => [$available, $returned], 'string' => [$collectionURI]], false, true);
 
@@ -55,7 +55,6 @@ class ResourceList
         $this->returned = $returned;
         $this->collectionURI = $collectionURI;
         $this->items = $items;
-
     }
 
     /**
@@ -91,7 +90,7 @@ class ResourceList
     /**
      * Returns the list of summary views of the items in this resource list.
      *
-     * @return array[]
+     * @return Summary[]
      */
     final public function getItems()
     {
@@ -110,22 +109,15 @@ class ResourceList
     final public static function fromArray(array $input)
     {
         $filters = [
-            'available' => [['uint']],
-            'returned' => [['uint']],
-            'collectionURI' => [['string']],
-            'items' => [['ofArrays', ['resourceURI' => [['string']], 'name' => [['string']], 'type' => [['string']]]]],
+            'available' => ['default' => 0, ['uint']],
+            'returned' => ['default' => 0, ['uint']],
+            'collectionURI' => ['default' => null, ['string']],
+            'items' => ['default' => [], ['array', 0], ['\Chadicus\Marvel\Api\Entities\Summary::fromArrays']],
         ];
 
-        list($success, $result, $error) = \DominionEnterprises\Filterer::filter($filters, $input);
-        if (!$success) {
-            throw new \Exception($error);
-        }
+        list($success, $result, $error) = Filterer::filter($filters, $input);
+        Util::ensure(true, $success, $error);
 
-        return new ResourceList(
-            Arrays::get($result, 'available', 0),
-            Arrays::get($result, 'returned', 0),
-            Arrays::get($result, 'collectionURI'),
-            Arrays::get($result, 'items', [])
-        );
+        return new ResourceList($result['available'], $result['returned'], $result['collectionURI'], $result['items']);
     }
 }
