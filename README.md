@@ -29,6 +29,36 @@ PHP docs for the project can be found [here](http://chadicus.github.io/marvel-ap
 ##Examples
 Examples of use can be found [here](https://github.com/chadicus/marvel-api-client/tree/master/examples).
 
+###Basic Usage
+
+```php
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Chadicus\Marvel\Api;
+
+$publicApiKey = getenv('PUBLIC_KEY');
+$privateApiKey = getenv('PRIVATE_KEY');
+
+$client = new Api\Client($privateApiKey, $publicApiKey, new Api\CurlAdapter());
+
+$response = $client->get('characters', 1009351);
+
+//Text to display for attribution requirements
+$attributionText = $response->getDataWrapper()->getAttributionText();
+
+$character = $response->getDataWrapper()->getData()->getResults()[0];
+
+echo "{$character->getName()}\n";
+echo "{$character->getDescription()}\n";
+
+foreach ($character->getEvents()->getItems() as $event) {
+    echo "\t{$event->getName()}\n";
+}
+
+```
+
 ##Contact
 Developers may be contacted at:
 
