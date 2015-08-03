@@ -6,11 +6,9 @@ class SimpleEntity extends AbstractEntity
 {
     public $input;
 
-    public static function fromArray(array $input)
+    protected function getFilters()
     {
-        $self = new self();
-        $self->input = $input;
-        return $self;
+        return ['field' => [['string']]];
     }
 }
 

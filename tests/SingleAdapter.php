@@ -32,7 +32,8 @@ final class SingleAdapter implements Adapter
                     'results' => [
                         [
                             'id' => 0,
-                            'name' => 'a name for item 0',
+                            'title' => 'a title for comic 0',
+                            'resourceURI' => Client::BASE_URL . 'comics/0',
                         ],
                     ],
                 ],

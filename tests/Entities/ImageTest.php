@@ -5,6 +5,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * Unit tests for the Image class.
  *
  * @coversDefaultClass \Chadicus\Marvel\Api\Entities\Image
+ * @covers ::<protected>
  */
 final class ImageTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,28 +13,24 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
      * Verify basic behavior of getPath.
      *
      * @test
-     * @covers ::__construct
-     * @covers ::getPath
      *
      * @return void
      */
     public function getPath()
     {
-        $this->assertSame('a path', (new Image('a path', 'not under test'))->getPath());
+        $this->assertSame('a path', (new Image(['path' => 'a path']))->getPath());
     }
 
     /**
      * Verify basic behavior of getExtension.
      *
      * @test
-     * @covers ::__construct
-     * @covers ::getExtension
      *
      * @return void
      */
     public function getExtension()
     {
-        $this->assertSame('an extension', (new Image('not under test', 'an extension'))->getExtension());
+        $this->assertSame('an extension', (new Image(['extension' => 'an extension']))->getExtension());
     }
 
     /**
@@ -48,7 +45,7 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertSame(
             'a url/portrait_small.an extension',
-            (new Image('a url', 'an extension'))->getUrl(ImageVariant::PORTRAIT_SMALL())
+            (new Image(['path' => 'a url', 'extension' => 'an extension']))->getUrl(ImageVariant::PORTRAIT_SMALL())
         );
     }
 
@@ -59,7 +56,6 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
      * @param mixed $extension The text identifier for the URL.
      *
      * @test
-     * @covers ::__construct
      * @dataProvider constructorBadData
      * @expectedException \InvalidArgumentException
      *
@@ -67,7 +63,7 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function constructWithInvalidParameters($path, $extension)
     {
-        new Image($path, $extension);
+        new Image(['path' => $path, 'extension' => $extension]);
     }
 
     /**
@@ -78,11 +74,7 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
     public function constructorBadData()
     {
         return [
-            'path is empty' => ['', 'an extension'],
-            'path is whitespace' => ["\t \n", 'an extension'],
             'path is not a string' => [true, 'an extension'],
-            'extension is empty' => ['a path', ''],
-            'extension is whitespace' => ['a path', "\n \t"],
             'extension is not a string' => ['a path', false],
         ];
     }
@@ -91,7 +83,6 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
      * Verify basic functionality of fromArray().
      *
      * @test
-     * @covers ::fromArray
      *
      * @return void
      */
@@ -106,7 +97,6 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
      * Verify fromArray() throws filter exception.
      *
      * @test
-     * @covers ::fromArray
      * @expectedException \Exception
      *
      * @return void
@@ -120,7 +110,6 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
      * Verify basic behavior of fromArrays().
      *
      * @test
-     * @covers ::fromArrays
      *
      * @return void
      */
@@ -144,7 +133,6 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
      * Verify fromArrays throws when input is invalid.
      *
      * @test
-     * @covers ::fromArrays
      * @expectedException \Exception
      *
      * @return void
@@ -157,5 +145,19 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
                 ['path' => 'another path', 'extension' => true],
             ]
         );
+    }
+
+    /**
+     * Verify behaviour with null values.
+     *
+     * @test
+     *
+     * @return void
+     */
+    public function constructWithNulls()
+    {
+        $image = new Image(['path' => null, 'extension' => null]);
+        $this->assertNull($image->path);
+        $this->assertNull($image->extension);
     }
 }

@@ -29,6 +29,13 @@ class Response
     private $headers;
 
     /**
+     * Parsed API response
+     *
+     * @var DataWrapper
+     */
+    private $dataWrapper;
+
+    /**
      * Create a new instance of Response.
      *
      * @param integer $httpCode The http response code.
@@ -76,5 +83,19 @@ class Response
     final public function getHeaders()
     {
         return $this->headers;
+    }
+
+    /**
+     * Returns the parsed API response.
+     *
+     * @return DataWrapper
+     */
+    final public function getDataWrapper()
+    {
+        if ($this->dataWrapper === null && $this->httpCode === 200) {
+            $this->dataWrapper = new DataWrapper($this->body);
+        }
+
+        return $this->dataWrapper;
     }
 }

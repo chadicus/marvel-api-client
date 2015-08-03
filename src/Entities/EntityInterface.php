@@ -5,13 +5,27 @@ namespace Chadicus\Marvel\Api\Entities;
 interface EntityInterface
 {
     /**
-     * Filters the given array $input into an AbstractEntity.
+     * Create a new AbstractEntity based on the given $input array
      *
-     * @param array $input The value to be filtered.
+     * @param array $input The data for the EntityInterface
+     */
+    public function __construct(array $input);
+
+    /**
+     * Create an array of new AbstractEntity based on the given $input arrays
      *
-     * @return AbstractEntity
+     * @param array[] $inputs The value to be filtered.
      *
-     * @throws \Exception Thrown if the input did not pass validation.
+     * @return EntityInterface[]
+     */
+    public static function fromArrays(array $inputs);
+
+    /**
+     * Create a new AbstractEntity based on the given $input array
+     *
+     * @param array $input The data for the AbstractEntity
+     *
+     * @return EntityInterface
      */
     public static function fromArray(array $input);
 }

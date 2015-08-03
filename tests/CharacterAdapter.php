@@ -28,7 +28,7 @@ final class CharacterAdapter implements Adapter
                 'name' => 'a name for character 0',
                 'description' => 'a description for character 0',
                 'modified' => '2014-01-21T18:01:51-0500',
-                'resourceURI' => 'a resource uri',
+                'resourceURI' => Client::BASE_URL . 'characters/0',
                 'urls' => [['type' => 'a type', 'url' => 'a url']],
                 'thumbnail' => ['path' => 'a path', 'extension' => 'an extension'],
                 'comics' => [
@@ -61,7 +61,7 @@ final class CharacterAdapter implements Adapter
                 'name' => 'a name for character 1',
                 'description' => 'a description for character 1',
                 'modified' => '2014-01-21T18:01:51-0500',
-                'resourceURI' => 'a resource uri',
+                'resourceURI' => Client::BASE_URL . 'characters/1',
                 'urls' => [['type' => 'a type', 'url' => 'a url']],
                 'thumbnail' => ['path' => 'a path', 'extension' => 'an extension'],
                 'comics' => [
@@ -94,7 +94,7 @@ final class CharacterAdapter implements Adapter
                 'name' => 'a name for character 2',
                 'description' => 'a description for character 2',
                 'modified' => '2014-01-21T18:01:51-0500',
-                'resourceURI' => 'a resource uri',
+                'resourceURI' => Client::BASE_URL . 'characters/2',
                 'urls' => [['type' => 'a type', 'url' => 'a url']],
                 'thumbnail' => ['path' => 'a path', 'extension' => 'an extension'],
                 'comics' => [
@@ -127,7 +127,7 @@ final class CharacterAdapter implements Adapter
                 'name' => 'a name for character 3',
                 'description' => 'a description for character 3',
                 'modified' => '2014-01-21T18:01:51-0500',
-                'resourceURI' => 'a resource uri',
+                'resourceURI' => Client::BASE_URL . 'characters/3',
                 'urls' => [['type' => 'a type', 'url' => 'a url']],
                 'thumbnail' => ['path' => 'a path', 'extension' => 'an extension'],
                 'comics' => [
@@ -160,7 +160,7 @@ final class CharacterAdapter implements Adapter
                 'name' => 'a name for character 4',
                 'description' => 'a description for character 4',
                 'modified' => '2014-01-21T18:01:51-0500',
-                'resourceURI' => 'a resource uri',
+                'resourceURI' => Client::BASE_URL . 'characters/4',
                 'urls' => [['type' => 'a type', 'url' => 'a url']],
                 'thumbnail' => ['path' => 'a path', 'extension' => 'an extension'],
                 'comics' => [

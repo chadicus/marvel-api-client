@@ -200,6 +200,7 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
     {
         $collection = (new \MongoClient())->selectDb('testing')->selectCollection('cache');
         $collection->drop();
+        $collection->ensureIndex(['expires' => 1], ['expireAfterSeconds' => 0]);
         return $collection;
     }
 }

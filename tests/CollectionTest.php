@@ -53,8 +53,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
         $iterations = 0;
         while ($collection->valid()) {
             $key = $collection->key();
-            $expected = ['id' => $key, 'name' => "a name for item {$key}"];
-            $this->assertSame($expected, $collection->current());
+            $this->assertSame($key, $collection->current()->id);
+            $this->assertSame("a title for comic {$key}", $collection->current()->title);
             $collection->next();
             ++$iterations;
         }
@@ -77,8 +77,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
         $collection->rewind();
         $iterations = 0;
         foreach ($collection as $key => $actual) {
-            $expected = ['id' => $key, 'name' => "a name for item {$key}"];
-            $this->assertSame($expected, $actual);
+            $this->assertSame($key, $collection->current()->id);
+            $this->assertSame("a title for comic {$key}", $collection->current()->title);
             ++$iterations;
         }
 
@@ -97,8 +97,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
     {
         $client = new Client('not under tests', 'not under test', new CollectionAdapter());
         $collection = new Collection($client, 'not under tests', ['limit' => 3]);
-        $this->assertSame(['id' => 0, 'name' => 'a name for item 0'], $collection->current());
-        $this->assertSame(['id' => 0, 'name' => 'a name for item 0'], $collection->current());
+        $this->assertSame(0, $collection->current()->id);
+        $this->assertSame(0, $collection->current()->id);
     }
 
     /**
@@ -115,7 +115,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
         $collection = new Collection($client, 'not under tests', ['limit' => 3]);
         $collection->next();
         $collection->next();
-        $this->assertSame(['id' => 1, 'name' => 'a name for item 1'], $collection->current());
+        $this->assertSame(1, $collection->current()->id);
+        $this->assertSame('a title for comic 1', $collection->current()->title);
     }
 
     /**
@@ -160,7 +161,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
     {
         $client = new Client('not under tests', 'not under test', new CollectionAdapter());
         $collection = new Collection($client, 'not under tests', ['limit' => 3]);
-        $this->assertSame(['id' => 0, 'name' => 'a name for item 0'], $collection->current());
+        $this->assertSame(0, $collection->current()->getId());
+        $this->assertSame('a title for comic 0', $collection->current()->getTitle());
     }
 
     /**
@@ -209,8 +211,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
 
         $iterations = 0;
         foreach ($collection as $key => $actual) {
-            $expected = ['id' => $key, 'name' => "a name for item {$key}"];
-            $this->assertSame($expected, $actual);
+            $this->assertSame($key, $collection->current()->getId());
+            $this->assertSame("a title for comic {$key}", $collection->current()->getTitle());
             ++$iterations;
         }
 
@@ -218,8 +220,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
 
         $iterations = 0;
         foreach ($collection as $key => $actual) {
-            $expected = ['id' => $key, 'name' => "a name for item {$key}"];
-            $this->assertSame($expected, $actual);
+            $this->assertSame($key, $collection->current()->getId());
+            $this->assertSame("a title for comic {$key}", $collection->current()->getTitle());
             ++$iterations;
         }
 
@@ -254,7 +256,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
         $client = new Client('not under tests', 'not under test', new SingleAdapter());
         $collection = new Collection($client, 'not under tests');
         foreach ($collection as $item) {
-            $this->assertSame(['id' => 0, 'name' => 'a name for item 0'], $item);
+            $this->assertSame(0, $collection->current()->getId());
+            $this->assertSame('a title for comic 0', $collection->current()->getTitle());
         }
     }
 
@@ -268,10 +271,10 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function currentCustomLoader()
     {
-        $loader = function (array $data) {
+        $loader = function ($comic) {
             $obj = new \StdClass();
-            $obj->id = $data['id'];
-            $obj->name = $data['name'];
+            $obj->id = $comic->id;
+            $obj->name = $comic->title;
             return $obj;
         };
 
@@ -282,7 +285,7 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
         foreach ($collection as $key => $actual) {
             $this->assertInstanceOf('\StdClass', $actual);
             $this->assertSame($key, $actual->id);
-            $this->assertSame("a name for item {$key}", $actual->name);
+            $this->assertSame("a title for comic {$key}", $actual->name);
             ++$iterations;
         }
 

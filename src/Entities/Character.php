@@ -2,273 +2,70 @@
 
 namespace Chadicus\Marvel\Api\Entities;
 
-use DominionEnterprises\Filterer;
-use Chadicus\Marvel\Api\Client;
-use Chadicus\Marvel\Api\Collection;
+use Chadicus\Marvel\Api;
 use DominionEnterprises\Util;
-use DominionEnterprises\Util\Arrays;
 
 /**
- * OO Representation of a Marvel Character.
- */
-class Character
+ * Represents a Marvel API Character Entity
+ *
+ * @property-read integer $id The unique ID of the character resource.
+ * @property-read string $name The name of the character.
+ * @property-read string $description A short bio or description of the character.
+ * @property-read DateTime $modified The date the resource was most recently modified.
+ * @property-read string $resourceURI The canonical URL identifier for this resource.
+ * @property-read Url[] $urls A set of public web site URLs for the resource.
+ * @property-read Image $thumbnail The representative image for this character.
+ * @property-read ResourceList $comics A resource list containing comics which feature this character.
+ * @property-read ResourceList $stories A resource list of stories in which this character appears.
+ * @property-read ResourceList $events A resource list of events in which this character appears.
+ * @property-read ResourceList $series A resource list of series in which this character appears.
+*/
+class Character extends AbstractEntity
 {
     /**
-     * The unique ID of the character resource.
+     * @see AbstractEntity::getFilters()
      *
-     * @var integer
+     * @return array
      */
-    private $id;
-
-    /**
-     * The name of the character.
-     *
-     * @var string
-     */
-    private $name;
-
-    /**
-     * A short bio or description of the character.
-     *
-     * @var string
-     */
-    private $description;
-
-    /**
-     * The date the resource was most recently modified.
-     *
-     * @var \DateTime
-     */
-    private $modified;
-
-    /**
-     * The canonical URL identifier for this resource.
-     *
-     * @var string
-     */
-    private $resourceURI;
-
-    /**
-     * A set of public web site URLs for the resource.
-     *
-     * @var Url[]
-     */
-    private $urls;
-
-    /**
-     * The representative image for this character.
-     *
-     * @var Image
-     */
-    private $thumbnail;
-
-    /**
-     * A resource list containing comics which feature this character.
-     *
-     * @var ResourceList
-     */
-    private $comics;
-
-    /**
-     * A resource list of stories in which this character appears.
-     *
-     * @var ResourceList
-     */
-    private $stories;
-
-    /**
-     * A resource list of events in which this character appears.
-     *
-     * @var ResourceList
-     */
-    private $events;
-
-    /**
-     * A resource list of series in which this character appears.
-     *
-     * @var ResourceList
-     */
-    private $series;
-
-    /**
-     * Construct a new instance of a Character.
-     *
-     * @param array  $data   The values for this Character.
-     */
-    final public function __construct(array $data)
+    final protected function getFilters()
     {
-        $emptyResourceList = new ResourceList(0, 0, null, []);
-        $resourceListFilter = '\Chadicus\Marvel\Api\Entities\ResourceList::fromArray';
-        $filters = [
-            'id' => ['required' => true, ['uint']],
-            'name' => [['string']],
-            'description' => [['string']],
+        return [
+            'id' => [['int', true]],
+            'name' => ['default' => '', ['string', true, 0]],
+            'description' => ['default' => '', ['string', true, 0]],
             'modified' => [['date']],
-            'resourceURI' => [['string']],
-            'urls' => ['default' => [], ['array', 0], ['\Chadicus\Marvel\Api\Entities\Url::fromArrays']],
-            'thumbnail' => [
-                'default' => new Image(null, null),
-                ['array'],
-                ['\Chadicus\Marvel\Api\Entities\Image::fromArray']
-            ],
-            'comics' => ['default' => $emptyResourceList, ['array'], [$resourceListFilter]],
-            'stories' => ['default' => clone $emptyResourceList, ['array'], [$resourceListFilter]],
-            'events' => ['default' => clone $emptyResourceList, ['array'], [$resourceListFilter]],
-            'series' => ['default' => clone $emptyResourceList, ['array'], [$resourceListFilter]],
+            'resourceURI' => ['default' => '', ['string', true, 0]],
+            'urls' => ['default' => [], ['_urls']],
+            'thumbnail' => ['default' => new Image(), ['image']],
+            'comics' => ['default' => new ResourceList(), ['resource-list']],
+            'stories' => ['default' => new ResourceList(), ['resource-list']],
+            'events' => ['default' => new ResourceList(), ['resource-list']],
+            'series' => ['default' => new ResourceList(), ['resource-list']],
         ];
-
-        list($status, $filteredData, $error) = Filterer::filter($filters, $data, ['allowUnknowns' => true]);
-        Util::ensure(true, $status, $error);
-
-        foreach ($filteredData as $key => $value) {
-            $this->$key = $value;
-        }
-    }
-
-    /**
-     * The unique ID of the character resource.
-     *
-     * @return integer
-     */
-    final public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * The name of the character.
-     *
-     * @return string
-     */
-    final public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Return the short bio or description of the character.
-     *
-     * @return string
-     */
-    final public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * The date the resource was most recently modified.
-     *
-     * @return \DateTime
-     */
-    final public function getModified()
-    {
-        return $this->modified;
-    }
-
-    /**
-     * The canonical URL identifier for this resource.
-     *
-     * @return string
-     */
-    final public function getResourceURI()
-    {
-        return $this->resourceURI;
-    }
-
-    /**
-     * Return the set of public web site URLs for the resource.
-     *
-     * @return Url[]
-     */
-    final public function getUrls()
-    {
-        return $this->urls;
-    }
-
-    /**
-     * The representative image for this character.
-     *
-     * @return Image
-     */
-    final public function getThumbnail()
-    {
-        return $this->thumbnail;
-    }
-
-    /**
-     * Return the resource list containing comics which feature this character.
-     *
-     * @return ResourceList
-     */
-    final public function getComics()
-    {
-        return $this->comics;
-    }
-
-    /**
-     * Return the resource list of stories in which this character appears.
-     *
-     * @return ResourceList
-     */
-    final public function getStories()
-    {
-        return $this->stories;
-    }
-
-    /**
-     * Return the resource list of events in which this character appears.
-     *
-     * @return ResourceList
-     */
-    final public function getEvents()
-    {
-        return $this->events;
-    }
-
-    /**
-     * Return the resource list of series in which this character appears.
-     *
-     * @return ResourceList
-     */
-    final public function getSeries()
-    {
-        return $this->series;
     }
 
     /**
      * Find all characters based on the given $criteria.
      *
-     * @param Client $client   The API Client.
-     * @param array  $criteria The criteria to search with.
+     * @param Api\Client $client   The API Client.
+     * @param array      $criteria The criteria to search with.
      *
-     * @return ResourceList
+     * @return Api\Collection
      */
-    public static function findAll(Client $client, array $criteria = [])
+    public static function findAll(Api\Client $client, array $criteria = [])
     {
         $filters = [
             'name' => [['string']],
-            'modifiedSince' => [['date']],
+            'modifiedSince' => [['date', true], ['formatDate']],
             'comics' => [['ofScalars', [['uint']]], ['implode', ',']],
             'series' => [['ofScalars', [['uint']]], ['implode', ',']],
             'events' => [['ofScalars', [['uint']]], ['implode', ',']],
             'stories' => [['ofScalars', [['uint']]], ['implode', ',']],
             'orderBy' => [['in', ['name', 'modified', '-name', '-modified']]],
         ];
-        list($success, $filteredCriteria, $error) = Filterer::filter($filters, $criteria);
+        list($success, $filteredCriteria, $error) = Api\Filterer::filter($filters, $criteria);
         Util::ensure(true, $success, $error);
 
-        $modifiedSince = Arrays::get($filteredCriteria, 'modifiedSince');
-        if ($modifiedSince !== null) {
-            $filteredCriteria['modifiedSince'] = $modifiedSince->format('c');
-        }
-
-        return new Collection(
-            $client,
-            'characters',
-            $filteredCriteria,
-            function (array $data) {
-                return new Character($data);
-            }
-        );
+        return new Api\Collection($client, 'characters', $filteredCriteria);
     }
 }

@@ -5,6 +5,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * Unit tests for the ResourceList class.
  *
  * @coversDefaultClass \Chadicus\Marvel\Api\Entities\ResourceList
+ * @covers ::<protected>
  */
 final class ResourceListTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,59 +13,67 @@ final class ResourceListTest extends \PHPUnit_Framework_TestCase
      * Verify basic behavior of getAvailable().
      *
      * @test
-     * @covers ::__construct
-     * @covers ::getAvailable
      *
      * @return void
      */
     public function getAvailable()
     {
-        $this->assertSame(4, (new ResourceList(4, 0, 'not under test', []))->getAvailable());
+        $this->assertSame(4, (new ResourceList(['available' => 4]))->getAvailable());
     }
 
     /**
      * Verify basic behavior of getReturned().
      *
      * @test
-     * @covers ::__construct
-     * @covers ::getReturned
      *
      * @return void
      */
     public function getReturned()
     {
-        $this->assertSame(20, (new ResourceList(0, 20, 'not under test', []))->getReturned());
+        $this->assertSame(20, (new ResourceList(['returned' => 20]))->getReturned());
     }
 
     /**
      * Verify basic behavior of getCollectionURI().
      *
      * @test
-     * @covers ::__construct
-     * @covers ::getCollectionURI
      *
      * @return void
      */
     public function getCollectionURI()
     {
-        $this->assertSame('a collection uri', (new ResourceList(0, 0, 'a collection uri', []))->getCollectionURI());
+        $this->assertSame('a collection uri', (new ResourceList(['collectionURI' => 'a collection uri']))->getCollectionURI());
     }
 
     /**
      * Verify basic behavior of getItems().
      *
      * @test
-     * @covers ::__construct
-     * @covers ::getItems
      *
      * @return void
      */
     public function getItems()
     {
-        $this->assertSame(
-            [['doesnt' => 'matter']],
-            (new ResourceList(0, 0, 'not under test', [['doesnt' => 'matter']]))->getItems()
+        $resourceList = new ResourceList(
+            [
+                'items' => [
+                    [
+                        'resourceURI' => 'a resource uri',
+                        'name' => 'a name',
+                        'type' => 'a type',
+                        'role' => 'a role',
+                    ],
+                ],
+            ]
         );
+
+        $items = $resourceList->getItems();
+
+        $this->assertSame(1, count($items));
+        $this->assertSame('a resource uri', $items[0]->resourceURI);
+        $this->assertSame('a name', $items[0]->name);
+        $this->assertSame('a type', $items[0]->type);
+        $this->assertSame('a role', $items[0]->role);
     }
 
     /**
@@ -77,7 +86,6 @@ final class ResourceListTest extends \PHPUnit_Framework_TestCase
      * @param array $items         A list of summary views of the items in this resource list.
      *
      * @test
-     * @covers ::__construct
      * @dataProvider constructorBadData
      * @expectedException \InvalidArgumentException
      *
@@ -85,7 +93,14 @@ final class ResourceListTest extends \PHPUnit_Framework_TestCase
      */
     public function constructWithInvalidParameters($available, $returned, $collectionURI, array $items)
     {
-        new ResourceList($available, $returned, $collectionURI, $items);
+        new ResourceList(
+            [
+                'available' => $available,
+                'returned' => $returned,
+                'collectionURI' => $collectionURI,
+                'items' => $items,
+            ]
+        );
     }
 
     /**
@@ -106,7 +121,6 @@ final class ResourceListTest extends \PHPUnit_Framework_TestCase
      * Verify basic functionality of fromArray().
      *
      * @test
-     * @covers ::fromArray
      *
      * @return void
      */
@@ -123,17 +137,16 @@ final class ResourceListTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(100, $resourceList->getAvailable());
         $this->assertSame(1, $resourceList->getReturned());
         $this->assertSame('a collection uri', $resourceList->getCollectionURI());
-        $this->assertSame(
-            [['name' => 'a name', 'type' => 'a type', 'resourceURI' => 'a resource uri']],
-            $resourceList->getItems()
-        );
+        $this->assertSame(1, count($resourceList->getItems()));
+        $this->assertSame('a name', $resourceList->getItems()[0]->getName());
+        $this->assertSame('a type', $resourceList->getItems()[0]->getType());
+        $this->assertSame('a resource uri', $resourceList->getItems()[0]->getResourceURI());
     }
 
     /**
      * Verify fromArray() throws filter exception.
      *
      * @test
-     * @covers ::fromArray
      * @expectedException \Exception
      *
      * @return void

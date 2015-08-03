@@ -2,79 +2,27 @@
 
 namespace Chadicus\Marvel\Api\Entities;
 
+use DominionEnterprises\Filterer;
 use DominionEnterprises\Util;
-use DominionEnterprises\Util\Arrays;
 
 /**
  * Represents a ComicPrice entity type within the Marvel API.
+ *
+ * @property-read string type A description of the price (e.g. print price, digital price).,
+ * @property-read float price The price (all prices in USD).
  */
 class Price extends AbstractEntity
 {
     /**
-     * A description of the price (e.g. print price, digital price).
+     * @see AbstractEntity::getFilters()
      *
-     * @var string
+     * @return array
      */
-    private $type;
-
-    /**
-     * The amount (all prices in USD).
-     *
-     * @var float
-     */
-    private $amount;
-
-    /**
-     * Construct a new instance of Price.
-     *
-     * @param string $type   The description of the price.
-     * @param float  $amount The amount of the price.
-     */
-    final public function __construct($type, $amount)
+    final protected function getFilters()
     {
-         Util::throwIfNotType(['string' => [$type], 'float' => [$amount]], true, true);
-         $this->type = $type;
-         $this->amount = $amount;
-    }
-
-    /**
-     * Returns the description of the price.
-     *
-     * @return string
-     */
-    final public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Returns the amount in USD.
-     *
-     * @return float
-     */
-    final public function getAmount()
-    {
-        return $this->amount;
-    }
-
-    /**
-     * Filters the given array $input into a Price.
-     *
-     * @param array $input The value to be filtered.
-     *
-     * @return Price
-     *
-     * @throws \Exception Thrown if the input did not pass validation.
-     */
-    final public static function fromArray(array $input)
-    {
-        $filters = ['type' => [['string']], 'amount' => [['float']]];
-
-        list($success, $result, $error) = \DominionEnterprises\Filterer::filter($filters, $input);
-        if (!$success) {
-            throw new \Exception($error);
-        }
-
-        return new Price(Arrays::get($result, 'type'), Arrays::get($result, 'amount'));
+        return [
+            'type' => ['default' => null, ['string', true]],
+            'price' => ['default' => null, ['float', true, null, null, true]]
+        ];
     }
 }

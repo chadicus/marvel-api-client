@@ -170,10 +170,9 @@ class Collection implements \Iterator, \Countable
         $httpCode = $indexResponse->getHttpCode();
         Util::ensure(200, $httpCode, "Did not receive 200 from API. Instead received {$httpCode}");
 
-        $response = $indexResponse->getBody();
-        $this->limit = $response['data']['limit'];
-        $this->total = $response['data']['total'];
-        $this->results = $response['data']['results'];
+        $this->limit = $indexResponse->getDataWrapper()->getData()->getLimit();
+        $this->total = $indexResponse->getDataWrapper()->getData()->getTotal();
+        $this->results = $indexResponse->getDataWrapper()->getData()->getResults();
         $this->position = 0;
     }
 

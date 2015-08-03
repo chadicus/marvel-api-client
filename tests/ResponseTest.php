@@ -31,6 +31,35 @@ final class ResponseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Verify basic behavior of getDataWrapper()
+     *
+     * @test
+     * @covers ::getDataWrapper
+     *
+     * @return void
+     */
+    public function getDataWrapper()
+    {
+        $body = [
+            'code' => 200,
+            'status' => 'ok',
+            'copyright' => 'a copyright',
+            'attributionText' => 'a attributionText',
+            'attributionHTML' => 'a attributionHTML',
+            'etag' => 'a etag',
+        ];
+
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+
+        $this->assertSame($body['code'], $response->getDataWrapper()->getCode());
+        $this->assertSame($body['status'], $response->getDataWrapper()->getStatus());
+        $this->assertSame($body['copyright'], $response->getDataWrapper()->getCopyRight());
+        $this->assertSame($body['attributionText'], $response->getDataWrapper()->getAttributionText());
+        $this->assertSame($body['attributionHTML'], $response->getDataWrapper()->getAttributionHTML());
+        $this->assertSame($body['etag'], $response->getDataWrapper()->getEtag());
+    }
+
+    /**
      * Verify invalid constructor parameters cause exceptions.
      *
      * @param integer $httpCode The http response code.
