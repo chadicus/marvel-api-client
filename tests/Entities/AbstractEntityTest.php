@@ -89,4 +89,64 @@ final class AbstractEntityTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('foo', $actual->getField());
     }
 
+    /**
+     * Verify basic behavior of offsetExists().
+     *
+     * @test
+     * @covers ::offsetExists
+     *
+     * @return void
+     */
+    public function offsetExists()
+    {
+        $entity = SimpleEntity::fromArray(['field' => 'foo']);
+        $this->assertTrue(isset($entity['field']));
+        $this->assertFalse(isset($entity['notExists']));
+    }
+
+    /**
+     * Verify basic behavior of offsetGet().
+     *
+     * @test
+     * @covers ::offsetGet
+     *
+     * @return void
+     */
+    public function offsetGet()
+    {
+        $entity = SimpleEntity::fromArray(['field' => 'foo']);
+        $this->assertSame('foo', $entity['field']);
+    }
+
+    /**
+     * Verify basic behavior of offsetSet().
+     *
+     * @test
+     * @covers ::offsetSet
+     * @expectedException \Chadicus\Spl\Exceptions\NotAllowedException
+     * @expectedExceptionMessage Chadicus\Marvel\Api\Entities\SimpleEntity::$field is read-only
+     *
+     * @return void
+     */
+    public function offsetSet()
+    {
+        $entity = SimpleEntity::fromArray(['field' => 'foo']);
+        $entity['field'] = 'bar';
+    }
+
+    /**
+     * Verify basic behavior of offsetUnset().
+     *
+     * @test
+     * @covers ::offsetUnset
+     * @expectedException \Chadicus\Spl\Exceptions\NotAllowedException
+     * @expectedExceptionMessage Chadicus\Marvel\Api\Entities\SimpleEntity::$field is read-only
+     *
+     * @return void
+     */
+    public function offsetUnset()
+    {
+        $entity = SimpleEntity::fromArray(['field' => 'foo']);
+        unset($entity['field']);
+    }
 }

@@ -4,9 +4,10 @@ namespace Chadicus\Marvel\Api\Entities;
 
 use Chadicus\Marvel\Api\Filterer;
 use Chadicus\Spl\Exceptions\UndefinedPropertyException;
+use Chadicus\Spl\Exceptions\NotAllowedException;
 use DominionEnterprises\Util;
 
-abstract class AbstractEntity implements EntityInterface
+abstract class AbstractEntity implements EntityInterface, \ArrayAccess
 {
     /**
      * The data for this AbstractEntity
@@ -103,6 +104,57 @@ abstract class AbstractEntity implements EntityInterface
     final public static function fromArray(array $input)
     {
         return new static($input);
+    }
+
+    /**
+     * Returns whether the requested index exists
+     *
+     * @param string $offset The index being checked.
+     *
+     * @return boolean
+     */
+    final public function offsetExists($offset)
+    {
+        return isset($this->data[$offset]);
+    }
+
+    /**
+     * Returns the value at the specified index.
+     *
+     * @param string $offset The index with the value.
+     *
+     * @return mixed
+     */
+    final public function offsetGet($offset)
+    {
+        return $this->data[$offset];
+    }
+
+    /**
+     * Sets the value at the specified index to newval
+     *
+     * @param string $offset The index being get.
+     * @param mixed  $value  The new value for the index
+     *
+     * @return void
+     */
+    final public function offsetSet($offset, $value)
+    {
+        $class = get_called_class();
+        throw new NotAllowedException("{$class}::\${$offset} is read-only");
+    }
+
+    /**
+     * Unsets the value at the specified index
+     *
+     * @param string $offset The index being unset.
+     *
+     * @return void
+     */
+    final public function offsetUnset($offset)
+    {
+        $class = get_called_class();
+        throw new NotAllowedException("{$class}::\${$offset} is read-only");
     }
 
     abstract protected function getFilters();
