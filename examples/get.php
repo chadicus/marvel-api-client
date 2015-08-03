@@ -1,26 +1,23 @@
 <?php
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-use Chadicus\Marvel\Api\Client;
-use Chadicus\Marvel\Api\CurlAdapter;
+use Chadicus\Marvel\Api;
 
 $publicApiKey = getenv('PUBLIC_KEY');
 $privateApiKey = getenv('PRIVATE_KEY');
 
-$client = new Client($privateApiKey, $publicApiKey, new CurlAdapter());
+$client = new Api\Client($privateApiKey, $publicApiKey, new Api\CurlAdapter());
 
-//1009165 is the character id for the Avangers
 $response = $client->get('characters', 1009351);
 
-echo "Response Headers\n";
-foreach ($response->getHeaders() as $key => $value) {
-    echo "{$key}: {$value}\n";
-}
+$wrapper = $response->getDataWrapper();
 
-$character = $response->getBody()['data']['results'][0];
-echo "{$character['name']}\n";
-echo "{$character['description']}\n";
-foreach ($character['events']['items'] as $event) {
-    echo "\t{$event['name']}\n";
+$character = $wrapper->getData()->getResults()[0];
+
+echo "{$character->getName()}\n";
+echo "{$character->getDescription()}\n";
+
+foreach ($character->getEvents()->getItems() as $event) {
+    echo "\t{$event->getName()}\n";
 }
 
