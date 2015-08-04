@@ -8,15 +8,8 @@ use Chadicus\Marvel\Api\Request;
 /**
  * Concrete implementation of Cache using an array.
  */
-final class MongoCache implements CacheInterface
+final class MongoCache extends AbstractCache implements CacheInterface
 {
-    /**
-     * Default time to live in seconds.
-     *
-     * @var integer
-     */
-    private $defaultTimeToLive;
-
     /**
      * MongoCollection containing the cached responses.
      *
@@ -39,13 +32,7 @@ final class MongoCache implements CacheInterface
             throw new \RuntimeException('The mongo extension is required for MongoCache');
         }
 
-        if ($defaultTimeToLive < 1 || $defaultTimeToLive > 86400) {
-            throw new \InvalidArgumentException(
-                '$defaultTimeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL
-            );
-        }
-
-        $this->defaultTimeToLive = $defaultTimeToLive;
+        $this->setDefaultTTL($defaultTimeToLive);
         $this->collection = $collection;
         $this->collection->ensureIndex(['expires' => 1], ['expireAfterSeconds' => 0, 'background' => true]);
     }
@@ -63,15 +50,7 @@ final class MongoCache implements CacheInterface
      */
     public function set(Request $request, Response $response, $timeToLive = null)
     {
-        if ($timeToLive === null) {
-            $timeToLive = $this->defaultTimeToLive;
-        }
-
-        if ($timeToLive < 1 || $timeToLive > CacheInterface::MAX_TTL) {
-            throw new \InvalidArgumentException(
-                '$timeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL
-            );
-        }
+        $timeToLive = self::ensureTTL($timeToLive ?: $this->getDefaultTTL());
 
         $id = $request->getUrl();
         $cache = [

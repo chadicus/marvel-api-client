@@ -27,13 +27,13 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
      * @test
      * @covers ::set
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $timeToLive must be an integer >= 1 and <= 86400
+     * @expectedExceptionMessage TTL value must be an integer >= 1 and <= 86400
      *
      * @return void
      */
     public function setTtlIsLessThanOne()
     {
-        (new ArrayCache())->set(new Request('not under test', 'not under test', [], []), new Response(200, [], []), 0);
+        (new ArrayCache())->set(new Request('not under test', 'not under test', [], []), new Response(200, [], []), -1);
     }
 
     /**
@@ -42,7 +42,7 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
      * @test
      * @covers ::set
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $timeToLive must be an integer >= 1 and <= 86400
+     * @expectedExceptionMessage TTL value must be an integer >= 1 and <= 86400
      *
      * @return void
      */
@@ -125,7 +125,7 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
      * @covers ::__construct
      * @dataProvider badConstructorData
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $defaultTimeToLive must be an integer >= 1 and <= 86400
+     * @expectedExceptionMessage TTL value must be an integer >= 1 and <= 86400
      *
      * @return void
      */
@@ -143,7 +143,7 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
     {
         return [
             'defaultTimeToLive is not an integer' => ['a string'],
-            'defaultTimeToLive is less than 1' => [0],
+            'defaultTimeToLive is less than 1' => [-1],
             'defaultTimeToLive is greater than CacheInterface::MAX_TTL' => [CacheInterface::MAX_TTL + 1],
             'defaultTimeToLive is null' => [null],
         ];

@@ -37,7 +37,7 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
      * @test
      * @covers ::set
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $timeToLive must be an integer >= 1 and <= 86400
+     * @expectedExceptionMessage TTL value must be an integer >= 1 and <= 86400
      *
      * @return void
      */
@@ -51,7 +51,7 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
         (new MongoCache(self::getMongoCollection()))->set(
             new Request('not under test', 'not under test', [], []),
             new Response(200, [], []),
-            0
+            -1
         );
     }
 
@@ -61,7 +61,7 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
      * @test
      * @covers ::set
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $timeToLive must be an integer >= 1 and <= 86400
+     * @expectedExceptionMessage TTL value must be an integer >= 1 and <= 86400
      *
      * @return void
      */
@@ -184,7 +184,7 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
      * @covers ::__construct
      * @dataProvider badConstructorData
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $defaultTimeToLive must be an integer >= 1 and <= 86400
+     * @expectedExceptionMessage TTL value must be an integer >= 1 and <= 86400
      *
      * @return void
      */
@@ -211,7 +211,7 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
 
         return [
             'defaultTimeToLive is not an integer' => [self::getMongoCollection(), 'a string'],
-            'defaultTimeToLive is less than 1' => [self::getMongoCollection(), 0],
+            'defaultTimeToLive is less than 1' => [self::getMongoCollection(), -1],
             'defaultTimeToLive is greater than CacheInterface::MAX_TTL' => [
                 self::getMongoCollection(),
                 CacheInterface::MAX_TTL + 1

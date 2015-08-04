@@ -9,15 +9,8 @@ use DominionEnterprises\Util\Arrays;
 /**
  * Concrete implementation of Cache using an array.
  */
-final class ArrayCache implements CacheInterface
+final class ArrayCache extends AbstractCache implements CacheInterface
 {
-    /**
-     * Default time to live in seconds.
-     *
-     * @var integer
-     */
-    private $defaultTimeToLive;
-
     /**
      * Array containing the cached responses.
      *
@@ -34,13 +27,7 @@ final class ArrayCache implements CacheInterface
      */
     public function __construct($defaultTimeToLive = CacheInterface::MAX_TTL)
     {
-        if ($defaultTimeToLive < 1 || $defaultTimeToLive > 86400) {
-            throw new \InvalidArgumentException(
-                '$defaultTimeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL
-            );
-        }
-
-        $this->defaultTimeToLive = $defaultTimeToLive;
+        $this->setDefaultTTL($defaultTimeToLive);
         $this->cache = [];
     }
 
@@ -57,15 +44,7 @@ final class ArrayCache implements CacheInterface
      */
     public function set(Request $request, Response $response, $timeToLive = null)
     {
-        if ($timeToLive === null) {
-            $timeToLive = $this->defaultTimeToLive;
-        }
-
-        if ($timeToLive < 1 || $timeToLive > CacheInterface::MAX_TTL) {
-            throw new \InvalidArgumentException(
-                '$timeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL
-            );
-        }
+        $timeToLive = self::ensureTTL($timeToLive ?: $this->getDefaultTTL());
 
         $this->cache[$request->getUrl()] = ['response' => $response, 'expires' => time() + $timeToLive];
     }
