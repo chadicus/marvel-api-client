@@ -10,7 +10,8 @@ namespace Chadicus\Marvel\Api\Entities;
  * @property-read string $middleName The middle name of the creator.
  * @property-read string $lastName The last name of the creator.
  * @property-read string $suffix The suffix or honorific for the creator.
- * @property-read string $fullName The full name of the creator (a space-separated concatenation of the above four fields).
+ * @property-read string $fullName The full name of the creator (a space-separated concatenation of the above four
+ *                                 fields).
  * @property-read DateTime $modified The date the resource was most recently modified.
  * @property-read string $resourceURI The canonical URL identifier for this resource.
  * @property-read Url[] $urls A set of public web site URLs for the resource.

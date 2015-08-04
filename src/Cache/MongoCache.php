@@ -40,7 +40,9 @@ final class MongoCache implements CacheInterface
         }
 
         if ($defaultTimeToLive < 1 || $defaultTimeToLive > 86400) {
-            throw new \InvalidArgumentException('$defaultTimeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL);
+            throw new \InvalidArgumentException(
+                '$defaultTimeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL
+            );
         }
 
         $this->defaultTimeToLive = $defaultTimeToLive;
@@ -66,7 +68,9 @@ final class MongoCache implements CacheInterface
         }
 
         if ($timeToLive < 1 || $timeToLive > CacheInterface::MAX_TTL) {
-            throw new \InvalidArgumentException('$timeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL);
+            throw new \InvalidArgumentException(
+                '$timeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL
+            );
         }
 
         $id = $request->getUrl();

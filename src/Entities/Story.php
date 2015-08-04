@@ -17,8 +17,9 @@ namespace Chadicus\Marvel\Api\Entities;
  * @property-read ResourceList $events A resource list of the events in which this story appears.
  * @property-read ResourceList $characters A resource list of characters which appear in this story.
  * @property-read ResourceList $creators A resource list of creators who worked on this story.
- * @property-read Summary $originalissue A summary representation of the issue in which this story was originally published.
-*/
+ * @property-read Summary $originalissue A summary representation of the issue in which this story was originally
+ *                                       published.
+ */
 class Story extends AbstractEntity
 {
     /**

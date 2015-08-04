@@ -151,5 +151,4 @@ class DataWrapper
     {
         return $this->data;
     }
-
 }

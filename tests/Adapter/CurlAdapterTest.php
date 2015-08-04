@@ -353,13 +353,13 @@ final class CurlAdapterTest extends \PHPUnit_Framework_TestCase
             __NAMESPACE__,
             'curl_getinfo',
             function ($curl, $option) {
-            if ($option === CURLINFO_HEADER_SIZE) {
-                return 69;
-            }
+                if ($option === CURLINFO_HEADER_SIZE) {
+                    return 69;
+                }
 
-            if ($option === CURLINFO_HTTP_CODE) {
-                return false;
-            }
+                if ($option === CURLINFO_HTTP_CODE) {
+                    return false;
+                }
             }
         );
 

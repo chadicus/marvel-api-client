@@ -42,7 +42,10 @@ final class ResourceListTest extends \PHPUnit_Framework_TestCase
      */
     public function getCollectionURI()
     {
-        $this->assertSame('a collection uri', (new ResourceList(['collectionURI' => 'a collection uri']))->getCollectionURI());
+        $this->assertSame(
+            'a collection uri',
+            (new ResourceList(['collectionURI' => 'a collection uri']))->getCollectionURI()
+        );
     }
 
     /**

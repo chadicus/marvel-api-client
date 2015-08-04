@@ -35,7 +35,12 @@ final class SeriesTest extends \PHPUnit_Framework_TestCase
             'characters' => ['available' => 8, 'returned' => 7, 'collectionURI' => 'a collection URI', 'items' => []],
             'creators' => ['available' => 2, 'returned' => 1, 'collectionURI' => 'a collection URI', 'items' => []],
             'next' => ['resourceURI' => 'a resource URI', 'name' => 'a name', 'type' => 'a type', 'role' => 'a role'],
-            'previous' => ['resourceURI' => 'a resource URI', 'name' => 'a name', 'type' => 'a type', 'role' => 'a role'],
+            'previous' => [
+                'resourceURI' => 'a resource URI',
+                'name' => 'a name',
+                'type' => 'a type',
+                'role' => 'a role',
+            ],
         ];
 
         $series = new Series($data);

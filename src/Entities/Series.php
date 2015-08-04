@@ -11,7 +11,8 @@ namespace Chadicus\Marvel\Api\Entities;
  * @property-read string $resourceURI The canonical URL identifier for this resource.
  * @property-read Url[] $urls A set of public web site URLs for the resource.
  * @property-read integer $startYear The first year of publication for the series.
- * @property-read integer $endYear The last year of publication for the series (conventionally, 2099 for ongoing series).
+ * @property-read integer $endYear The last year of publication for the series (conventionally, 2099 for ongoing
+ *                                 series).
  * @property-read string $rating The age-appropriateness rating for the series.
  * @property-read DateTime $modified The date the resource was most recently modified.
  * @property-read Image $thumbnail The representative image for this series.
@@ -22,7 +23,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * @property-read ResourceList $creators A resource list of creators whose work appears in comics in this series.
  * @property-read Summary $next A summary representation of the series which follows this series.
  * @property-read Summary $previous A summary representation of the series which preceded this series.
-*/
+ */
 class Series extends AbstractEntity
 {
     /**

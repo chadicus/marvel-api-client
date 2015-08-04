@@ -35,7 +35,9 @@ final class ArrayCache implements CacheInterface
     public function __construct($defaultTimeToLive = CacheInterface::MAX_TTL)
     {
         if ($defaultTimeToLive < 1 || $defaultTimeToLive > 86400) {
-            throw new \InvalidArgumentException('$defaultTimeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL);
+            throw new \InvalidArgumentException(
+                '$defaultTimeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL
+            );
         }
 
         $this->defaultTimeToLive = $defaultTimeToLive;
@@ -60,7 +62,9 @@ final class ArrayCache implements CacheInterface
         }
 
         if ($timeToLive < 1 || $timeToLive > CacheInterface::MAX_TTL) {
-            throw new \InvalidArgumentException('$timeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL);
+            throw new \InvalidArgumentException(
+                '$timeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL
+            );
         }
 
         $this->cache[$request->getUrl()] = ['response' => $response, 'expires' => time() + $timeToLive];

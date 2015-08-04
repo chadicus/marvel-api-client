@@ -9,10 +9,12 @@ use DominionEnterprises\Util;
  * Represents a Marvel API Comic Entity
  *
  * @property-read integer $id The unique ID of the comic resource.
- * @property-read integer $digitalId The ID of the digital comic representation of this comic. Will be if the comic is not available digitally.
+ * @property-read integer $digitalId The ID of the digital comic representation of this comic. Will be if the comic is
+ *                                   not available digitally.
  * @property-read string $title The canonical title of the comic.
  * @property-read integer $issueNumber The number of the issue in the series (will generally be for collection formats).
- * @property-read string $variantDescription If the issue is a variant (e.g. an alternate cover, second printing, or director's cut), a text description of the variant.
+ * @property-read string $variantDescription If the issue is a variant (e.g. an alternate cover, second printing, or
+ *                                           director's cut), a text description of the variant.
  * @property-read string $description The preferred description of the comic.
  * @property-read DateTime $modified The date the resource was most recently modified.
  * @property-read string $isbn The ISBN for the comic (generally only populated for collection formats).
@@ -26,9 +28,12 @@ use DominionEnterprises\Util;
  * @property-read string $resourceURI The canonical URL identifier for this resource.
  * @property-read Url[] $urls A set of public web site URLs for the resource.
  * @property-read Summary $series A summary representation of the series to which this comic belongs.
- * @property-read Summary[] $variants A list of variant issues for this comic (includes the "original" issue if the current issue is a variant).
- * @property-read Summary[] $collections A list of collections which include this comic (will generally be empty if the comic's format is a collection).
- * @property-read Summary[] $collectedIssues A list of issues collected in this comic (will generally be empty for periodical formats such as "comic" or "magazine").
+ * @property-read Summary[] $variants A list of variant issues for this comic (includes the "original" issue if the
+ *                                    current issue is a variant).
+ * @property-read Summary[] $collections A list of collections which include this comic (will generally be empty if the
+ *                                       comic's format is a collection).
+ * @property-read Summary[] $collectedIssues A list of issues collected in this comic (will generally be empty for
+ *                                           periodical formats such as "comic" or "magazine").
  * @property-read Date[] $dates A list of key dates for this comic.
  * @property-read Price[] $prices A list of prices for this comic.
  * @property-read Image $thumbnail The representative image for this comic.
@@ -37,7 +42,7 @@ use DominionEnterprises\Util;
  * @property-read ResourceList $characters A resource list containing the characters which appear in this comic.
  * @property-read ResourceList $stories A resource list containing the stories which appear in this comic.
  * @property-read ResourceList $events A resource list containing the events in which this comic appears.
-*/
+ */
 class Comic extends AbstractEntity
 {
     /**

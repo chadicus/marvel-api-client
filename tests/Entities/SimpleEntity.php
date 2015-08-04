@@ -11,4 +11,3 @@ class SimpleEntity extends AbstractEntity
         return ['field' => [['string']]];
     }
 }
-

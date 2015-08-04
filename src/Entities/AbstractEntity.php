@@ -23,10 +23,10 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      */
     public function __construct(array $input = [])
     {
-        list($success, $filteredInput, $error) = Filterer::filter($this->getFilters(), $input, ['allowUnknowns' => true]);
+        list($success, $filtered, $error) = Filterer::filter($this->getFilters(), $input, ['allowUnknowns' => true]);
         Util::ensure(true, $success, '\InvalidArgumentException', [$error]);
 
-        foreach ($filteredInput as $key => $value) {
+        foreach ($filtered as $key => $value) {
             $this->data[$key] = $value;
         }
     }
@@ -157,5 +157,10 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
         throw new NotAllowedException("{$class}::\${$offset} is read-only");
     }
 
+    /**
+     * Returns an array of filters suitable for use with \Chadicus\Marvel\Api\Filterer::filter()
+     *
+     * @return array
+     */
     abstract protected function getFilters();
 }

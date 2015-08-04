@@ -31,7 +31,12 @@ final class StoryTest extends \PHPUnit_Framework_TestCase
             'events' => ['available' => 6, 'returned' => 5, 'collectionURI' => 'a collection URI', 'items' => []],
             'characters' => ['available' => 9, 'returned' => 8, 'collectionURI' => 'a collection URI', 'items' => []],
             'creators' => ['available' => 7, 'returned' => 6, 'collectionURI' => 'a collection URI', 'items' => []],
-            'originalissue' => ['resourceURI' => 'a resource URI', 'name' => 'a name', 'type' => 'a type', 'role' => 'a role'],
+            'originalissue' => [
+                'resourceURI' => 'a resource URI',
+                'name' => 'a name',
+                'type' => 'a type',
+                'role' => 'a role',
+            ],
         ];
 
         $story = new Story($data);

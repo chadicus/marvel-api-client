@@ -34,7 +34,12 @@ final class EventTest extends \PHPUnit_Framework_TestCase
             'characters' => ['available' => 9, 'returned' => 8, 'collectionURI' => 'a collection URI', 'items' => []],
             'creators' => ['available' => 2, 'returned' => 1, 'collectionURI' => 'a collection URI', 'items' => []],
             'next' => ['resourceURI' => 'a resource URI', 'name' => 'a name', 'type' => 'a type', 'role' => 'a role'],
-            'previous' => ['resourceURI' => 'a resource URI', 'name' => 'a name', 'type' => 'a type', 'role' => 'a role'],
+            'previous' => [
+                'resourceURI' => 'a resource URI',
+                'name' => 'a name',
+                'type' => 'a type',
+                'role' => 'a role',
+            ],
         ];
 
         $event = new Event($data);
