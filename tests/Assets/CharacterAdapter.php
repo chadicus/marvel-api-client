@@ -1,10 +1,15 @@
 <?php
-namespace Chadicus\Marvel\Api;
+namespace Chadicus\Marvel\Api\Assets;
+
+use Chadicus\Marvel\Api\Adapter\AdapterInterface;
+use Chadicus\Marvel\Api\Client;
+use Chadicus\Marvel\Api\Request;
+use Chadicus\Marvel\Api\Response;
 
 /**
  * Adapter that returns multiple items.
  */
-final class CharacterAdapter implements Adapter
+final class CharacterAdapter implements AdapterInterface
 {
     /**
      * The parameters sent with the last request.

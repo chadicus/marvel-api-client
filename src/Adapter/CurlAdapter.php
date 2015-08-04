@@ -1,7 +1,9 @@
 <?php
 
-namespace Chadicus\Marvel\Api;
+namespace Chadicus\Marvel\Api\Adapter;
 
+use Chadicus\Marvel\Api\Request;
+use Chadicus\Marvel\Api\Response;
 use DominionEnterprises\Util;
 use DominionEnterprises\Util\Arrays;
 use DominionEnterprises\Util\Http;
@@ -9,7 +11,7 @@ use DominionEnterprises\Util\Http;
 /**
  * Concrete implementation of Adapter using cURL.
  */
-final class CurlAdapter implements Adapter
+final class CurlAdapter implements AdapterInterface
 {
     /**
      * Execute the specified request against the Marvel API.

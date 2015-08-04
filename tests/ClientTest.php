@@ -2,6 +2,9 @@
 
 namespace Chadicus\Marvel\Api;
 
+use Chadicus\Marvel\Api\Assets\FakeAdapter;
+use Chadicus\Marvel\Api\Adapter\AdapterInterface;
+
 /**
  * Unit tests for the Client class.
  *
@@ -54,9 +57,9 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      * Verify proper exceptions thrown when Client is constructed with bad data.
      *
-     * @param string  $privateApiKey The private api key issued by Marvel.
-     * @param string  $publicApiKey  The public api key issued by Marvel.
-     * @param Adapter $adapter       Implementation of a client adapter.
+     * @param string           $privateApiKey The private api key issued by Marvel.
+     * @param string           $publicApiKey  The public api key issued by Marvel.
+     * @param AdapterInterface $adapter       Implementation of a client adapter.
      *
      * @test
      * @covers ::__construct
@@ -65,7 +68,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function constructWithBadData($privateApiKey, $publicApiKey, Adapter $adapter)
+    public function constructWithBadData($privateApiKey, $publicApiKey, AdapterInterface $adapter)
     {
         new Client($privateApiKey, $publicApiKey, $adapter);
     }

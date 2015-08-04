@@ -1,6 +1,10 @@
 <?php
 namespace Chadicus\Marvel\Api;
 
+use Chadicus\Marvel\Api\Assets\CollectionAdapter;
+use Chadicus\Marvel\Api\Assets\EmptyAdapter;
+use Chadicus\Marvel\Api\Assets\SingleAdapter;
+
 /**
  * Unit tests for the Collection class.
  *

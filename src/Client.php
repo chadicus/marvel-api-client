@@ -2,6 +2,7 @@
 
 namespace Chadicus\Marvel\Api;
 
+use Chadicus\Marvel\Api\Adapter\AdapterInterface;
 use Chadicus\Marvel\Api\Cache\CacheInterface;
 use DominionEnterprises\Util;
 
@@ -27,12 +28,12 @@ class Client
     /**
      * Adapter implementation.
      *
-     * @var Adapter
+     * @var AdapterInterface
      */
     private $adapter;
 
     /**
-     * Adapter implementation.
+     * Cache implementation.
      *
      * @var CacheInterface
      */
@@ -48,13 +49,17 @@ class Client
     /**
      * Construct a new Client.
      *
-     * @param string  $privateApiKey The private api key issued by Marvel.
-     * @param string  $publicApiKey  The public api key issued by Marvel.
-     * @param Adapter $adapter       Implementation of a client adapter.
-     * @param Cache   $cache         Implementation of Cache.
+     * @param string           $privateApiKey The private api key issued by Marvel.
+     * @param string           $publicApiKey  The public api key issued by Marvel.
+     * @param AdapterInterface $adapter       Implementation of a client adapter.
+     * @param CacheInterface   $cache         Implementation of Cache.
      */
-    final public function __construct($privateApiKey, $publicApiKey, Adapter $adapter, CacheInterface $cache = null)
-    {
+    final public function __construct(
+        $privateApiKey,
+        $publicApiKey,
+        AdapterInterface $adapter,
+        CacheInterface $cache = null
+    ) {
         Util::throwIfNotType(['string' => [$privateApiKey, $publicApiKey]], true);
 
         $this->privateApiKey = $privateApiKey;

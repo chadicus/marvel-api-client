@@ -1,10 +1,12 @@
 <?php
-namespace Chadicus\Marvel\Api;
+namespace Chadicus\Marvel\Api\Adapter;
+
+use Chadicus\Marvel\Api\Request;
 
 /**
- * Unit tests for \Chadicus\Marvel\Api\CurlAdapter class.
+ * Unit tests for \Chadicus\Marvel\Api\Adapter\CurlAdapter class.
  *
- * @coversDefaultClass \Chadicus\Marvel\Api\CurlAdapter
+ * @coversDefaultClass \Chadicus\Marvel\Api\Adapter\CurlAdapter
  * @covers ::<private>
  */
 final class CurlAdapterTest extends \PHPUnit_Framework_TestCase

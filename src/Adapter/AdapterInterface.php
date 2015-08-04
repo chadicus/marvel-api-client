@@ -1,18 +1,20 @@
 <?php
 
-namespace Chadicus\Marvel\Api;
+namespace Chadicus\Marvel\Api\Adapter;
+
+use Chadicus\Marvel\Api;
 
 /**
  * Simple interface for a client adapter.
  */
-interface Adapter
+interface AdapterInterface
 {
     /**
      * Execute the specified request against the Marvel API.
      *
      * @param Request $request The request to send.
      *
-     * @return Response
+     * @return Api\Response
      */
-    public function send(Request $request);
+    public function send(Api\Request $request);
 }

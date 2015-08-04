@@ -2,7 +2,7 @@
 namespace Chadicus\Marvel\Api\Entities;
 
 use Chadicus\Marvel\Api\Client;
-use Chadicus\Marvel\Api\ComicAdapter;
+use Chadicus\Marvel\Api\Assets\ComicAdapter;
 
 /**
  * Unit tests for the Comic class.

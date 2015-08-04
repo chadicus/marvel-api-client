@@ -1,10 +1,15 @@
 <?php
-namespace Chadicus\Marvel\Api;
+namespace Chadicus\Marvel\Api\Assets;
+
+use Chadicus\Marvel\Api\Adapter\AdapterInterface;
+use Chadicus\Marvel\Api\Client;
+use Chadicus\Marvel\Api\Request;
+use Chadicus\Marvel\Api\Response;
 
 /**
  * Adapter implementation that only returns a responses with one item.
  */
-final class SingleAdapter implements Adapter
+final class SingleAdapter implements AdapterInterface
 {
     /**
      * Returns an empty Response.
