@@ -1,12 +1,13 @@
 <?php
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-use Chadicus\Marvel\Api;
+use Chadicus\Marvel\Api\Client;
+use Chadicus\Marvel\Api\Adapter\CurlAdapter;
 
 $publicApiKey = getenv('PUBLIC_KEY');
 $privateApiKey = getenv('PRIVATE_KEY');
 
-$client = new Api\Client($privateApiKey, $publicApiKey, new Api\CurlAdapter());
+$client = new Client($privateApiKey, $publicApiKey, new CurlAdapter());
 
 //1009165 is the character id for the Avangers
 $response = $client->search('comics', ['characters' => 1009165]);

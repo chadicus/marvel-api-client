@@ -1,13 +1,14 @@
 <?php
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-use Chadicus\Marvel\Api;
+use Chadicus\Marvel\Api\Client;
+use Chadicus\Marvel\Api\Adapter\CurlAdapter;
 use Chadicus\Marvel\Api\Entities\Comic;
 
 $publicApiKey = getenv('PUBLIC_KEY');
 $privateApiKey = getenv('PRIVATE_KEY');
 
-$client = new Api\Client($privateApiKey, $publicApiKey, new Api\CurlAdapter());
+$client = new Client($privateApiKey, $publicApiKey, new CurlAdapter());
 
 //24 is the id of Bendis.  312 is the id of Deodato
 $comics = Comic::findAll($client, ['dateDescriptor' => 'thisWeek']);

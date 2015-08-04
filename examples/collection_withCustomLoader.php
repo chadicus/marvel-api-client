@@ -1,15 +1,17 @@
 <?php
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-use Chadicus\Marvel\Api;
+use Chadicus\Marvel\Api\Client;
+use Chadicus\Marvel\Api\Collection;
+use Chadicus\Marvel\Api\Adapter\CurlAdapter;
 
 $publicApiKey = getenv('PUBLIC_KEY');
 $privateApiKey = getenv('PRIVATE_KEY');
 
-$client = new Api\Client($privateApiKey, $publicApiKey, new Api\CurlAdapter());
+$client = new Client($privateApiKey, $publicApiKey, new CurlAdapter());
 
 //24 is the id of Bendis.  312 is the id of Deodato
-$collection = new Api\Collection(
+$collection = new Collection(
     $client,
     'comics',
     ['collaborators' => '24,312'],
