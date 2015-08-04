@@ -16,9 +16,14 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        GlobalFunctions::$time = function () {
-            return 1;
-        };
+        \Chadicus\FunctionRegistry::reset(__NAMESPACE__, ['date']);
+        \Chadicus\FunctionRegistry::set(
+            __NAMESPACE__,
+            'time',
+            function () {
+                return 1;
+            }
+        );
     }
 
     /**
@@ -28,7 +33,7 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        GlobalFunctions::reset();
+        \Chadicus\FunctionRegistry::reset(__NAMESPACE__, ['date']);
     }
 
     /**

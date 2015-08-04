@@ -15,7 +15,7 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        GlobalFunctions::reset();
+        \Chadicus\FunctionRegistry::reset(__NAMESPACE__, ['date']);
     }
 
     /**
@@ -84,9 +84,13 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
         $cache->set($request, new Response(200, [], []));
         $this->assertNotNull($cache->get($request));
 
-        GlobalFunctions::$time = function () {
-            return strtotime('+1 year');
-        };
+        \Chadicus\FunctionRegistry::set(
+            __NAMESPACE__,
+            'time',
+            function () {
+                return strtotime('+1 year');
+            }
+        );
 
         $this->assertNull($cache->get($request));
     }

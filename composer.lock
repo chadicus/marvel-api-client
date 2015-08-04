@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3d7de0111f6e213801577362521f366b",
+    "hash": "977ce3180410b25523ead56c23a7abdf",
     "packages": [
         {
             "name": "chadicus/spl-exceptions",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chadicus/spl-exceptions-php.git",
-                "reference": "496c04a4b99dd714a7db9ac0fbe35302b860d57a"
+                "reference": "0857ff38c1f28ab27ebd75bfcae1f70324dcffdc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chadicus/spl-exceptions-php/zipball/496c04a4b99dd714a7db9ac0fbe35302b860d57a",
-                "reference": "496c04a4b99dd714a7db9ac0fbe35302b860d57a",
+                "url": "https://api.github.com/repos/chadicus/spl-exceptions-php/zipball/0857ff38c1f28ab27ebd75bfcae1f70324dcffdc",
+                "reference": "0857ff38c1f28ab27ebd75bfcae1f70324dcffdc",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 "exception",
                 "spl"
             ],
-            "time": "2015-07-31 18:02:56"
+            "time": "2015-08-03 20:35:36"
         },
         {
             "name": "chadicus/spl-types",
@@ -213,6 +213,54 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "chadicus/test-helpers",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chadicus/test-helpers.git",
+                "reference": "671b5b97d9b2f466818017d3a4e4e7e1470d6a61"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chadicus/test-helpers/zipball/671b5b97d9b2f466818017d3a4e4e7e1470d6a61",
+                "reference": "671b5b97d9b2f466818017d3a4e4e7e1470d6a61",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "satooshi/php-coveralls": "~0.6.1",
+                "squizlabs/php_codesniffer": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Chadicus\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chad Gray",
+                    "email": "chadwickgray@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Classes designed to assist with PHPUnit testing",
+            "keywords": [
+                "functions",
+                "mock",
+                "phpunit",
+                "test"
+            ],
+            "time": "2015-04-30 20:28:34"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
@@ -473,16 +521,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.1.9",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "5bd48b86cd282da411bb80baac1398ce3fefac41"
+                "reference": "6526d9bdb56e2af1e8950114d42391044d18cfa7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/5bd48b86cd282da411bb80baac1398ce3fefac41",
-                "reference": "5bd48b86cd282da411bb80baac1398ce3fefac41",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/6526d9bdb56e2af1e8950114d42391044d18cfa7",
+                "reference": "6526d9bdb56e2af1e8950114d42391044d18cfa7",
                 "shasum": ""
             },
             "require": {
@@ -490,7 +538,7 @@
                 "phpunit/php-file-iterator": "~1.3",
                 "phpunit/php-text-template": "~1.2",
                 "phpunit/php-token-stream": "~1.3",
-                "sebastian/environment": "~1.0",
+                "sebastian/environment": "~1.3.1",
                 "sebastian/version": "~1.0"
             },
             "require-dev": {
@@ -505,7 +553,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1.x-dev"
+                    "dev-master": "2.2.x-dev"
                 }
             },
             "autoload": {
@@ -531,7 +579,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-07-26 12:54:47"
+            "time": "2015-08-02 04:45:08"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1063,16 +1111,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "1.3.0",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "4fe0a44cddd8cc19583a024bdc7374eb2fef0b87"
+                "reference": "6324c907ce7a52478eeeaede764f48733ef5ae44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/4fe0a44cddd8cc19583a024bdc7374eb2fef0b87",
-                "reference": "4fe0a44cddd8cc19583a024bdc7374eb2fef0b87",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/6324c907ce7a52478eeeaede764f48733ef5ae44",
+                "reference": "6324c907ce7a52478eeeaede764f48733ef5ae44",
                 "shasum": ""
             },
             "require": {
@@ -1109,7 +1157,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2015-07-26 06:42:57"
+            "time": "2015-08-03 06:14:51"
         },
         {
             "name": "sebastian/exporter",

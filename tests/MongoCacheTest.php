@@ -9,13 +9,23 @@ namespace Chadicus\Marvel\Api;
 final class MongoCacheTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * set up each test.
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        \Chadicus\FunctionRegistry::reset(__NAMESPACE__, ['date', 'Core']);
+    }
+
+    /**
      * Tear down each test.
      *
      * @return void
      */
     public function tearDown()
     {
-        GlobalFunctions::reset();
+        \Chadicus\FunctionRegistry::reset(__NAMESPACE__, ['date', 'Core']);
     }
 
     /**
@@ -103,9 +113,13 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        GlobalFunctions::$time = function () {
-            return strtotime('-1 year');
-        };
+        \Chadicus\FunctionRegistry::set(
+            __NAMESPACE__,
+            'time',
+            function () {
+                return strtotime('-1 year');
+            }
+        );
 
         $collection = self::getMongoCollection();
         $cache = new MongoCache($collection);
@@ -146,9 +160,13 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        GlobalFunctions::$extensionLoaded = function ($name) {
-            return false;
-        };
+        \Chadicus\FunctionRegistry::set(
+            __NAMESPACE__,
+            'extension_loaded',
+            function ($name) {
+                return false;
+            }
+        );
 
         new MongoCache(self::getMongoCollection());
     }

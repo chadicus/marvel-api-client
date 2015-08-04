@@ -11,13 +11,13 @@ namespace Chadicus\Marvel\Api;
 final class ClientTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Tear down each test.
+     * Set up each test.
      *
      * @return void
      */
-    public function tearDown()
+    public function setUp()
     {
-        GlobalFunctions::reset();
+        \Chadicus\FunctionRegistry::reset(__NAMESPACE__, ['date']);
     }
 
     /**
@@ -31,9 +31,13 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function search()
     {
-        GlobalFunctions::$time = function () {
-            return 1;
-        };
+        \Chadicus\FunctionRegistry::set(
+            __NAMESPACE__,
+            'time',
+            function () {
+                return 1;
+            }
+        );
 
         $adapter = new FakeAdapter();
         $client = new Client('aPrivateKey', 'aPublicKey', $adapter);
@@ -132,9 +136,13 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function get()
     {
-        GlobalFunctions::$time = function () {
-            return 1;
-        };
+        \Chadicus\FunctionRegistry::set(
+            __NAMESPACE__,
+            'time',
+            function () {
+                return 1;
+            }
+        );
 
         $adapter = new FakeAdapter();
         $client = new Client('aPrivateKey', 'aPublicKey', $adapter);
@@ -195,9 +203,13 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function getFromCache()
     {
-        GlobalFunctions::$time = function () {
-            return 1;
-        };
+        \Chadicus\FunctionRegistry::set(
+            __NAMESPACE__,
+            'time',
+            function () {
+                return 1;
+            }
+        );
 
         $hash = md5('1aPrivateKeyaPublicKey');
         $cache = new ArrayCache();
@@ -226,9 +238,13 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function getSetsCache()
     {
-        GlobalFunctions::$time = function () {
-            return 1;
-        };
+        \Chadicus\FunctionRegistry::set(
+            __NAMESPACE__,
+            'time',
+            function () {
+                return 1;
+            }
+        );
 
         $hash = md5('1aPrivateKeyaPublicKey');
         $request = new Request(Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}", 'GET');
