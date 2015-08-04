@@ -82,7 +82,7 @@ final class MongoCache implements CacheInterface
             'expires' => new \MongoDate(time() + $timeToLive),
         ];
 
-        $this->collection->update(array('_id' => $id), $cache, array('upsert' => true));
+        $this->collection->update(['_id' => $id], $cache, ['upsert' => true]);
     }
 
     /**

@@ -24,12 +24,12 @@ final class CurlAdapter implements AdapterInterface
      */
     public function send(Request $request)
     {
-        $curlHeaders = array('Expect:');//stops curl automatically putting in expect 100.
+        $curlHeaders = ['Expect:'];//stops curl automatically putting in expect 100.
         foreach ($request->getHeaders() as $key => $value) {
             $curlHeaders[] = "{$key}: {$value}";
         }
 
-        $curlOptions = array(
+        $curlOptions = [
             CURLOPT_URL => $request->getUrl(),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_VERBOSE => false,
@@ -37,7 +37,7 @@ final class CurlAdapter implements AdapterInterface
             CURLOPT_FORBID_REUSE => true,
             CURLOPT_HTTPHEADER => $curlHeaders,
             CURLOPT_ENCODING => 'gzip,deflate',
-        );
+        ];
 
         if (strtoupper($request->getMethod()) !== 'GET') {
             throw new \Exception("Unsupported method '{$request->getMethod()}' given");

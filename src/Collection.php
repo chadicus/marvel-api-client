@@ -82,7 +82,7 @@ class Collection implements \Iterator, \Countable
      */
     final public function __construct(Client $client, $resource, array $filters = [], callable $loader = null)
     {
-        Util::throwIfNotType(array('string' => array($resource)), true);
+        Util::throwIfNotType(['string' => [$resource]], true);
 
         $this->client = $client;
         $this->resource = $resource;
@@ -130,7 +130,7 @@ class Collection implements \Iterator, \Countable
             $this->next();
         }
 
-        Util::ensure(false, empty($this->results), '\OutOfBoundsException', array('Collection contains no elements'));
+        Util::ensure(false, empty($this->results), '\OutOfBoundsException', ['Collection contains no elements']);
 
         return $this->offset + $this->position;
     }
