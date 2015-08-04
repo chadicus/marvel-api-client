@@ -19,7 +19,7 @@ To add the library as a local, per-project dependency use [Composer](http://getc
 ```json
 {
     "require": {
-        "chadicus/marvel-api-client": "dev-master"
+        "chadicus/marvel-api-client": "0.1.1"
     }
 }
 ```
