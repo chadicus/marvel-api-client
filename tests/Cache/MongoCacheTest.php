@@ -1,10 +1,13 @@
 <?php
-namespace Chadicus\Marvel\Api;
+namespace Chadicus\Marvel\Api\Cache;
+
+use Chadicus\Marvel\Api\Request;
+use Chadicus\Marvel\Api\Response;
 
 /**
  * Defines unit tests for the MongoCache class.
  *
- * @coversDefaultClass \Chadicus\Marvel\Api\MongoCache
+ * @coversDefaultClass \Chadicus\Marvel\Api\Cache\MongoCache
  */
 final class MongoCacheTest extends \PHPUnit_Framework_TestCase
 {
@@ -72,7 +75,7 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
         (new MongoCache(self::getMongoCollection()))->set(
             new Request('not under test', 'not under test', [], []),
             new Response(200, [], []),
-            Cache::MAX_TTL + 1
+            CacheInterface::MAX_TTL + 1
         );
     }
 
@@ -209,7 +212,10 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
         return [
             'defaultTimeToLive is not an integer' => [self::getMongoCollection(), 'a string'],
             'defaultTimeToLive is less than 1' => [self::getMongoCollection(), 0],
-            'defaultTimeToLive is greater than Cache::MAX_TTL' => [self::getMongoCollection(), Cache::MAX_TTL + 1],
+            'defaultTimeToLive is greater than CacheInterface::MAX_TTL' => [
+                self::getMongoCollection(),
+                CacheInterface::MAX_TTL + 1
+            ],
             'defaultTimeToLive is null' => [self::getMongoCollection(), null],
         ];
     }

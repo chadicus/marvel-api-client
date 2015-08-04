@@ -212,7 +212,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
         );
 
         $hash = md5('1aPrivateKeyaPublicKey');
-        $cache = new ArrayCache();
+        $cache = new Cache\ArrayCache();
         $cache->set(
             new Request(Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}", 'GET'),
             new Response(599, ['custom' => 'header'], ['key' => 'value'])
@@ -249,7 +249,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
         $hash = md5('1aPrivateKeyaPublicKey');
         $request = new Request(Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}", 'GET');
 
-        $cache = new ArrayCache();
+        $cache = new Cache\ArrayCache();
         $adapter = new FakeAdapter();
         $client = new Client('aPrivateKey', 'aPublicKey', $adapter, $cache);
         $response = $client->get('a Resource', 1);

@@ -1,10 +1,13 @@
 <?php
-namespace Chadicus\Marvel\Api;
+namespace Chadicus\Marvel\Api\Cache;
+
+use Chadicus\Marvel\Api\Request;
+use Chadicus\Marvel\Api\Response;
 
 /**
  * Defines unit tests for the ArrayCache class.
  *
- * @coversDefaultClass \Chadicus\Marvel\Api\ArrayCache
+ * @coversDefaultClass \Chadicus\Marvel\Api\Cache\ArrayCache
  */
 final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,7 +51,7 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
         (new ArrayCache())->set(
             new Request('not under test', 'not under test', [], []),
             new Response(200, [], []),
-            Cache::MAX_TTL + 1
+            CacheInterface::MAX_TTL + 1
         );
     }
 
@@ -141,7 +144,7 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
         return [
             'defaultTimeToLive is not an integer' => ['a string'],
             'defaultTimeToLive is less than 1' => [0],
-            'defaultTimeToLive is greater than Cache::MAX_TTL' => [Cache::MAX_TTL + 1],
+            'defaultTimeToLive is greater than CacheInterface::MAX_TTL' => [CacheInterface::MAX_TTL + 1],
             'defaultTimeToLive is null' => [null],
         ];
     }

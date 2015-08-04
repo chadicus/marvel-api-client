@@ -1,11 +1,14 @@
 <?php
 
-namespace Chadicus\Marvel\Api;
+namespace Chadicus\Marvel\Api\Cache;
+
+use Chadicus\Marvel\Api\Response;
+use Chadicus\Marvel\Api\Request;
 
 /**
  * Concrete implementation of Cache using an array.
  */
-final class MongoCache implements Cache
+final class MongoCache implements CacheInterface
 {
     /**
      * Default time to live in seconds.
@@ -30,14 +33,14 @@ final class MongoCache implements Cache
      * @throws \RuntimeException Throw if mongo extension is not loaded.
      * @throws \InvalidArgumentException Throw if $defaultTimeToLive is not an integer between 0 and 86400.
      */
-    public function __construct(\MongoCollection $collection, $defaultTimeToLive = Cache::MAX_TTL)
+    public function __construct(\MongoCollection $collection, $defaultTimeToLive = CacheInterface::MAX_TTL)
     {
         if (!extension_loaded('mongo')) {
             throw new \RuntimeException('The mongo extension is required for MongoCache');
         }
 
         if ($defaultTimeToLive < 1 || $defaultTimeToLive > 86400) {
-            throw new \InvalidArgumentException('$defaultTimeToLive must be an integer >= 1 and <= ' . Cache::MAX_TTL);
+            throw new \InvalidArgumentException('$defaultTimeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL);
         }
 
         $this->defaultTimeToLive = $defaultTimeToLive;
@@ -62,8 +65,8 @@ final class MongoCache implements Cache
             $timeToLive = $this->defaultTimeToLive;
         }
 
-        if ($timeToLive < 1 || $timeToLive > Cache::MAX_TTL) {
-            throw new \InvalidArgumentException('$timeToLive must be an integer >= 1 and <= ' . Cache::MAX_TTL);
+        if ($timeToLive < 1 || $timeToLive > CacheInterface::MAX_TTL) {
+            throw new \InvalidArgumentException('$timeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL);
         }
 
         $id = $request->getUrl();

@@ -1,13 +1,15 @@
 <?php
 
-namespace Chadicus\Marvel\Api;
+namespace Chadicus\Marvel\Api\Cache;
 
+use Chadicus\Marvel\Api\Request;
+use Chadicus\Marvel\Api\Response;
 use DominionEnterprises\Util\Arrays;
 
 /**
  * Concrete implementation of Cache using an array.
  */
-final class ArrayCache implements Cache
+final class ArrayCache implements CacheInterface
 {
     /**
      * Default time to live in seconds.
@@ -30,10 +32,10 @@ final class ArrayCache implements Cache
      *
      * @throws \InvalidArgumentException Throw if $defaultTimeToLive is not an integer between 0 and 86400.
      */
-    public function __construct($defaultTimeToLive = Cache::MAX_TTL)
+    public function __construct($defaultTimeToLive = CacheInterface::MAX_TTL)
     {
         if ($defaultTimeToLive < 1 || $defaultTimeToLive > 86400) {
-            throw new \InvalidArgumentException('$defaultTimeToLive must be an integer >= 1 and <= ' . Cache::MAX_TTL);
+            throw new \InvalidArgumentException('$defaultTimeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL);
         }
 
         $this->defaultTimeToLive = $defaultTimeToLive;
@@ -57,8 +59,8 @@ final class ArrayCache implements Cache
             $timeToLive = $this->defaultTimeToLive;
         }
 
-        if ($timeToLive < 1 || $timeToLive > Cache::MAX_TTL) {
-            throw new \InvalidArgumentException('$timeToLive must be an integer >= 1 and <= ' . Cache::MAX_TTL);
+        if ($timeToLive < 1 || $timeToLive > CacheInterface::MAX_TTL) {
+            throw new \InvalidArgumentException('$timeToLive must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL);
         }
 
         $this->cache[$request->getUrl()] = ['response' => $response, 'expires' => time() + $timeToLive];
