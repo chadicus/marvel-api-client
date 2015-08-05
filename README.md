@@ -7,7 +7,7 @@
 [![License](http://img.shields.io/packagist/l/chadicus/marvel-api-client.svg?style=flat)](https://packagist.org/packages/chadicus/marvel-api-client)
 [![Documentation](https://img.shields.io/badge/reference-phpdoc-blue.svg?style=flat)](http://chadicus.github.io/marvel-api-client)
 
-A PHP client for use with the Marvel API.
+A PHP client for use with the [Marvel API](http://developer.marvel.com/docs).
 
 ## Requirements
 
