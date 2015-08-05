@@ -3,1009 +3,1149 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>    Marvel API PHP Client &raquo; \Chadicus\Marvel\Api\Entities\Story
-</title>
+    <title>Marvel API PHP Client</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
-            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
     
-            <!--[if lt IE 9]>
-        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-        <![endif]-->
-        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
-        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
-        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
-        <script src="../js/bootstrap.js" type="text/javascript"></script>
-        <script src="../js/template.js" type="text/javascript"></script>
-        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
-    
-            <link rel="shortcut icon" href="../img/favicon.ico"/>
-        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
-        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
-        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
-    </head>
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
 <body>
 
-        <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span> <span class="icon-bar"></span>
-                    <span class="icon-bar"></span> </a>
-                <a class="brand" href="../index.html">Marvel API PHP Client</a>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Marvel API PHP Client</a>
 
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        <li class="dropdown">
-                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                API Documentation <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                                                    <li><a>Namespaces</a></li>
-                                                                        <li><a href="../namespaces/Chadicus.html">Chadicus</a></li>
-                                                                                                                                </ul>
-                        </li>
-                        <li class="dropdown" id="charts-menu">
-                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                Charts <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../graph_class.html">
-                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown" id="reports-menu">
-                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                Reports <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../errors.html">
-                                        <i class="icon-list-alt"></i>&#160;Errors
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../markers.html">
-                                        <i class="icon-list-alt"></i>&#160;Markers
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../deprecated.html">
-                                        <i class="icon-list-alt"></i>&#160;Deprecated
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Chadicus.html">\Chadicus</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">39</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1096934047"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1096934047" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1725680909"></a>
+                                <a href="../namespaces/Chadicus.html" style="margin-left: 30px; padding-left: 0">Chadicus</a>
+            </div>
+            <div id="namespace-1725680909" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-607713043"></a>
+                                <a href="../namespaces/Chadicus.Marvel.html" style="margin-left: 30px; padding-left: 0">Marvel</a>
+            </div>
+            <div id="namespace-607713043" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1180536191"></a>
+                                <a href="../namespaces/Chadicus.Marvel.Api.html" style="margin-left: 30px; padding-left: 0">Api</a>
+            </div>
+            <div id="namespace-1180536191" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1962982408"></a>
+                                <a href="../namespaces/Chadicus.Marvel.Api.Adapter.html" style="margin-left: 30px; padding-left: 0">Adapter</a>
+            </div>
+            <div id="namespace-1962982408" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Chadicus.Marvel.Api.Adapter.AdapterInterface.html">AdapterInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Adapter.CurlAdapter.html">CurlAdapter</a></li>
+                                            </ul>
                 </div>
             </div>
         </div>
-        <div class="go_to_top">
-            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
-        </div>
     </div>
-    
-    <div id="___" class="container">
-        <noscript>
-            <div class="alert alert-warning">
-                Javascript is disabled; several features are only available if Javascript is enabled.
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1100114053"></a>
+                                <a href="../namespaces/Chadicus.Marvel.Api.Cache.html" style="margin-left: 30px; padding-left: 0">Cache</a>
             </div>
-        </noscript>
+            <div id="namespace-1100114053" class="accordion-body collapse ">
+                <div class="accordion-inner">
 
-        
-            <style>
-        .deprecated h2 {
-            text-decoration: line-through;
-        }
-    </style>
-    <div class="row">
-        <div class="span4">
-                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
-        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
-        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
-    </div>
-    <div class="btn-group visibility" data-toggle="buttons-checkbox">
-        <button class="btn public active" title="Show public elements">Public</button>
-        <button class="btn protected" title="Show protected elements">Protected</button>
-        <button class="btn private" title="Show private elements">Private</button>
-        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Chadicus.Marvel.Api.Cache.CacheInterface.html">CacheInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Cache.AbstractCache.html">AbstractCache</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Cache.ArrayCache.html">ArrayCache</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Cache.MongoCache.html">MongoCache</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
-        <ul class="side-nav nav nav-list">
-        <li class="nav-header">
-            <i class="icon-custom icon-method"></i> Methods
-            <ul>
-                                                                                                    <li class="method public inherited">
-        <a href="#method___call" title="__call :: Allows for getX() method calls.">
-            <span class="description">Allows for getX() method calls.</span><pre>__call</pre>
-        </a>
-    </li>
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2013398946"></a>
+                                <a href="../namespaces/Chadicus.Marvel.Api.Entities.html" style="margin-left: 30px; padding-left: 0">Entities</a>
+            </div>
+            <div id="namespace-2013398946" class="accordion-body collapse ">
+                <div class="accordion-inner">
 
-                                                                                                        <li class="method public inherited">
-        <a href="#method___construct" title="__construct :: Create a new AbstractEntity based on the given $input array">
-            <span class="description">Create a new AbstractEntity based on the given $input array</span><pre>__construct</pre>
-        </a>
-    </li>
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Chadicus.Marvel.Api.Entities.EntityInterface.html">EntityInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html">AbstractEntity</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.Character.html">Character</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.Comic.html">Comic</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.Creator.html">Creator</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.Date.html">Date</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.Event.html">Event</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.Image.html">Image</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.ImageVariant.html">ImageVariant</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.Price.html">Price</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.ResourceList.html">ResourceList</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.Series.html">Series</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.Story.html">Story</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.Summary.html">Summary</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.TextObject.html">TextObject</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Entities.Url.html">Url</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                                                                                        <li class="method public inherited">
-        <a href="#method___get" title="__get :: Get an AbstractEntity property">
-            <span class="description">Get an AbstractEntity property</span><pre>__get</pre>
-        </a>
-    </li>
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Client.html">Client</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Collection.html">Collection</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.DataContainer.html">DataContainer</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.DataWrapper.html">DataWrapper</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Filterer.html">Filterer</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Request.html">Request</a></li>
+                                                    <li class="class"><a href="../classes/Chadicus.Marvel.Api.Response.html">Response</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                                                                                        <li class="method public inherited">
-        <a href="#method_fromArray" title="fromArray :: Create a new AbstractEntity based on the given $input array">
-            <span class="description">Create a new AbstractEntity based on the given $input array</span><pre>fromArray</pre>
-        </a>
-    </li>
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                                                                                        <li class="method public inherited">
-        <a href="#method_fromArrays" title="fromArrays :: Create an array of new AbstractEntity based on the given $input arrays">
-            <span class="description">Create an array of new AbstractEntity based on the given $input arrays</span><pre>fromArrays</pre>
-        </a>
-    </li>
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                                                                                                                                                <li class="method public inherited">
-        <a href="#method_offsetExists" title="offsetExists :: Returns whether the requested index exists">
-            <span class="description">Returns whether the requested index exists</span><pre>offsetExists</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public inherited">
-        <a href="#method_offsetGet" title="offsetGet :: Returns the value at the specified index.">
-            <span class="description">Returns the value at the specified index.</span><pre>offsetGet</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public inherited">
-        <a href="#method_offsetSet" title="offsetSet :: Sets the value at the specified index to newval">
-            <span class="description">Sets the value at the specified index to newval</span><pre>offsetSet</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public inherited">
-        <a href="#method_offsetUnset" title="offsetUnset :: Unsets the value at the specified index">
-            <span class="description">Unsets the value at the specified index</span><pre>offsetUnset</pre>
-        </a>
-    </li>
-
-                                                </ul>
-        </li>
-        <li class="nav-header protected">» Protected
-            <ul>
-                                                                                                                                                                                                                                                                <li class="method protected inherited">
-                            <a href="#method_getFilters" title="getFilters :: Returns an array of filters suitable for use with \Chadicus\Marvel\Api\Filterer::filter()">
-                                <span class="description">Returns an array of filters suitable for use with \Chadicus\Marvel\Api\Filterer::filter()</span><pre>getFilters</pre>
-                            </a>
-                        </li>
-                                                                                                                                                                                                </ul>
-        </li>
-        <li class="nav-header private">» Private
-            <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
-        </li>
-        <li class="nav-header">
-            <i class="icon-custom icon-constant"></i> Constants
-            <ul>
-                            </ul>
-        </li>
-    </ul>
-
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
         </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Chadicus.Marvel.Api.Entities.html">\Chadicus\Marvel\Api\Entities</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
-        <div class="span8">
-            <div class="element class">
-                <h1>Story</h1>
-                <small style="display: block; text-align: right">
-                                            Extends <a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html">\Chadicus\Marvel\Api\Entities\AbstractEntity</a>
-                                                        </small>
-                <p class="short_description">Represents a Marvel API Story Entity</p>
-                <div class="details">
-                    <div class="long_description">
+                    <h1><small>\Chadicus\Marvel\Api\Entities</small>Story</h1>
+                    <p><em>Represents a Marvel API Story Entity</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html#method___get" class="">__get()</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html#method___call" class="">__call()</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html#method_fromArrays" class="">fromArrays()</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html#method_fromArray" class="">fromArray()</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html#method_offsetExists" class="">offsetExists()</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html#method_offsetGet" class="">offsetGet()</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html#method_offsetSet" class="">offsetSet()</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html#method_offsetUnset" class="">offsetUnset()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.Story.html#property_id" class="">$id</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.Story.html#property_title" class="">$title</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.Story.html#property_description" class="">$description</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.Story.html#property_resourceURI" class="">$resourceURI</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.Story.html#property_type" class="">$type</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.Story.html#property_modified" class="">$modified</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.Story.html#property_thumbnail" class="">$thumbnail</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.Story.html#property_comics" class="">$comics</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.Story.html#property_series" class="">$series</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.Story.html#property_events" class="">$events</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.Story.html#property_characters" class="">$characters</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.Story.html#property_creators" class="">$creators</a><br />
+                                                                    <a href="../classes/Chadicus.Marvel.Api.Entities.Story.html#property_originalissue" class="">$originalissue</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Entities.Story.html"><div class="path-wrapper">Entities/Story.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Chadicus</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper"><a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html">\Chadicus\Marvel\Api\Entities\AbstractEntity</a></div>
+                                                                                                    <div class="namespace-wrapper">\Chadicus\Marvel\Api\Entities\Story</div>
+                            </dd>
+
                         
-                    </div>
-                    <table class="table table-bordered">
-                                                                                    <tr>
-                                    <th>
-                                        property-read
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>The unique ID of the story resource.</p>
-                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <th>
-                                        property-read
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>The story title.</p>
-                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <th>
-                                        property-read
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>A short description of the story.</p>
-                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <th>
-                                        property-read
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>The canonical URL identifier for this resource.</p>
-                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <th>
-                                        property-read
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>The story type e.g. interior story, cover, text story.</p>
-                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <th>
-                                        property-read
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>The date the resource was most recently modified.</p>
-                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <th>
-                                        property-read
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>The representative image for this story.</p>
-                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <th>
-                                        property-read
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>A resource list containing comics in which this story takes place.</p>
-                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <th>
-                                        property-read
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>A resource list containing series in which this story appears.</p>
-                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <th>
-                                        property-read
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>A resource list of the events in which this story appears.</p>
-                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <th>
-                                        property-read
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>A resource list of characters which appear in this story.</p>
-                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <th>
-                                        property-read
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>A resource list of creators who worked on this story.</p>
-                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <th>
-                                        property-read
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>A summary representation of the issue in which this story was originally
-published.</p>
-                                    </td>
-                                </tr>
-                                                                                                                <tr>
-                                    <th>
-                                        package
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>Chadicus</p>
-                                    </td>
-                                </tr>
-                                                                                                                                                                                </table>
-
-                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
-                                                                <a id="method___call"></a>
-                        <div class="element clickable method public  method___call inherited" data-toggle="collapse" data-target=".method___call .collapse">
-                            <h2>Allows for getX() method calls.</h2>
-                            <pre>__call(string $name, array $arguments = array()) : mixed</pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                                                <span class="label">final</span>                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>Thrown if the property being accessed does not exist</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$name</h4>
-                                                <code>string</code><p><p>The name of the method being called.</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$arguments</h4>
-                                                <code>array</code><p><p>The arguments being passed to the method. This parameter is unused.</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>mixed</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method___construct"></a>
-                        <div class="element clickable method public  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
-                            <h2>Create a new AbstractEntity based on the given $input array</h2>
-                            <pre>__construct(array $input = array()) </pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$input</h4>
-                                                <code>array</code><p><p>The data for the EntityInterface</p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method___get"></a>
-                        <div class="element clickable method public  method___get inherited" data-toggle="collapse" data-target=".method___get .collapse">
-                            <h2>Get an AbstractEntity property</h2>
-                            <pre>__get(string $name) : mixed</pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                                                <span class="label">final</span>                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$name</h4>
-                                                <code>string</code><p><p>The name of the property</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>mixed</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_fromArray"></a>
-                        <div class="element clickable method public  method_fromArray inherited" data-toggle="collapse" data-target=".method_fromArray .collapse">
-                            <h2>Create a new AbstractEntity based on the given $input array</h2>
-                            <pre>fromArray(array $input) : \Chadicus\Marvel\Api\Entities\AbstractEntity</pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                <span class="label">static</span>                                <span class="label">final</span>                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$input</h4>
-                                                <code>array</code><p><p>The data for the AbstractEntity</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code><a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html">\Chadicus\Marvel\Api\Entities\AbstractEntity</a></code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_fromArrays"></a>
-                        <div class="element clickable method public  method_fromArrays inherited" data-toggle="collapse" data-target=".method_fromArrays .collapse">
-                            <h2>Create an array of new AbstractEntity based on the given $input arrays</h2>
-                            <pre>fromArrays(array&lt;mixed,array&gt; $inputs) : array&lt;mixed,\Chadicus\Marvel\Api\Entities\AbstractEntity&gt;</pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                <span class="label">static</span>                                <span class="label">final</span>                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$inputs</h4>
-                                                <code>array&lt;mixed,array&gt;</code><p><p>The value to be filtered.</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>array&lt;mixed,<a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html">\Chadicus\Marvel\Api\Entities\AbstractEntity</a>&gt;</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_getFilters"></a>
-                        <div class="element clickable method protected  method_getFilters inherited" data-toggle="collapse" data-target=".method_getFilters .collapse">
-                            <h2>Returns an array of filters suitable for use with \Chadicus\Marvel\Api\Filterer::filter()</h2>
-                            <pre>getFilters() : array</pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                    
-                                                                            <h3>Response</h3>
-                                        <code>array</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_offsetExists"></a>
-                        <div class="element clickable method public  method_offsetExists inherited" data-toggle="collapse" data-target=".method_offsetExists .collapse">
-                            <h2>Returns whether the requested index exists</h2>
-                            <pre>offsetExists(string $offset) : boolean</pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                                                <span class="label">final</span>                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$offset</h4>
-                                                <code>string</code><p><p>The index being checked.</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>boolean</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_offsetGet"></a>
-                        <div class="element clickable method public  method_offsetGet inherited" data-toggle="collapse" data-target=".method_offsetGet .collapse">
-                            <h2>Returns the value at the specified index.</h2>
-                            <pre>offsetGet(string $offset) : mixed</pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                                                <span class="label">final</span>                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$offset</h4>
-                                                <code>string</code><p><p>The index with the value.</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>mixed</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_offsetSet"></a>
-                        <div class="element clickable method public  method_offsetSet inherited" data-toggle="collapse" data-target=".method_offsetSet .collapse">
-                            <h2>Sets the value at the specified index to newval</h2>
-                            <pre>offsetSet(string $offset, mixed $value) : void</pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                                                <span class="label">final</span>                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$offset</h4>
-                                                <code>string</code><p><p>The index being get.</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$value</h4>
-                                                <code>mixed</code><p><p>The new value for the index</p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_offsetUnset"></a>
-                        <div class="element clickable method public  method_offsetUnset inherited" data-toggle="collapse" data-target=".method_offsetUnset .collapse">
-                            <h2>Unsets the value at the specified index</h2>
-                            <pre>offsetUnset(string $offset) : void</pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                                                <span class="label">final</span>                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$offset</h4>
-                                                <code>string</code><p><p>The index being unset.</p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                    
-                    
-                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
-                                                    <a id="property_data"> </a>
-                            <div class="element clickable property  private property_data inherited" data-toggle="collapse" data-target=".property_data .collapse">
-                                <h2>The data for this AbstractEntity</h2>
-                                <pre>data : array</pre>
-                                <div class="labels">
-                                    <span class="label">inherited</span>                                                                    </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        var
-                                                    </th>
-                                                    <td>
-                                                                                                                    
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>array</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_id"> </a>
-                            <div class="element clickable property  public property_id" data-toggle="collapse" data-target=".property_id .collapse">
-                                <h2>id</h2>
-                                <pre>id : integer</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>The unique ID of the story resource.</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>integer</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_title"> </a>
-                            <div class="element clickable property  public property_title" data-toggle="collapse" data-target=".property_title .collapse">
-                                <h2>title</h2>
-                                <pre>title : string</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>The story title.</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>string</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_description"> </a>
-                            <div class="element clickable property  public property_description" data-toggle="collapse" data-target=".property_description .collapse">
-                                <h2>description</h2>
-                                <pre>description : string</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>A short description of the story.</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>string</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_resourceURI"> </a>
-                            <div class="element clickable property  public property_resourceURI" data-toggle="collapse" data-target=".property_resourceURI .collapse">
-                                <h2>resourceURI</h2>
-                                <pre>resourceURI : string</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>The canonical URL identifier for this resource.</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>string</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_type"> </a>
-                            <div class="element clickable property  public property_type" data-toggle="collapse" data-target=".property_type .collapse">
-                                <h2>type</h2>
-                                <pre>type : string</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>The story type e.g. interior story, cover, text story.</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>string</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_modified"> </a>
-                            <div class="element clickable property  public property_modified" data-toggle="collapse" data-target=".property_modified .collapse">
-                                <h2>modified</h2>
-                                <pre>modified : \Chadicus\Marvel\Api\Entities\DateTime</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>The date the resource was most recently modified.</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>\Chadicus\Marvel\Api\Entities\DateTime</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_thumbnail"> </a>
-                            <div class="element clickable property  public property_thumbnail" data-toggle="collapse" data-target=".property_thumbnail .collapse">
-                                <h2>thumbnail</h2>
-                                <pre>thumbnail : \Chadicus\Marvel\Api\Entities\Image</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>The representative image for this story.</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>\Chadicus\Marvel\Api\Entities\Image</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_comics"> </a>
-                            <div class="element clickable property  public property_comics" data-toggle="collapse" data-target=".property_comics .collapse">
-                                <h2>comics</h2>
-                                <pre>comics : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>A resource list containing comics in which this story takes place.</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>\Chadicus\Marvel\Api\Entities\ResourceList</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_series"> </a>
-                            <div class="element clickable property  public property_series" data-toggle="collapse" data-target=".property_series .collapse">
-                                <h2>series</h2>
-                                <pre>series : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>A resource list containing series in which this story appears.</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>\Chadicus\Marvel\Api\Entities\ResourceList</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_events"> </a>
-                            <div class="element clickable property  public property_events" data-toggle="collapse" data-target=".property_events .collapse">
-                                <h2>events</h2>
-                                <pre>events : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>A resource list of the events in which this story appears.</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>\Chadicus\Marvel\Api\Entities\ResourceList</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_characters"> </a>
-                            <div class="element clickable property  public property_characters" data-toggle="collapse" data-target=".property_characters .collapse">
-                                <h2>characters</h2>
-                                <pre>characters : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>A resource list of characters which appear in this story.</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>\Chadicus\Marvel\Api\Entities\ResourceList</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_creators"> </a>
-                            <div class="element clickable property  public property_creators" data-toggle="collapse" data-target=".property_creators .collapse">
-                                <h2>creators</h2>
-                                <pre>creators : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>A resource list of creators who worked on this story.</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>\Chadicus\Marvel\Api\Entities\ResourceList</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_originalissue"> </a>
-                            <div class="element clickable property  public property_originalissue" data-toggle="collapse" data-target=".property_originalissue .collapse">
-                                <h2>originalissue</h2>
-                                <pre>originalissue : \Chadicus\Marvel\Api\Entities\Summary</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>A summary representation of the issue in which this story was originally
-published.</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>\Chadicus\Marvel\Api\Entities\Summary</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                            </div>
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
             </div>
-            <a id="\Chadicus\Marvel\Api\Entities\Story"></a>
-            <ul class="breadcrumb">
-                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
-                    
-    
-    <li><span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.Api.Entities.html">Entities</a></li>
 
-                <li class="active"><span class="divider">\</span><a href="../classes/Chadicus.Marvel.Api.Entities.Story.html">Story</a></li>
-            </ul>
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_id" name="property_id" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$id</h3>
+                <pre class="signature">$id : integer</pre>
+                <p><em></em></p>
+                <p>The unique ID of the story resource.</p>
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_title" name="property_title" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$title</h3>
+                <pre class="signature">$title : string</pre>
+                <p><em></em></p>
+                <p>The story title.</p>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_description" name="property_description" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$description</h3>
+                <pre class="signature">$description : string</pre>
+                <p><em></em></p>
+                <p>A short description of the story.</p>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_resourceURI" name="property_resourceURI" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$resourceURI</h3>
+                <pre class="signature">$resourceURI : string</pre>
+                <p><em></em></p>
+                <p>The canonical URL identifier for this resource.</p>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_type" name="property_type" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$type</h3>
+                <pre class="signature">$type : string</pre>
+                <p><em></em></p>
+                <p>The story type e.g. interior story, cover, text story.</p>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_modified" name="property_modified" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$modified</h3>
+                <pre class="signature">$modified : \Chadicus\Marvel\Api\Entities\DateTime</pre>
+                <p><em></em></p>
+                <p>The date the resource was most recently modified.</p>
+
+                                <h4>Type</h4>
+                \Chadicus\Marvel\Api\Entities\DateTime
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_thumbnail" name="property_thumbnail" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$thumbnail</h3>
+                <pre class="signature">$thumbnail : \Chadicus\Marvel\Api\Entities\Image</pre>
+                <p><em></em></p>
+                <p>The representative image for this story.</p>
+
+                                <h4>Type</h4>
+                \Chadicus\Marvel\Api\Entities\Image
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_comics" name="property_comics" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$comics</h3>
+                <pre class="signature">$comics : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
+                <p><em></em></p>
+                <p>A resource list containing comics in which this story takes place.</p>
+
+                                <h4>Type</h4>
+                \Chadicus\Marvel\Api\Entities\ResourceList
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_series" name="property_series" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$series</h3>
+                <pre class="signature">$series : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
+                <p><em></em></p>
+                <p>A resource list containing series in which this story appears.</p>
+
+                                <h4>Type</h4>
+                \Chadicus\Marvel\Api\Entities\ResourceList
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_events" name="property_events" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$events</h3>
+                <pre class="signature">$events : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
+                <p><em></em></p>
+                <p>A resource list of the events in which this story appears.</p>
+
+                                <h4>Type</h4>
+                \Chadicus\Marvel\Api\Entities\ResourceList
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_characters" name="property_characters" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$characters</h3>
+                <pre class="signature">$characters : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
+                <p><em></em></p>
+                <p>A resource list of characters which appear in this story.</p>
+
+                                <h4>Type</h4>
+                \Chadicus\Marvel\Api\Entities\ResourceList
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_creators" name="property_creators" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$creators</h3>
+                <pre class="signature">$creators : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
+                <p><em></em></p>
+                <p>A resource list of creators who worked on this story.</p>
+
+                                <h4>Type</h4>
+                \Chadicus\Marvel\Api\Entities\ResourceList
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_originalissue" name="property_originalissue" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$originalissue</h3>
+                <pre class="signature">$originalissue : \Chadicus\Marvel\Api\Entities\Summary</pre>
+                <p><em></em></p>
+                <p>A summary representation of the issue in which this story was originally
+published.</p>
+
+                                <h4>Type</h4>
+                \Chadicus\Marvel\Api\Entities\Summary
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(array  <span class="argument">$input = array()</span>) </pre>
+                <p><em>Create a new AbstractEntity based on the given $input array</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$input </td>
+                                <td><p>The data for the EntityInterface</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html"><div class="path-wrapper">\Chadicus\Marvel\Api\Entities\AbstractEntity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___get" name="method___get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__get(string  <span class="argument">$name</span>) : mixed</pre>
+                <p><em>Get an AbstractEntity property</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td><p>The name of the property</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                    <span class="label label-info">final</span>
+                                    <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html"><div class="path-wrapper">\Chadicus\Marvel\Api\Entities\AbstractEntity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___call" name="method___call" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__call()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__call(string  <span class="argument">$name</span>, array  <span class="argument">$arguments = array()</span>) : mixed</pre>
+                <p><em>Allows for getX() method calls.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td><p>The name of the method being called.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$arguments </td>
+                                <td><p>The arguments being passed to the method. This parameter is unused.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\BadMethodCallException</dt>
+                            <dd><p>Thrown if the property being accessed does not exist</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                    <span class="label label-info">final</span>
+                                    <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html"><div class="path-wrapper">\Chadicus\Marvel\Api\Entities\AbstractEntity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fromArrays" name="method_fromArrays" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fromArrays()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fromArrays(array&lt;mixed,array&gt;  <span class="argument">$inputs</span>) : array&lt;mixed,\Chadicus\Marvel\Api\Entities\AbstractEntity&gt;</pre>
+                <p><em>Create an array of new AbstractEntity based on the given $input arrays</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array&lt;mixed,array&gt;</td>
+                                <td>$inputs </td>
+                                <td><p>The value to be filtered.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,<a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html">\Chadicus\Marvel\Api\Entities\AbstractEntity</a>&gt;
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                    <span class="label label-info">final</span>
+                                    <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html"><div class="path-wrapper">\Chadicus\Marvel\Api\Entities\AbstractEntity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fromArray" name="method_fromArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fromArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fromArray(array  <span class="argument">$input</span>) : \Chadicus\Marvel\Api\Entities\AbstractEntity</pre>
+                <p><em>Create a new AbstractEntity based on the given $input array</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$input </td>
+                                <td><p>The data for the AbstractEntity</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html">\Chadicus\Marvel\Api\Entities\AbstractEntity</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                    <span class="label label-info">final</span>
+                                    <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html"><div class="path-wrapper">\Chadicus\Marvel\Api\Entities\AbstractEntity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_offsetExists" name="method_offsetExists" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">offsetExists()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">offsetExists(string  <span class="argument">$offset</span>) : boolean</pre>
+                <p><em>Returns whether the requested index exists</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$offset </td>
+                                <td><p>The index being checked.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                    <span class="label label-info">final</span>
+                                    <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html"><div class="path-wrapper">\Chadicus\Marvel\Api\Entities\AbstractEntity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_offsetGet" name="method_offsetGet" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">offsetGet()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">offsetGet(string  <span class="argument">$offset</span>) : mixed</pre>
+                <p><em>Returns the value at the specified index.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$offset </td>
+                                <td><p>The index with the value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                    <span class="label label-info">final</span>
+                                    <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html"><div class="path-wrapper">\Chadicus\Marvel\Api\Entities\AbstractEntity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_offsetSet" name="method_offsetSet" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">offsetSet()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">offsetSet(string  <span class="argument">$offset</span>, mixed  <span class="argument">$value</span>) : void</pre>
+                <p><em>Sets the value at the specified index to newval</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$offset </td>
+                                <td><p>The index being get.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>The new value for the index</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                    <span class="label label-info">final</span>
+                                    <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html"><div class="path-wrapper">\Chadicus\Marvel\Api\Entities\AbstractEntity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_offsetUnset" name="method_offsetUnset" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">offsetUnset()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">offsetUnset(string  <span class="argument">$offset</span>) : void</pre>
+                <p><em>Unsets the value at the specified index</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$offset </td>
+                                <td><p>The index being unset.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                    <span class="label label-info">final</span>
+                                    <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html"><div class="path-wrapper">\Chadicus\Marvel\Api\Entities\AbstractEntity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">Story.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Entities/Story.php.txt" class="language-php line-numbers"></pre>
         </div>
     </div>
 
-    </div>
-
-        <footer class="span12">
-            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
-            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Tue, 04 Aug 2015 21:09:34 -0400.<br/>
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Chadicus.html">\Chadicus</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on August 4th, 2015 at 21:18.
+                </section>
+            </section>
+        </section>
     </footer>
-    </body>
+</div>
+
+</body>
 </html>
