@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    Marvel API PHP Client &raquo; \Chadicus\Marvel\Api\Entities\Series
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">Marvel API PHP Client</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                API Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Chadicus.html">Chadicus</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public inherited">
+        <a href="#method___call" title="__call :: Allows for getX() method calls.">
+            <span class="description">Allows for getX() method calls.</span><pre>__call</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___construct" title="__construct :: Create a new AbstractEntity based on the given $input array">
+            <span class="description">Create a new AbstractEntity based on the given $input array</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___get" title="__get :: Get an AbstractEntity property">
+            <span class="description">Get an AbstractEntity property</span><pre>__get</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_fromArray" title="fromArray :: Create a new AbstractEntity based on the given $input array">
+            <span class="description">Create a new AbstractEntity based on the given $input array</span><pre>fromArray</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_fromArrays" title="fromArrays :: Create an array of new AbstractEntity based on the given $input arrays">
+            <span class="description">Create an array of new AbstractEntity based on the given $input arrays</span><pre>fromArrays</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_offsetExists" title="offsetExists :: Returns whether the requested index exists">
+            <span class="description">Returns whether the requested index exists</span><pre>offsetExists</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_offsetGet" title="offsetGet :: Returns the value at the specified index.">
+            <span class="description">Returns the value at the specified index.</span><pre>offsetGet</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_offsetSet" title="offsetSet :: Sets the value at the specified index to newval">
+            <span class="description">Sets the value at the specified index to newval</span><pre>offsetSet</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_offsetUnset" title="offsetUnset :: Unsets the value at the specified index">
+            <span class="description">Unsets the value at the specified index</span><pre>offsetUnset</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                <li class="method protected inherited">
+                            <a href="#method_getFilters" title="getFilters :: Returns an array of filters suitable for use with \Chadicus\Marvel\Api\Filterer::filter()">
+                                <span class="description">Returns an array of filters suitable for use with \Chadicus\Marvel\Api\Filterer::filter()</span><pre>getFilters</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>Series</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html">\Chadicus\Marvel\Api\Entities\AbstractEntity</a>
+                                                        </small>
+                <p class="short_description">Represents a Marvel API Series Entity</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>The unique ID of the series resource.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>The canonical title of the series.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>A description of the series.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>The canonical URL identifier for this resource.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>A set of public web site URLs for the resource.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>The first year of publication for the series.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>The last year of publication for the series (conventionally, 2099 for ongoing
+series).</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>The age-appropriateness rating for the series.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>The date the resource was most recently modified.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>The representative image for this series.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>A resource list containing comics in this series.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>A resource list containing stories which occur in comics in this series.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>A resource list containing events which take place in comics in this series.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>A resource list containing characters which appear in comics in this series.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>A resource list of creators whose work appears in comics in this series.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>A summary representation of the series which follows this series.</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        property-read
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>A summary representation of the series which preceded this series.</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Chadicus</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___call"></a>
+                        <div class="element clickable method public  method___call inherited" data-toggle="collapse" data-target=".method___call .collapse">
+                            <h2>Allows for getX() method calls.</h2>
+                            <pre>__call(string $name, array $arguments = array()) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                <span class="label">final</span>                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Thrown if the property being accessed does not exist</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>The name of the method being called.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$arguments</h4>
+                                                <code>array</code><p><p>The arguments being passed to the method. This parameter is unused.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Create a new AbstractEntity based on the given $input array</h2>
+                            <pre>__construct(array $input = array()) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$input</h4>
+                                                <code>array</code><p><p>The data for the EntityInterface</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___get"></a>
+                        <div class="element clickable method public  method___get inherited" data-toggle="collapse" data-target=".method___get .collapse">
+                            <h2>Get an AbstractEntity property</h2>
+                            <pre>__get(string $name) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                <span class="label">final</span>                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>The name of the property</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_fromArray"></a>
+                        <div class="element clickable method public  method_fromArray inherited" data-toggle="collapse" data-target=".method_fromArray .collapse">
+                            <h2>Create a new AbstractEntity based on the given $input array</h2>
+                            <pre>fromArray(array $input) : \Chadicus\Marvel\Api\Entities\AbstractEntity</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                <span class="label">final</span>                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$input</h4>
+                                                <code>array</code><p><p>The data for the AbstractEntity</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html">\Chadicus\Marvel\Api\Entities\AbstractEntity</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_fromArrays"></a>
+                        <div class="element clickable method public  method_fromArrays inherited" data-toggle="collapse" data-target=".method_fromArrays .collapse">
+                            <h2>Create an array of new AbstractEntity based on the given $input arrays</h2>
+                            <pre>fromArrays(array&lt;mixed,array&gt; $inputs) : array&lt;mixed,\Chadicus\Marvel\Api\Entities\AbstractEntity&gt;</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                <span class="label">final</span>                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$inputs</h4>
+                                                <code>array&lt;mixed,array&gt;</code><p><p>The value to be filtered.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,<a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html">\Chadicus\Marvel\Api\Entities\AbstractEntity</a>&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getFilters"></a>
+                        <div class="element clickable method protected  method_getFilters inherited" data-toggle="collapse" data-target=".method_getFilters .collapse">
+                            <h2>Returns an array of filters suitable for use with \Chadicus\Marvel\Api\Filterer::filter()</h2>
+                            <pre>getFilters() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_offsetExists"></a>
+                        <div class="element clickable method public  method_offsetExists inherited" data-toggle="collapse" data-target=".method_offsetExists .collapse">
+                            <h2>Returns whether the requested index exists</h2>
+                            <pre>offsetExists(string $offset) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                <span class="label">final</span>                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$offset</h4>
+                                                <code>string</code><p><p>The index being checked.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_offsetGet"></a>
+                        <div class="element clickable method public  method_offsetGet inherited" data-toggle="collapse" data-target=".method_offsetGet .collapse">
+                            <h2>Returns the value at the specified index.</h2>
+                            <pre>offsetGet(string $offset) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                <span class="label">final</span>                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$offset</h4>
+                                                <code>string</code><p><p>The index with the value.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_offsetSet"></a>
+                        <div class="element clickable method public  method_offsetSet inherited" data-toggle="collapse" data-target=".method_offsetSet .collapse">
+                            <h2>Sets the value at the specified index to newval</h2>
+                            <pre>offsetSet(string $offset, mixed $value) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                <span class="label">final</span>                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$offset</h4>
+                                                <code>string</code><p><p>The index being get.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p><p>The new value for the index</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_offsetUnset"></a>
+                        <div class="element clickable method public  method_offsetUnset inherited" data-toggle="collapse" data-target=".method_offsetUnset .collapse">
+                            <h2>Unsets the value at the specified index</h2>
+                            <pre>offsetUnset(string $offset) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                <span class="label">final</span>                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$offset</h4>
+                                                <code>string</code><p><p>The index being unset.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_data"> </a>
+                            <div class="element clickable property  private property_data inherited" data-toggle="collapse" data-target=".property_data .collapse">
+                                <h2>The data for this AbstractEntity</h2>
+                                <pre>data : array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_id"> </a>
+                            <div class="element clickable property  public property_id" data-toggle="collapse" data-target=".property_id .collapse">
+                                <h2>id</h2>
+                                <pre>id : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>The unique ID of the series resource.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_title"> </a>
+                            <div class="element clickable property  public property_title" data-toggle="collapse" data-target=".property_title .collapse">
+                                <h2>title</h2>
+                                <pre>title : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>The canonical title of the series.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_description"> </a>
+                            <div class="element clickable property  public property_description" data-toggle="collapse" data-target=".property_description .collapse">
+                                <h2>description</h2>
+                                <pre>description : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>A description of the series.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_resourceURI"> </a>
+                            <div class="element clickable property  public property_resourceURI" data-toggle="collapse" data-target=".property_resourceURI .collapse">
+                                <h2>resourceURI</h2>
+                                <pre>resourceURI : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>The canonical URL identifier for this resource.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_urls"> </a>
+                            <div class="element clickable property  public property_urls" data-toggle="collapse" data-target=".property_urls .collapse">
+                                <h2>urls</h2>
+                                <pre>urls : array&lt;mixed,\Chadicus\Marvel\Api\Entities\Url&gt;</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>A set of public web site URLs for the resource.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,\Chadicus\Marvel\Api\Entities\Url&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_startYear"> </a>
+                            <div class="element clickable property  public property_startYear" data-toggle="collapse" data-target=".property_startYear .collapse">
+                                <h2>startYear</h2>
+                                <pre>startYear : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>The first year of publication for the series.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_endYear"> </a>
+                            <div class="element clickable property  public property_endYear" data-toggle="collapse" data-target=".property_endYear .collapse">
+                                <h2>endYear</h2>
+                                <pre>endYear : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>The last year of publication for the series (conventionally, 2099 for ongoing
+series).</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_rating"> </a>
+                            <div class="element clickable property  public property_rating" data-toggle="collapse" data-target=".property_rating .collapse">
+                                <h2>rating</h2>
+                                <pre>rating : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>The age-appropriateness rating for the series.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_modified"> </a>
+                            <div class="element clickable property  public property_modified" data-toggle="collapse" data-target=".property_modified .collapse">
+                                <h2>modified</h2>
+                                <pre>modified : \Chadicus\Marvel\Api\Entities\DateTime</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>The date the resource was most recently modified.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\Chadicus\Marvel\Api\Entities\DateTime</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_thumbnail"> </a>
+                            <div class="element clickable property  public property_thumbnail" data-toggle="collapse" data-target=".property_thumbnail .collapse">
+                                <h2>thumbnail</h2>
+                                <pre>thumbnail : \Chadicus\Marvel\Api\Entities\Image</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>The representative image for this series.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\Chadicus\Marvel\Api\Entities\Image</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_comics"> </a>
+                            <div class="element clickable property  public property_comics" data-toggle="collapse" data-target=".property_comics .collapse">
+                                <h2>comics</h2>
+                                <pre>comics : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>A resource list containing comics in this series.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\Chadicus\Marvel\Api\Entities\ResourceList</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_stories"> </a>
+                            <div class="element clickable property  public property_stories" data-toggle="collapse" data-target=".property_stories .collapse">
+                                <h2>stories</h2>
+                                <pre>stories : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>A resource list containing stories which occur in comics in this series.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\Chadicus\Marvel\Api\Entities\ResourceList</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_events"> </a>
+                            <div class="element clickable property  public property_events" data-toggle="collapse" data-target=".property_events .collapse">
+                                <h2>events</h2>
+                                <pre>events : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>A resource list containing events which take place in comics in this series.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\Chadicus\Marvel\Api\Entities\ResourceList</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_characters"> </a>
+                            <div class="element clickable property  public property_characters" data-toggle="collapse" data-target=".property_characters .collapse">
+                                <h2>characters</h2>
+                                <pre>characters : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>A resource list containing characters which appear in comics in this series.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\Chadicus\Marvel\Api\Entities\ResourceList</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_creators"> </a>
+                            <div class="element clickable property  public property_creators" data-toggle="collapse" data-target=".property_creators .collapse">
+                                <h2>creators</h2>
+                                <pre>creators : \Chadicus\Marvel\Api\Entities\ResourceList</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>A resource list of creators whose work appears in comics in this series.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\Chadicus\Marvel\Api\Entities\ResourceList</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_next"> </a>
+                            <div class="element clickable property  public property_next" data-toggle="collapse" data-target=".property_next .collapse">
+                                <h2>next</h2>
+                                <pre>next : \Chadicus\Marvel\Api\Entities\Summary</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>A summary representation of the series which follows this series.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\Chadicus\Marvel\Api\Entities\Summary</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_previous"> </a>
+                            <div class="element clickable property  public property_previous" data-toggle="collapse" data-target=".property_previous .collapse">
+                                <h2>previous</h2>
+                                <pre>previous : \Chadicus\Marvel\Api\Entities\Summary</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>A summary representation of the series which preceded this series.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\Chadicus\Marvel\Api\Entities\Summary</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Chadicus\Marvel\Api\Entities\Series"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.Api.Entities.html">Entities</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Chadicus.Marvel.Api.Entities.Series.html">Series</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Tue, 04 Aug 2015 20:19:38 -0400.<br/>
+    </footer>
+    </body>
+</html>

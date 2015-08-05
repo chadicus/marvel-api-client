@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>     &raquo; \Chadicus\Marvel\Api
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">Marvel API PHP Client</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                API Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Chadicus.html">Chadicus</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            
+    <div class="row">
+
+        <div class="span4">
+            <div class="btn-group view pull-right" data-toggle="buttons-radio">
+                <button class="btn details" title="Show descriptions and method names">
+                    <i class="icon-list"></i></button><button class="btn simple" title="Show only method names">
+                    <i class="icon-align-justify"></i>
+                </button>
+            </div>
+            <ul class="side-nav nav nav-list">
+                <li class="nav-header">
+                    <i class="icon-map-marker"></i> Namespaces
+                </li>
+                <a href="../namespaces/Chadicus.Marvel.Api.html" title="Api">
+                    <i class="icon-th"></i> Api
+                </a>
+                <ul class="nav nav-list nav-namespaces">
+                        
+        <li>
+        <a href="../namespaces/Chadicus.Marvel.Api.Adapter.html" title="Adapter">
+            <i class="icon-th"></i> Adapter
+        </a>
+        <ul class="nav nav-list nav-namespaces">
+                
+    
+        </ul>
+    </li>
+        <li>
+        <a href="../namespaces/Chadicus.Marvel.Api.Cache.html" title="Cache">
+            <i class="icon-th"></i> Cache
+        </a>
+        <ul class="nav nav-list nav-namespaces">
+                
+    
+        </ul>
+    </li>
+        <li>
+        <a href="../namespaces/Chadicus.Marvel.Api.Entities.html" title="Entities">
+            <i class="icon-th"></i> Entities
+        </a>
+        <ul class="nav nav-list nav-namespaces">
+                
+    
+        </ul>
+    </li>
+    
+                </ul>
+            </ul>
+        </div>
+
+        <div class="span8 namespace-contents">
+                
+    
+        <ul class="breadcrumb">
+            <li><a href="../index.html"><i class="icon-th"></i></a></li>
+                
+                
+                
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.html">Chadicus</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.html">Marvel</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.Api.html">Api</a>
+    </li>
+
+        </ul>
+
+        
+        
+                    <div class="namespace-indent">
+                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
+                
+                
+                                        <div id="class_Client" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Client .collapse">
+        <h1>Client<a href="../classes/Chadicus.Marvel.Api.Client.html">¶</a></h1>
+        <p class="short_description">PHP Client for the Marvel API.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Client.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Collection" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Collection .collapse">
+        <h1>Collection<a href="../classes/Chadicus.Marvel.Api.Collection.html">¶</a></h1>
+        <p class="short_description">Class for iterating index response to the Marvel API. Collections are readonly.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Collection.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_DataContainer" class="element ajax clickable class" data-toggle="collapse" data-target="#class_DataContainer .collapse">
+        <h1>DataContainer<a href="../classes/Chadicus.Marvel.Api.DataContainer.html">¶</a></h1>
+        <p class="short_description"></p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.DataContainer.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_DataWrapper" class="element ajax clickable class" data-toggle="collapse" data-target="#class_DataWrapper .collapse">
+        <h1>DataWrapper<a href="../classes/Chadicus.Marvel.Api.DataWrapper.html">¶</a></h1>
+        <p class="short_description"></p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.DataWrapper.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Filterer" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Filterer .collapse">
+        <h1>Filterer<a href="../classes/Chadicus.Marvel.Api.Filterer.html">¶</a></h1>
+        <p class="short_description"></p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Filterer.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Request" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Request .collapse">
+        <h1>Request<a href="../classes/Chadicus.Marvel.Api.Request.html">¶</a></h1>
+        <p class="short_description">Represents a request to the Marvel API.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Request.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Response" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Response .collapse">
+        <h1>Response<a href="../classes/Chadicus.Marvel.Api.Response.html">¶</a></h1>
+        <p class="short_description">Represents a response from the Marvel API.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Response.html" class="more">« More »</a>    </div>
+
+                            </div>
+            
+                
+    
+        <ul class="breadcrumb">
+            <li><a href="../index.html"><i class="icon-th"></i></a></li>
+                
+                
+                
+                
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.html">Chadicus</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.html">Marvel</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.Api.html">Api</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.Api.Cache.html">Cache</a>
+    </li>
+
+        </ul>
+
+        
+        
+                    <div class="namespace-indent">
+                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
+                
+                                        <div id="interface_CacheInterface" class="element ajax clickable interface" data-toggle="collapse" data-target="#interface_CacheInterface .collapse">
+        <h1>CacheInterface<a href="../classes/Chadicus.Marvel.Api.Cache.CacheInterface.html">¶</a></h1>
+        <p class="short_description">Interface for caching API responses</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Cache.CacheInterface.html" class="more">« More »</a>    </div>
+
+                
+                                        <div id="class_AbstractCache" class="element ajax clickable class" data-toggle="collapse" data-target="#class_AbstractCache .collapse">
+        <h1>AbstractCache<a href="../classes/Chadicus.Marvel.Api.Cache.AbstractCache.html">¶</a></h1>
+        <p class="short_description"></p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Cache.AbstractCache.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ArrayCache" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ArrayCache .collapse">
+        <h1>ArrayCache<a href="../classes/Chadicus.Marvel.Api.Cache.ArrayCache.html">¶</a></h1>
+        <p class="short_description">Concrete implementation of Cache using an array.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Cache.ArrayCache.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_MongoCache" class="element ajax clickable class" data-toggle="collapse" data-target="#class_MongoCache .collapse">
+        <h1>MongoCache<a href="../classes/Chadicus.Marvel.Api.Cache.MongoCache.html">¶</a></h1>
+        <p class="short_description">Concrete implementation of Cache using an array.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Cache.MongoCache.html" class="more">« More »</a>    </div>
+
+                            </div>
+            
+    
+                
+    
+        <ul class="breadcrumb">
+            <li><a href="../index.html"><i class="icon-th"></i></a></li>
+                
+                
+                
+                
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.html">Chadicus</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.html">Marvel</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.Api.html">Api</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.Api.Entities.html">Entities</a>
+    </li>
+
+        </ul>
+
+        
+        
+                    <div class="namespace-indent">
+                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
+                
+                                        <div id="interface_EntityInterface" class="element ajax clickable interface" data-toggle="collapse" data-target="#interface_EntityInterface .collapse">
+        <h1>EntityInterface<a href="../classes/Chadicus.Marvel.Api.Entities.EntityInterface.html">¶</a></h1>
+        <p class="short_description"></p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.EntityInterface.html" class="more">« More »</a>    </div>
+
+                
+                                        <div id="class_AbstractEntity" class="element ajax clickable class" data-toggle="collapse" data-target="#class_AbstractEntity .collapse">
+        <h1>AbstractEntity<a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html">¶</a></h1>
+        <p class="short_description"></p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.AbstractEntity.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Character" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Character .collapse">
+        <h1>Character<a href="../classes/Chadicus.Marvel.Api.Entities.Character.html">¶</a></h1>
+        <p class="short_description">Represents a Marvel API Character Entity</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.Character.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Comic" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Comic .collapse">
+        <h1>Comic<a href="../classes/Chadicus.Marvel.Api.Entities.Comic.html">¶</a></h1>
+        <p class="short_description">Represents a Marvel API Comic Entity</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.Comic.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Creator" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Creator .collapse">
+        <h1>Creator<a href="../classes/Chadicus.Marvel.Api.Entities.Creator.html">¶</a></h1>
+        <p class="short_description">Represents a Marvel API Creator Entity</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.Creator.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Date" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Date .collapse">
+        <h1>Date<a href="../classes/Chadicus.Marvel.Api.Entities.Date.html">¶</a></h1>
+        <p class="short_description">Represents a Date entity type within the Marvel API.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.Date.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Event" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Event .collapse">
+        <h1>Event<a href="../classes/Chadicus.Marvel.Api.Entities.Event.html">¶</a></h1>
+        <p class="short_description">Represents a Marvel API Event Entity</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.Event.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Image" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Image .collapse">
+        <h1>Image<a href="../classes/Chadicus.Marvel.Api.Entities.Image.html">¶</a></h1>
+        <p class="short_description">Represents a Marvel API Image Entity</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.Image.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ImageVariant" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ImageVariant .collapse">
+        <h1>ImageVariant<a href="../classes/Chadicus.Marvel.Api.Entities.ImageVariant.html">¶</a></h1>
+        <p class="short_description">Class representing all image variant options.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.ImageVariant.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Price" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Price .collapse">
+        <h1>Price<a href="../classes/Chadicus.Marvel.Api.Entities.Price.html">¶</a></h1>
+        <p class="short_description">Represents a ComicPrice entity type within the Marvel API.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.Price.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ResourceList" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ResourceList .collapse">
+        <h1>ResourceList<a href="../classes/Chadicus.Marvel.Api.Entities.ResourceList.html">¶</a></h1>
+        <p class="short_description">Represents a Marvel API ResourceList Entity</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.ResourceList.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Series" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Series .collapse">
+        <h1>Series<a href="../classes/Chadicus.Marvel.Api.Entities.Series.html">¶</a></h1>
+        <p class="short_description">Represents a Marvel API Series Entity</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.Series.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Story" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Story .collapse">
+        <h1>Story<a href="../classes/Chadicus.Marvel.Api.Entities.Story.html">¶</a></h1>
+        <p class="short_description">Represents a Marvel API Story Entity</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.Story.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Summary" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Summary .collapse">
+        <h1>Summary<a href="../classes/Chadicus.Marvel.Api.Entities.Summary.html">¶</a></h1>
+        <p class="short_description">Represents the Summary entity of the Marvel API.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.Summary.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_TextObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_TextObject .collapse">
+        <h1>TextObject<a href="../classes/Chadicus.Marvel.Api.Entities.TextObject.html">¶</a></h1>
+        <p class="short_description">Represents a Marvel API TextObject Entity</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.TextObject.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Url" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Url .collapse">
+        <h1>Url<a href="../classes/Chadicus.Marvel.Api.Entities.Url.html">¶</a></h1>
+        <p class="short_description">Represents a Marvel API Url Entity</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Entities.Url.html" class="more">« More »</a>    </div>
+
+                            </div>
+            
+    
+                
+    
+        <ul class="breadcrumb">
+            <li><a href="../index.html"><i class="icon-th"></i></a></li>
+                
+                
+                
+                
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.html">Chadicus</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.html">Marvel</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.Api.html">Api</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Chadicus.Marvel.Api.Adapter.html">Adapter</a>
+    </li>
+
+        </ul>
+
+        
+        
+                    <div class="namespace-indent">
+                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
+                
+                                        <div id="interface_AdapterInterface" class="element ajax clickable interface" data-toggle="collapse" data-target="#interface_AdapterInterface .collapse">
+        <h1>AdapterInterface<a href="../classes/Chadicus.Marvel.Api.Adapter.AdapterInterface.html">¶</a></h1>
+        <p class="short_description">Simple interface for a client adapter.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Adapter.AdapterInterface.html" class="more">« More »</a>    </div>
+
+                
+                                        <div id="class_CurlAdapter" class="element ajax clickable class" data-toggle="collapse" data-target="#class_CurlAdapter .collapse">
+        <h1>CurlAdapter<a href="../classes/Chadicus.Marvel.Api.Adapter.CurlAdapter.html">¶</a></h1>
+        <p class="short_description">Concrete implementation of Adapter using cURL.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Chadicus.Marvel.Api.Adapter.CurlAdapter.html" class="more">« More »</a>    </div>
+
+                            </div>
+            
+    
+    
+        </div>
+    </div>
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Tue, 04 Aug 2015 20:19:37 -0400.<br/>
+    </footer>
+    </body>
+</html>
