@@ -5,6 +5,7 @@
 [![Latest Stable Version](http://img.shields.io/packagist/v/chadicus/marvel-api-client.svg?style=flat)](https://packagist.org/packages/chadicus/marvel-api-client)
 [![Total Downloads](http://img.shields.io/packagist/dt/chadicus/marvel-api-client.svg?style=flat)](https://packagist.org/packages/chadicus/marvel-api-client)
 [![License](http://img.shields.io/packagist/l/chadicus/marvel-api-client.svg?style=flat)](https://packagist.org/packages/chadicus/marvel-api-client)
+[![Documentation](https://img.shields.io/badge/reference-phpdoc-blue.svg?style=flat)](http://chadicus.github.io/marvel-api-client)
 
 A PHP client for use with the Marvel API.  This project is still under heavy development.
 
@@ -23,9 +24,6 @@ To add the library as a local, per-project dependency use [Composer](http://getc
     }
 }
 ```
-##Documentation
-PHP docs for the project can be found [here](http://chadicus.github.io/marvel-api-client).
-
 ##Examples
 Examples of use can be found [here](https://github.com/chadicus/marvel-api-client/tree/master/examples).
 
