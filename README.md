@@ -35,12 +35,11 @@ Examples of use can be found [here](https://github.com/chadicus/marvel-api-clien
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Chadicus\Marvel\Api\Client;
-use Chadicus\Marvel\Api\Adapter\CurlAdapter;
 
 $publicApiKey = getenv('PUBLIC_KEY');
 $privateApiKey = getenv('PRIVATE_KEY');
 
-$client = new Client($privateApiKey, $publicApiKey, new CurlAdapter());
+$client = new Client($privateApiKey, $publicApiKey);
 
 $response = $client->get('characters', 1009351);
 

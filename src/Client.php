@@ -55,14 +55,14 @@ class Client
     final public function __construct(
         $privateApiKey,
         $publicApiKey,
-        Adapter\AdapterInterface $adapter,
+        Adapter\AdapterInterface $adapter = null,
         Cache\CacheInterface $cache = null
     ) {
         Util::throwIfNotType(['string' => [$privateApiKey, $publicApiKey]], true);
 
         $this->privateApiKey = $privateApiKey;
         $this->publicApiKey = $publicApiKey;
-        $this->adapter = $adapter;
+        $this->adapter = $adapter ?: new Adapter\CurlAdapter();
         $this->cache = $cache;
     }
 
