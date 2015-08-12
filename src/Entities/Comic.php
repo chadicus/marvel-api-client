@@ -12,7 +12,7 @@ use DominionEnterprises\Util;
  * @property-read integer $digitalId The ID of the digital comic representation of this comic. Will be if the comic is
  *                                   not available digitally.
  * @property-read string $title The canonical title of the comic.
- * @property-read integer $issueNumber The number of the issue in the series (will generally be for collection formats).
+ * @property-read string $issueNumber The number of the issue in the series (will generally be for collection formats).
  * @property-read string $variantDescription If the issue is a variant (e.g. an alternate cover, second printing, or
  *                                           director's cut), a text description of the variant.
  * @property-read string $description The preferred description of the comic.
@@ -63,7 +63,7 @@ class Comic extends AbstractEntity
             'id' => [['int', true]],
             'digitalId' => [['int', true]],
             'title' => [['string', true, 0]],
-            'issueNumber' => [['int', true]],
+            'issueNumber' => [['strval'], ['string', true, 0]],
             'variantDescription' => [['string', true, 0]],
             'description' => [['string', true, 0]],
             'modified' => [['date', true]],

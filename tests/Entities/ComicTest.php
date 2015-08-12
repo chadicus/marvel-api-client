@@ -560,7 +560,7 @@ final class ComicTest extends \PHPUnit_Framework_TestCase
             'id' => 1,
             'digitalId' => 2,
             'title' => 'a title',
-            'issueNumber' => 3,
+            'issueNumber' => '3',
             'variantDescription' => 'a variant description',
             'description' => 'a description',
             'modified' => 'Fri, 19 Jun 2015 15:54:05 -0400',
