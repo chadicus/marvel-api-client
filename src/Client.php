@@ -153,4 +153,29 @@ class Client implements ClientInterface
 
         return $this->cache->get($request);
     }
+
+    /**
+     * Allow calls such as $client->characters();
+     *
+     * @param string $name      The name of the api resource
+     * @param array  $arguments The parameters to pass to get() or search()
+     *
+     * @return Collection|EntityInterface
+     */
+    final public function __call($name, array $arguments)
+    {
+        $resource = strtolower($name);
+        $parameters = array_shift($arguments);
+        if ($parameters === null || is_array($parameters)) {
+            return new Collection($this, $resource, $parameters ?: []);
+        }
+
+        $response = $this->get($resource, $parameters);
+        $results = $response->getDataWrapper()->getData()->getResults();
+        if (empty($results)) {
+            return null;
+        }
+
+        return $results[0];
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace Chadicus\Marvel\Api;
 
-use Chadicus\Marvel\Api\Assets\FakeAdapter;
+use Chadicus\Marvel\Api\Assets;
 use Chadicus\Marvel\Api\Adapter\AdapterInterface;
 
 /**
@@ -42,7 +42,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
             }
         );
 
-        $adapter = new FakeAdapter();
+        $adapter = new Assets\FakeAdapter();
         $client = new Client('aPrivateKey', 'aPublicKey', $adapter);
         $client->search('a Resource', ['key' => 'value']);
         $request = $adapter->getRequest();
@@ -82,15 +82,15 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
     {
         return [
             // privateApiKey
-            'privateApiKey is null' => [null, 'a public key', new FakeAdapter()],
-            'privateApiKey is empty' => ['', 'a public key', new FakeAdapter()],
-            'privateApiKey is whitespace' => [" \n\t", 'a public key', new FakeAdapter()],
-            'privateApiKey is not a string' => [true, 'a public key', new FakeAdapter()],
+            'privateApiKey is null' => [null, 'a public key', new Assets\FakeAdapter()],
+            'privateApiKey is empty' => ['', 'a public key', new Assets\FakeAdapter()],
+            'privateApiKey is whitespace' => [" \n\t", 'a public key', new Assets\FakeAdapter()],
+            'privateApiKey is not a string' => [true, 'a public key', new Assets\FakeAdapter()],
             // publicApiKey
-            'publicApiKey is null' => ['a private key', null, new FakeAdapter()],
-            'publicApiKey is empty' => ['a private key', '', new FakeAdapter()],
-            'publicApiKey is whitespace' => ['a private key', "\n \t", new FakeAdapter()],
-            'publicApiKey is not a string' => ['a private key', false, new FakeAdapter()],
+            'publicApiKey is null' => ['a private key', null, new Assets\FakeAdapter()],
+            'publicApiKey is empty' => ['a private key', '', new Assets\FakeAdapter()],
+            'publicApiKey is whitespace' => ['a private key', "\n \t", new Assets\FakeAdapter()],
+            'publicApiKey is not a string' => ['a private key', false, new Assets\FakeAdapter()],
         ];
     }
 
@@ -109,7 +109,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function searchtWithBadData($resource, array $filters)
     {
-        (new Client('not under test', 'not under test', new FakeAdapter()))->search($resource, $filters);
+        (new Client('not under test', 'not under test', new Assets\FakeAdapter()))->search($resource, $filters);
     }
 
     /**
@@ -147,7 +147,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
             }
         );
 
-        $adapter = new FakeAdapter();
+        $adapter = new Assets\FakeAdapter();
         $client = new Client('aPrivateKey', 'aPublicKey', $adapter);
         $client->get('a Resource', 1);
         $request = $adapter->getRequest();
@@ -174,7 +174,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function gettWithBadData($resource, $id)
     {
-        (new Client('not under test', 'not under test', new FakeAdapter()))->get($resource, $id);
+        (new Client('not under test', 'not under test', new Assets\FakeAdapter()))->get($resource, $id);
     }
 
     /**
@@ -220,7 +220,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
             new Request(Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}", 'GET'),
             new Response(599, ['custom' => 'header'], ['key' => 'value'])
         );
-        $adapter = new FakeAdapter();
+        $adapter = new Assets\FakeAdapter();
         $client = new Client('aPrivateKey', 'aPublicKey', $adapter, $cache);
         $response = $client->get('a Resource', 1);
         $this->assertSame(599, $response->getHttpCode());
@@ -253,7 +253,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
         $request = new Request(Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}", 'GET');
 
         $cache = new Cache\ArrayCache();
-        $adapter = new FakeAdapter();
+        $adapter = new Assets\FakeAdapter();
         $client = new Client('aPrivateKey', 'aPublicKey', $adapter, $cache);
         $response = $client->get('a Resource', 1);
 
@@ -261,5 +261,70 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($response->getHttpCode(), $cachedResponse->getHttpCode());
         $this->assertSame($response->getHeaders(), $cachedResponse->getHeaders());
         $this->assertSame($response->getBody(), $cachedResponse->getBody());
+    }
+
+    /**
+     * Verify bahvior of __call() for single entity.
+     *
+     * @test
+     * @covers ::__call
+     *
+     * @return void
+     */
+    public function callEntity()
+    {
+        $client = new Client('not under test', 'not under test', new Assets\ComicAdapter());
+        $comic = $client->comics(2);
+        $this->assertInstanceOf('Chadicus\Marvel\Api\Entities\Comic', $comic);
+        $this->assertSame(2, $comic->getId());
+    }
+
+    /**
+     * Verify bahvior of __call() for entity that is not found.
+     *
+     * @test
+     * @covers ::__call
+     *
+     * @return void
+     */
+    public function callEntityNotFound()
+    {
+        $client = new Client('not under test', 'not under test', new Assets\EmptyAdapter());
+        $comic = $client->comics(1);
+        $this->assertNull($comic);
+    }
+
+    /**
+     * Verify bahvior of __call() for entity that is invalid.
+     *
+     * @test
+     * @covers ::__call
+     *
+     * @return void
+     */
+    public function callInvalidEntity()
+    {
+        $client = new Client('not under test', 'not under test', new Assets\ErrorAdapter());
+        $result = $client->batman(1);
+        $this->assertNull($result);
+    }
+
+    /**
+     * Verify basic bahvior of __call() for entity collection.
+     *
+     * @test
+     * @covers ::__call
+     *
+     * @return void
+     */
+    public function callCollection()
+    {
+        $client = new Client('not under test', 'not under test', new Assets\ComicAdapter());
+        $comics = $client->comics();
+        $this->assertInstanceOf('Chadicus\Marvel\Api\Collection', $comics);
+        $this->assertSame(5, $comics->count());
+        foreach ($comics as $key => $comic) {
+            $this->assertSame($key + 1, $comic->getId());
+        }
     }
 }

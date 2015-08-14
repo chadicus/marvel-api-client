@@ -8,12 +8,9 @@ $privateApiKey = getenv('PRIVATE_KEY');
 
 $client = new Client($privateApiKey, $publicApiKey);
 
-$character = $client->characters(1009351);
+//1009165 is the character id for the Avangers
+$comics = $client->comics(['characters' => 1009165]);
 
-echo "{$character->getName()}\n";
-echo "{$character->getDescription()}\n";
-
-foreach ($character->getEvents()->getItems() as $event) {
-    echo "\t{$event->getName()}\n";
+foreach ($comics as $comic) {
+    echo "{$comic->getTitle()}\n";
 }
-

@@ -92,7 +92,7 @@ class Response implements ResponseInterface
      */
     final public function getDataWrapper()
     {
-        if ($this->dataWrapper === null && $this->httpCode === 200) {
+        if ($this->dataWrapper === null) {
             $this->dataWrapper = new DataWrapper($this->body);
         }
 
