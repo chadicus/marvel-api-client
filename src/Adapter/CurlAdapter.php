@@ -2,7 +2,7 @@
 
 namespace Chadicus\Marvel\Api\Adapter;
 
-use Chadicus\Marvel\Api\Request;
+use Chadicus\Marvel\Api\RequestInterface;
 use Chadicus\Marvel\Api\Response;
 use DominionEnterprises\Util;
 use DominionEnterprises\Util\Arrays;
@@ -16,13 +16,13 @@ final class CurlAdapter implements AdapterInterface
     /**
      * Execute the specified request against the Marvel API.
      *
-     * @param Request $request The request to send.
+     * @param RequestInterface $request The request to send.
      *
-     * @return Response
+     * @return ResponseInterface
      *
      * @throws \Exception Throws on error.
      */
-    public function send(Request $request)
+    public function send(RequestInterface $request)
     {
         $curlHeaders = ['Expect:'];//stops curl automatically putting in expect 100.
         foreach ($request->getHeaders() as $key => $value) {

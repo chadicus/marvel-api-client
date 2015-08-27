@@ -7,7 +7,7 @@ use DominionEnterprises\Util;
 /**
  * Represents a request to the Marvel API.
  */
-class Request
+class Request implements RequestInterface
 {
     /**
      * The url for this request.
@@ -80,7 +80,7 @@ class Request
     /**
      * Get the body of this request.
      *
-     * @return string
+     * @return array
      */
     final public function getBody()
     {

@@ -3,7 +3,7 @@ namespace Chadicus\Marvel\Api\Assets;
 
 use Chadicus\Marvel\Api\Adapter\AdapterInterface;
 use Chadicus\Marvel\Api\Client;
-use Chadicus\Marvel\Api\Request;
+use Chadicus\Marvel\Api\RequestInterface;
 use Chadicus\Marvel\Api\Response;
 
 /**
@@ -21,11 +21,11 @@ final class CharacterAdapter implements AdapterInterface
     /**
      * Simulate sending a request to the API.
      *
-     * @param Request $request The request.
+     * @param RequestInterface $request The request.
      *
-     * @return Response
+     * @return ResponseInterface
      */
-    public function send(Request $request)
+    public function send(RequestInterface $request)
     {
         $allResults = [
             [

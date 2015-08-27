@@ -4,7 +4,7 @@ namespace Chadicus\Marvel\Api;
 
 use DominionEnterprises\Util;
 
-class DataContainer
+class DataContainer implements DataContainerInterface
 {
     /**
      * The requested offset (number of skipped results) of the call.

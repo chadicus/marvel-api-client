@@ -5,7 +5,7 @@ namespace Chadicus\Marvel\Api;
 /**
  * Represents a response from the Marvel API.
  */
-class Response
+class Response implements ResponseInterface
 {
     /**
      * The http status of the response.
@@ -88,7 +88,7 @@ class Response
     /**
      * Returns the parsed API response.
      *
-     * @return DataWrapper
+     * @return DataWrapperInterface
      */
     final public function getDataWrapper()
     {

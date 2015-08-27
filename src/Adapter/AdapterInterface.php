@@ -12,9 +12,9 @@ interface AdapterInterface
     /**
      * Execute the specified request against the Marvel API.
      *
-     * @param Request $request The request to send.
+     * @param RequestInterface $request The request to send.
      *
-     * @return Api\Response
+     * @return Api\ResponseInterface
      */
-    public function send(Api\Request $request);
+    public function send(Api\RequestInterface $request);
 }
