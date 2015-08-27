@@ -3,7 +3,8 @@
 namespace Chadicus\Marvel\Api\Cache;
 
 use Chadicus\Marvel\Api\Response;
-use Chadicus\Marvel\Api\Request;
+use Chadicus\Marvel\Api\ResponseInterface;
+use Chadicus\Marvel\Api\RequestInterface;
 
 /**
  * Concrete implementation of Cache using an array.
@@ -40,15 +41,15 @@ final class MongoCache extends AbstractCache implements CacheInterface
     /**
      * Store the api $response as the cached result of the api $request.
      *
-     * @param Request  $request    The request for which the response will be cached.
-     * @param Response $response   The reponse to cache.
+     * @param RequestInterface  $request    The request for which the response will be cached.
+     * @param ResponseInterface $response   The reponse to cache.
      * @param integer  $timeToLive The time in seconds that the cache should live.
      *
      * @return void
      *
      * @throws \InvalidArgumentException Throw if $timeToLive is not an integer between 0 and 86400.
      */
-    public function set(Request $request, Response $response, $timeToLive = null)
+    public function set(RequestInterface $request, ResponseInterface $response, $timeToLive = null)
     {
         $timeToLive = self::ensureTTL($timeToLive ?: $this->getDefaultTTL());
 
@@ -67,11 +68,11 @@ final class MongoCache extends AbstractCache implements CacheInterface
     /**
      * Retrieve the cached results of the api $request.
      *
-     * @param Request $request A request for which the response may be cached.
+     * @param RequestInterface $request A request for which the response may be cached.
      *
-     * @return Response|null
+     * @return ResponseInterface|null
      */
-    public function get(Request $request)
+    public function get(RequestInterface $request)
     {
         $cached = $this->collection->findOne(['_id' => $request->getUrl()]);
         if ($cached === null) {

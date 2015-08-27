@@ -7,7 +7,7 @@ use DominionEnterprises\Util;
 /**
  * PHP Client for the Marvel API.
  */
-class Client
+class Client implements ClientInterface
 {
     /**
      * The public api key issued by Marvel.
@@ -72,7 +72,7 @@ class Client
      * @param string $resource The API resource to search for.
      * @param array  $filters  Array of search criteria to use in request.
      *
-     * @return Response
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException Thrown if $resource is empty or not a string.
      */
@@ -97,7 +97,7 @@ class Client
      * @param string  $resource The API resource to search for.
      * @param integer $id       The id of the API resource.
      *
-     * @return Response
+     * @return ResponseInterface
      */
     final public function get($resource, $id)
     {
@@ -118,11 +118,11 @@ class Client
     /**
      * Send the given API Request.
      *
-     * @param Request $request The request to send.
+     * @param RequestInterface $request The request to send.
      *
-     * @return Response
+     * @return ResponseInterface
      */
-    final private function send(Request $request)
+    final private function send(RequestInterface $request)
     {
         $response = $this->getFromCache($request);
         if ($response !== null) {
@@ -141,11 +141,11 @@ class Client
     /**
      * Retrieve the Response for the given Request from cache.
      *
-     * @param Request $request The request to send.
+     * @param RequestInterface $request The request to send.
      *
-     * @return Response|null Returns the cached Response or null if it does not exist.
+     * @return ResponseInterface|null Returns the cached Response or null if it does not exist.
      */
-    final private function getFromCache(Request $request)
+    final private function getFromCache(RequestInterface $request)
     {
         if ($this->cache === null) {
             return null;

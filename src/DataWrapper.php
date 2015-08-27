@@ -4,7 +4,7 @@ namespace Chadicus\Marvel\Api;
 
 use DominionEnterprises\Util;
 
-class DataWrapper
+class DataWrapper implements DataWrapperInterface
 {
     /**
      * The HTTP status code of the returned result.

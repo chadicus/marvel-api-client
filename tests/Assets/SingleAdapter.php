@@ -3,7 +3,7 @@ namespace Chadicus\Marvel\Api\Assets;
 
 use Chadicus\Marvel\Api\Adapter\AdapterInterface;
 use Chadicus\Marvel\Api\Client;
-use Chadicus\Marvel\Api\Request;
+use Chadicus\Marvel\Api\RequestInterface;
 use Chadicus\Marvel\Api\Response;
 
 /**
@@ -14,11 +14,11 @@ final class SingleAdapter implements AdapterInterface
     /**
      * Returns an empty Response.
      *
-     * @param Request $request The request to send.
+     * @param RequestInterface $request The request to send.
      *
-     * @return Response
+     * @return ResponseInterface
      */
-    public function send(Request $request)
+    public function send(RequestInterface $request)
     {
         $this->request = $request;
 
