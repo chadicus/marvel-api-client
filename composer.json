@@ -13,7 +13,7 @@
     "require": {
         "php": "~5.4",
         "dominionenterprises/util" : "~1.0",
-        "dominionenterprises/filter" : "dev-master",
+        "dominionenterprises/filter" : "~1.6.1",
         "chadicus/spl-types": "~0.1",
         "chadicus/spl-exceptions": "~0.2"
     },
