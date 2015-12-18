@@ -29,10 +29,21 @@ final class ComicAdapter implements AdapterInterface
     public function send(RequestInterface $request)
     {
         $allResults = self::getAllResults();
+        $total = count($allResults);
 
         $queryString = parse_url($request->getUrl(), PHP_URL_QUERY);
         $queryParams = [];
         parse_str($queryString, $queryParams);
+
+        $path = parse_url($request->getUrl(), PHP_URL_PATH);
+        if (substr($path, -6) !== 'comics') {
+            $parts = explode('/', $request->getUrl());
+            $id = array_pop($parts);
+            $queryParams['offset'] = $id - 1;
+            $queryParams['limit'] = 1;
+            $total = 1;
+        }
+
         $this->parameters = $queryParams;
 
         $offset = (int)$queryParams['offset'];
@@ -49,7 +60,7 @@ final class ComicAdapter implements AdapterInterface
                 'data' => [
                     'offset' => $offset,
                     'limit' => $limit,
-                    'total' => 5,
+                    'total' => $total,
                     'count' => $count,
                     'results' => $results,
                 ],
