@@ -4,6 +4,9 @@ namespace Chadicus\Marvel\Api;
 
 use DominionEnterprises\Util;
 
+/**
+ * Object representation of the API result data wrapper.
+ */
 class DataWrapper implements DataWrapperInterface
 {
     /**
@@ -58,7 +61,7 @@ class DataWrapper implements DataWrapperInterface
     /**
      * Create a new DataWrapper instance.
      *
-     * @param array $input The data for the DataWrapper
+     * @param array $input The data for the DataWrapper.
      */
     public function __construct(array $input)
     {

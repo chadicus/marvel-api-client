@@ -52,6 +52,5 @@ final class CollectionAdapter implements AdapterInterface
                 ],
             ]
         );
-
     }
 }

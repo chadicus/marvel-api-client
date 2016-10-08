@@ -12,7 +12,7 @@ final class PriceTest extends \PHPUnit_Framework_TestCase
     /**
      * Verify invalid constructor parameters cause exceptions.
      *
-     * @param mixed $type   The description of the price.
+     * @param mixed $type  The description of the price.
      * @param mixed $price The price of the price.
      *
      * @test
@@ -44,7 +44,7 @@ final class PriceTest extends \PHPUnit_Framework_TestCase
     /**
      * Verify valid constructor parameters cause no exceptions.
      *
-     * @param mixed $type   The description of the price.
+     * @param mixed $type  The description of the price.
      * @param mixed $price The price of the price.
      *
      * @test

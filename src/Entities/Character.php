@@ -19,7 +19,7 @@ use DominionEnterprises\Util;
  * @property-read ResourceList $stories A resource list of stories in which this character appears.
  * @property-read ResourceList $events A resource list of events in which this character appears.
  * @property-read ResourceList $series A resource list of series in which this character appears.
-*/
+ */
 class Character extends AbstractEntity
 {
     /**

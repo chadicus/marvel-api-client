@@ -4,6 +4,9 @@ namespace Chadicus\Marvel\Api;
 
 use DominionEnterprises\Util;
 
+/**
+ * Object representation of the API result data container.
+ */
 class DataContainer implements DataContainerInterface
 {
     /**
@@ -44,7 +47,7 @@ class DataContainer implements DataContainerInterface
     /**
      * Create a new DataContainer instance.
      *
-     * @param array $input The data for the DataContainer
+     * @param array $input The data for the DataContainer.
      */
     public function __construct(array $input)
     {
@@ -69,7 +72,7 @@ class DataContainer implements DataContainerInterface
     /**
      * Helper method to derive the filter to use for the given resource array
      *
-     * @param mixed $results the results array from the API
+     * @param mixed $results The results array from the API.
      *
      * @return callable The filter to use
      */

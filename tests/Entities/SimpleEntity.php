@@ -2,10 +2,16 @@
 
 namespace Chadicus\Marvel\Api\Entities;
 
+/**
+ * Entity objects for testing.
+ */
 class SimpleEntity extends AbstractEntity
 {
-    public $input;
-
+    /**
+     * @see AbstractEntity::getFilters().
+     *
+     * @return array
+     */
     protected function getFilters()
     {
         return ['field' => [['string']]];

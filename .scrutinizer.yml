@@ -2,26 +2,26 @@ filter:
     excluded_paths:
         - 'vendor/*'
         - 'tests/*'
-        - 'examples/*'
 before_commands:
     - 'composer install --prefer-source'
+checks:
+    php:
+        custom_coding_standard:
+            git_repository: 'https://github.com/chadicus/coding-standard'
+            git_version: '971fac1625463a72df0034fbfdd263561f2ccb4f'
+            ruleset_path: 'Chadicus/ruleset.xml'
 tools:
     php_analyzer: true
     php_mess_detector: true
-    php_code_sniffer:
-        config:
-            standard: PSR2
     sensiolabs_security_checker: true
     php_loc:
         excluded_dirs:
             - vendor
             - tests
-            - examples
     php_pdepend: true
     php_sim: true
 build_failure_conditions:
-    - 'elements.rating(<= D).new.exists'           # No new classes/methods with a rating of D or worse allowed (useful for legacy code)
-    - 'issues.label("coding-style").new.exists'    # No new coding style issues allowed
-    - 'issues.label("coding-style").new.count > 5' # More than 5 new coding style issues.
-    - 'issues.severity(>= MAJOR).new.exists'       # New issues of major or higher severity
-    - 'project.metric("scrutinizer.quality", < 6)' # Code Quality Rating drops below 6
+    - 'elements.rating(<= C).new.exists'
+    - 'issues.label("coding-style").new.exists'
+    - 'issues.severity(>= MAJOR).new.exists'
+    - 'project.metric("scrutinizer.quality", < 6)'

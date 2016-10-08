@@ -157,8 +157,8 @@ class Client implements ClientInterface
     /**
      * Allow calls such as $client->characters();
      *
-     * @param string $name      The name of the api resource
-     * @param array  $arguments The parameters to pass to get() or search()
+     * @param string $name      The name of the api resource.
+     * @param array  $arguments The parameters to pass to get() or search().
      *
      * @return Collection|EntityInterface
      */

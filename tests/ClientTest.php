@@ -51,7 +51,6 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('GET', $request->getMethod());
         $this->assertSame($expectedUrl, $request->getUrl());
-
     }
 
     /**
@@ -156,7 +155,6 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('GET', $request->getMethod());
         $this->assertSame($expectedUrl, $request->getUrl());
-
     }
 
     /**

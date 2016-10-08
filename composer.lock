@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a855e24b30331c7ccc7b6d50921adcee",
-    "content-hash": "2683e1641e0106795b5ed1feca981768",
+    "hash": "878f17ed8c2e13756d4fd483be194e0a",
+    "content-hash": "523d352fdd04fe76a227872511cdfe43",
     "packages": [
         {
             "name": "chadicus/spl-exceptions",
@@ -504,6 +504,43 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "chadicus/coding-standard",
+            "version": "v1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chadicus/coding-standard.git",
+                "reference": "3264851a30a7305995998660ee239d1a3d1c311f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chadicus/coding-standard/zipball/3264851a30a7305995998660ee239d1a3d1c311f",
+                "reference": "3264851a30a7305995998660ee239d1a3d1c311f",
+                "shasum": ""
+            },
+            "require": {
+                "squizlabs/php_codesniffer": "~2.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chad Gray",
+                    "email": "chadwickgray@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Chadicus Coding standard",
+            "keywords": [
+                "coding",
+                "phpcs",
+                "standard"
+            ],
+            "time": "2016-08-04 18:59:29"
+        },
         {
             "name": "chadicus/test-helpers",
             "version": "v1.0.1",
