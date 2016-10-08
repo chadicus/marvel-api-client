@@ -153,7 +153,6 @@ final class CurlAdapterTest extends \PHPUnit_Framework_TestCase
         (new CurlAdapter())->send(new Request('not under test', 'get', ['foo' => 'bar'], []));
 
         $this->assertSame(['Expect:', 'foo: bar'], $actualHeaders);
-
     }
 
     /**

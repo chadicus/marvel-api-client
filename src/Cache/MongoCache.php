@@ -39,7 +39,7 @@ final class MongoCache extends AbstractCache implements CacheInterface
      *
      * @param RequestInterface  $request    The request for which the response will be cached.
      * @param ResponseInterface $response   The reponse to cache.
-     * @param integer  $timeToLive The time in seconds that the cache should live.
+     * @param integer           $timeToLive The time in seconds that the cache should live.
      *
      * @return void
      *

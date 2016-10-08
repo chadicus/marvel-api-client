@@ -2,6 +2,9 @@
 
 namespace Chadicus\Marvel\Api;
 
+/**
+ * Interface for api data container which displays pagination information and an array of results returned by an API call.
+ */
 interface DataContainerInterface
 {
 

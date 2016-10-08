@@ -7,6 +7,9 @@ use Chadicus\Spl\Exceptions\UndefinedPropertyException;
 use Chadicus\Spl\Exceptions\NotAllowedException;
 use DominionEnterprises\Util;
 
+/**
+ * Base entity class.
+ */
 abstract class AbstractEntity implements EntityInterface, \ArrayAccess
 {
     /**
@@ -17,9 +20,9 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
     private $data = [];
 
     /**
-     * Create a new AbstractEntity based on the given $input array
+     * Create a new AbstractEntity based on the given $input array.
      *
-     * @param array $input The data for the EntityInterface
+     * @param array $input The data for the EntityInterface.
      */
     public function __construct(array $input = [])
     {
@@ -32,11 +35,13 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
     }
 
     /**
-     * Get an AbstractEntity property
+     * Get an AbstractEntity property.
      *
-     * @param string $name The name of the property
+     * @param string $name The name of the property.
      *
      * @return mixed
+     *
+     * @throws UndefinedPropertyException Throw if this class does not contain the $name'd property.
      */
     final public function __get($name)
     {
@@ -51,12 +56,12 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
     /**
      * Allows for getX() method calls.
      *
-     * @param string $name The name of the method being called.
+     * @param string $name      The name of the method being called.
      * @param array  $arguments The arguments being passed to the method. This parameter is unused.
      *
      * @return mixed
      *
-     * @throws \BadMethodCallException Thrown if the property being accessed does not exist
+     * @throws \BadMethodCallException Thrown if the property being accessed does not exist.
      */
     final public function __call($name, array $arguments = [])
     {
@@ -97,7 +102,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
     /**
      * Create a new AbstractEntity based on the given $input array
      *
-     * @param array $input The data for the AbstractEntity
+     * @param array $input The data for the AbstractEntity.
      *
      * @return AbstractEntity
      */
@@ -134,9 +139,11 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      * Sets the value at the specified index to newval
      *
      * @param string $offset The index being get.
-     * @param mixed  $value  The new value for the index
+     * @param mixed  $value  The new value for the index.
      *
      * @return void
+     *
+     * @throws NotAllowedException Ensure this object is immutable.
      */
     final public function offsetSet($offset, $value)
     {
@@ -150,6 +157,8 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      * @param string $offset The index being unset.
      *
      * @return void
+     *
+     * @throws NotAllowedException Ensure this object is immutable.
      */
     final public function offsetUnset($offset)
     {

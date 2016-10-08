@@ -2,6 +2,9 @@
 
 namespace Chadicus\Marvel\Api\Cache;
 
+/**
+ * Base class for all cache objects.
+ */
 abstract class AbstractCache implements CacheInterface
 {
     /**
@@ -14,7 +17,7 @@ abstract class AbstractCache implements CacheInterface
     /**
      * Sets the default time to live in seconds.
      *
-     * @param integer $defaultTimeToLive The time in seconds
+     * @param integer $defaultTimeToLive The time in seconds.
      *
      * @return void
      */
@@ -26,7 +29,7 @@ abstract class AbstractCache implements CacheInterface
     /**
      * Returns the default time to live in seconds.
      *
-     * @return integer The time in seconds
+     * @return integer The time in seconds.
      */
     final public function getDefaultTTL()
     {
@@ -34,13 +37,13 @@ abstract class AbstractCache implements CacheInterface
     }
 
     /**
-     * Helper method to check TTL value
+     * Helper method to check TTL value.
      *
-     * @param integer $ttl The time value to check in seconds
+     * @param integer $ttl The time value to check in seconds.
      *
-     * @return integer The valid $ttl value
+     * @return integer The valid $ttl value.
      *
-     * @throws \InvalidArgumentException Thrown if $ttl is < 1 or > CacheInterface::MAX_TTL
+     * @throws \InvalidArgumentException Thrown if $ttl is < 1 or > CacheInterface::MAX_TTL.
      */
     final protected static function ensureTTL($ttl)
     {

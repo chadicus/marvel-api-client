@@ -21,7 +21,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * @property-read ResourceList $creators A resource list containing creators whose work appears in this event.
  * @property-read Summary $next A summary representation of the event which follows this event.
  * @property-read Summary $previous A summary representation of the event which preceded this event.
-*/
+ */
 class Event extends AbstractEntity
 {
     /**

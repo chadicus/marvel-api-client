@@ -4,10 +4,17 @@ namespace Chadicus\Marvel\Api;
 
 use DominionEnterprises\Filterer as BaseFilterer;
 
+/**
+ * Custom filterer for sanitizing API result data.
+ */
 abstract class Filterer
 {
     /**
      * @see \DominionEntepries\Filterer::filter().
+     *
+     * @param array $spec    The filter specification.
+     * @param array $input   The data to be filtered.
+     * @param array $options Array of filterer options.
      *
      * @return array
      */

@@ -2,6 +2,9 @@
 
 namespace Chadicus\Marvel\Api;
 
+/**
+ * Interface for an API data wrapper which contains metadata about the call and a container object,
+ */
 interface DataWrapperInterface
 {
     /**

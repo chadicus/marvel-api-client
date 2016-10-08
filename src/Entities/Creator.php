@@ -20,11 +20,11 @@ namespace Chadicus\Marvel\Api\Entities;
  * @property-read ResourceList $stories A resource list containing the stories which feature work by this creator.
  * @property-read ResourceList $comics A resource list containing the comics which feature work by this creator.
  * @property-read ResourceList $events A resource list containing the events which feature work by this creator.
-*/
+ */
 class Creator extends AbstractEntity
 {
     /**
-     * @see AbstractEntity::getFilters()
+     * @see AbstractEntity::getFilters().
      *
      * @return array
      */
