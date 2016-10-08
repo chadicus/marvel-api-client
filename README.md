@@ -1,26 +1,29 @@
 # Marvel API Client
-[![Build Status](https://travis-ci.org/chadicus/marvel-api-client.png)](https://travis-ci.org/chadicus/marvel-api-client)
-[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/chadicus/marvel-api-client.svg?style=flat)](https://scrutinizer-ci.com/g/chadicus/marvel-api-client/)
-[![Code Coverage](http://img.shields.io/coveralls/chadicus/marvel-api-client.svg?style=flat)](https://coveralls.io/r/chadicus/marvel-api-client)
-[![Latest Stable Version](http://img.shields.io/packagist/v/chadicus/marvel-api-client.svg?style=flat)](https://packagist.org/packages/chadicus/marvel-api-client)
-[![Total Downloads](http://img.shields.io/packagist/dt/chadicus/marvel-api-client.svg?style=flat)](https://packagist.org/packages/chadicus/marvel-api-client)
-[![License](http://img.shields.io/packagist/l/chadicus/marvel-api-client.svg?style=flat)](https://packagist.org/packages/chadicus/marvel-api-client)
-[![Documentation](https://img.shields.io/badge/reference-phpdoc-blue.svg?style=flat)](http://chadicus.github.io/marvel-api-client)
+[![Build Status](https://travis-ci.org/chadicus/marvel-api-client.svg?branch=master)](https://travis-ci.org/chadicus/marvel-api-client)
+[![Code Quality](https://scrutinizer-ci.com/g/chadicus/marvel-api-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/chadicus/marvel-api-client/?branch=master)
+[![Code Coverage](https://coveralls.io/repos/github/chadicus/marvel-api-client/badge.svg?branch=master)](https://coveralls.io/github/chadicus/marvel-api-client?branch=master)
+
+[![Latest Stable Version](https://poser.pugx.org/chadicus/marvel-api-client/v/stable)](https://packagist.org/packages/chadicus/marvel-api-client)
+[![Latest Unstable Version](https://poser.pugx.org/chadicus/marvel-api-client/v/unstable)](https://packagist.org/packages/chadicus/marvel-api-client)
+[![License](https://poser.pugx.org/chadicus/marvel-api-client/license)](https://packagist.org/packages/chadicus/marvel-api-client)
+
+[![Total Downloads](https://poser.pugx.org/chadicus/marvel-api-client/downloads)](https://packagist.org/packages/chadicus/marvel-api-client)
+[![Daily Downloads](https://poser.pugx.org/chadicus/marvel-api-client/d/daily)](https://packagist.org/packages/chadicus/marvel-api-client)
+[![Monthly Downloads](https://poser.pugx.org/chadicus/marvel-api-client/d/monthly)](https://packagist.org/packages/chadicus/marvel-api-client)
 
 A PHP client for use with the [Marvel API](http://developer.marvel.com/docs).
 
 ## Requirements
 
-The Marvel API Client requires PHP 5.4 (or later).
+The Marvel API Client requires PHP 5.6 (or later).
 
 ##Composer
-To add the library as a local, per-project dependency use [Composer](http://getcomposer.org)! Simply add a dependency on
-`chadicus/marvel-api-client` to your project's `composer.json` file such as:
+To add the library as a local, per-project dependency use [Composer](http://getcomposer.org)! Simply add a dependency on `chadicus/marvel-api-client` to your project's `composer.json` file such as:
 
 ```json
 {
     "require": {
-        "chadicus/marvel-api-client": "~1.0"
+        "chadicus/marvel-api-client": "^2.0"
     }
 }
 ```
