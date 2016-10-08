@@ -3,6 +3,7 @@ namespace Chadicus\Marvel\Api\Cache;
 
 use Chadicus\Marvel\Api\Request;
 use Chadicus\Marvel\Api\Response;
+use MongoDB\Collection;
 
 /**
  * Defines unit tests for the MongoCache class.
@@ -43,11 +44,6 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function setTtlIsLessThanOne()
     {
-        if (!\extension_loaded('mongo')) {
-            $this->markTestSkipped('The mongo extension not available');
-            return;
-        }
-
         (new MongoCache(self::getMongoCollection()))->set(
             new Request('not under test', 'not under test', [], []),
             new Response(200, [], []),
@@ -67,11 +63,6 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function setTtlIsGreaterThanMax()
     {
-        if (!\extension_loaded('mongo')) {
-            $this->markTestSkipped('The mongo extension not available');
-            return;
-        }
-
         (new MongoCache(self::getMongoCollection()))->set(
             new Request('not under test', 'not under test', [], []),
             new Response(200, [], []),
@@ -89,11 +80,6 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function getNotFound()
     {
-        if (!\extension_loaded('mongo')) {
-            $this->markTestSkipped('The mongo extension not available');
-            return;
-        }
-
         $cache = new MongoCache(self::getMongoCollection());
         $request = new Request('not under test', 'not under test', [], []);
         $this->assertNull($cache->get($request));
@@ -111,11 +97,6 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function getExpired()
     {
-        if (!\extension_loaded('mongo')) {
-            $this->markTestSkipped('The mongo extension not available');
-            return;
-        }
-
         \Chadicus\FunctionRegistry::set(
             __NAMESPACE__,
             'time',
@@ -147,34 +128,6 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Verify MongoCache cannot be instantiated when the mongo extension is not loaded.
-     *
-     * @test
-     * @covers ::__construct
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage The mongo extension is required for MongoCache
-     *
-     * @return void
-     */
-    public function constructMongoNotLoaded()
-    {
-        if (!\extension_loaded('mongo')) {
-            $this->markTestSkipped('The mongo extension not available');
-            return;
-        }
-
-        \Chadicus\FunctionRegistry::set(
-            __NAMESPACE__,
-            'extension_loaded',
-            function ($name) {
-                return false;
-            }
-        );
-
-        new MongoCache(self::getMongoCollection());
-    }
-
-    /**
      * Verify construct throws with invalid parameters.
      *
      * @param mixed $collection        The collection containing the cached data.
@@ -190,11 +143,6 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function constructWithBadData($collection, $defaultTimeToLive)
     {
-        if (!\extension_loaded('mongo')) {
-            $this->markTestSkipped('The mongo extension not available');
-            return;
-        }
-
         new MongoCache($collection, $defaultTimeToLive);
     }
 
@@ -205,10 +153,6 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function badConstructorData()
     {
-        if (!\extension_loaded('mongo')) {
-            return [[null, null]];
-        }
-
         return [
             'defaultTimeToLive is not an integer' => [self::getMongoCollection(), 'a string'],
             'defaultTimeToLive is less than 1' => [self::getMongoCollection(), -1],
@@ -223,13 +167,13 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
     /**
      * Helper method to get a mongo collection for testing.
      *
-     * @return \MongoCollection
+     * @return \MongoDB\Collection
      */
     private static function getMongoCollection()
     {
-        $collection = (new \MongoClient())->selectDb('testing')->selectCollection('cache');
+        $collection = (new \MongoDB\Client())->selectDatabase('testing')->selectCollection('cache');
         $collection->drop();
-        $collection->ensureIndex(['expires' => 1], ['expireAfterSeconds' => 0]);
+        $collection->createIndex(['expires' => 1], ['expireAfterSeconds' => 0]);
         return $collection;
     }
 }

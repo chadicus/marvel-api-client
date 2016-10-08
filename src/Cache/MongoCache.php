@@ -5,6 +5,9 @@ namespace Chadicus\Marvel\Api\Cache;
 use Chadicus\Marvel\Api\Response;
 use Chadicus\Marvel\Api\ResponseInterface;
 use Chadicus\Marvel\Api\RequestInterface;
+use MongoDB\BSON\UTCDateTime;
+use MongoDB\Collection;
+use MongoDB\Model\BSONArray;
 
 /**
  * Concrete implementation of Cache using an array.
@@ -12,30 +15,23 @@ use Chadicus\Marvel\Api\RequestInterface;
 final class MongoCache extends AbstractCache implements CacheInterface
 {
     /**
-     * MongoCollection containing the cached responses.
+     * MongoDB collection containing the cached responses.
      *
-     * @var \MongoCollection
+     * @var Collection
      */
     private $collection;
 
     /**
      * Construct a new instance of MongoCache.
      *
-     * @param \MongoCollection $collection        The collection containing the cached data.
-     * @param integer          $defaultTimeToLive The default time to live in seconds.
-     *
-     * @throws \RuntimeException Throw if mongo extension is not loaded.
-     * @throws \InvalidArgumentException Throw if $defaultTimeToLive is not an integer between 0 and 86400.
+     * @param Collection $collection        The collection containing the cached data.
+     * @param integer    $defaultTimeToLive The default time to live in seconds.
      */
-    public function __construct(\MongoCollection $collection, $defaultTimeToLive = CacheInterface::MAX_TTL)
+    public function __construct(Collection $collection, $defaultTimeToLive = CacheInterface::MAX_TTL)
     {
-        if (!extension_loaded('mongo')) {
-            throw new \RuntimeException('The mongo extension is required for MongoCache');
-        }
-
         $this->setDefaultTTL($defaultTimeToLive);
         $this->collection = $collection;
-        $this->collection->ensureIndex(['expires' => 1], ['expireAfterSeconds' => 0, 'background' => true]);
+        $this->collection->createIndex(['expires' => 1], ['expireAfterSeconds' => 0, 'background' => true]);
     }
 
     /**
@@ -55,14 +51,13 @@ final class MongoCache extends AbstractCache implements CacheInterface
 
         $id = $request->getUrl();
         $cache = [
-            '_id' => $id,
             'httpCode' => $response->getHttpCode(),
             'body' => $response->getBody(),
             'headers' => $response->getHeaders(),
-            'expires' => new \MongoDate(time() + $timeToLive),
+            'expires' => new UTCDateTime(time() + $timeToLive),
         ];
 
-        $this->collection->update(['_id' => $id], $cache, ['upsert' => true]);
+        $this->collection->updateOne(['_id' => $id], ['$set' => $cache], ['upsert' => true]);
     }
 
     /**
@@ -79,6 +74,16 @@ final class MongoCache extends AbstractCache implements CacheInterface
             return null;
         }
 
-        return new Response($cached['httpCode'], $cached['headers'], $cached['body']);
+        $headers = $cached['headers'];
+        if ($headers instanceof BSONArray) {
+            $headers = $headers->getArrayCopy();
+        }
+
+        $body = $cached['body'];
+        if ($body instanceof BSONArray) {
+            $body = $body->getArrayCopy();
+        }
+
+        return new Response($cached['httpCode'], $headers, $body);
     }
 }

@@ -11,20 +11,21 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "~5.4",
-        "dominionenterprises/util" : "~1.0",
-        "dominionenterprises/filter" : "~1.6.1",
-        "chadicus/spl-types": "~0.1",
-        "chadicus/spl-exceptions": "~0.2"
+        "php": "^5.6 || ^7.0",
+        "dominionenterprises/util" : "^2.0",
+        "dominionenterprises/filter" : "^2.0",
+        "chadicus/spl-types": "^1.0",
+        "chadicus/spl-exceptions": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.0",
-        "satooshi/php-coveralls": "~0.6.1",
-        "squizlabs/php_codesniffer": "~2.0",
-        "chadicus/test-helpers": "~1.0"
+        "phpunit/phpunit": "^5.5",
+        "satooshi/php-coveralls": "^1.0",
+        "squizlabs/php_codesniffer": "^2.0",
+        "chadicus/test-helpers": "^1.0",
+        "mongodb/mongodb": "^1.0"
     },
     "suggests" : {
-        "ext-mongo": "~1.3"
+        "mongodb/mongodb": "Needed to enable mongo caching"
     },
     "autoload": {
         "psr-4": { "Chadicus\\Marvel\\Api\\": ["src", "tests"] }

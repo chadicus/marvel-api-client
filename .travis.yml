@@ -1,12 +1,25 @@
-sudo: false
 language: php
 php:
   - 5.6
-  - 5.5
-  - 5.4
-install: composer install 
-services: mongodb
+  - 7.0
+  - 7.1
+env:
+  - EXT_VERSION=1.1 DB_PACKAGE=mongodb-10gen
+  - EXT_VERSION=1.1 DB_PACKAGE=mongodb-org
+before_install:
+  - "sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10"
+  - "echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list"
+  - "sudo apt-get update"
+  - "sudo apt-get install ${DB_PACKAGE}"
 before_script:
-  - echo 'extension="mongo.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - composer self-update
+  - yes '' | pecl install -f mongodb-${EXT_VERSION}
+    # wait for mongo, start is only needed for 2.4 package, see http://tldp.org/LDP/abs/html/devref1.html for description of this syntax.
+  - sudo service mongodb start; bash -c 'while ! exec 6<>/dev/tcp/localhost/27017; do echo "$(date) - still trying to connect to mongo"; sleep 1; done'
+  - composer install
 script: ./vendor/bin/phpunit --coverage-clover clover.xml
 after_success: ./vendor/bin/coveralls -v
+matrix:
+  fast_finish: true
+  allow_failures:
+     - php: 7.1
