@@ -39,7 +39,7 @@ final class ComicHandler
         $path = $request->getUri()->getPath();
         if (substr($path, -6) !== 'comics') {
             $parts = explode('/', (string)$request->getUri());
-            $id = array_pop($parts);
+            $id = (int)array_pop($parts);
             $queryParams['offset'] = $id - 1;
             $queryParams['limit'] = 1;
             $total = 1;
