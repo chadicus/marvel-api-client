@@ -4,11 +4,12 @@ namespace Chadicus\Marvel\Api\Assets;
 use Chadicus\Marvel\Api\Adapter\AdapterInterface;
 use Psr\Http\Message\RequestInterface;
 use Zend\Diactoros\Response;
+use Zend\Diactoros\Stream;
 
 /**
- * Adapter implementation that only returns empty responses.
+ * Mock Handler that only returns 404 responses.
  */
-final class FakeAdapter implements AdapterInterface
+final class ErrorHandler
 {
     /**
      * The last request given to this adapter.
@@ -18,16 +19,33 @@ final class FakeAdapter implements AdapterInterface
     private $request = null;
 
     /**
-     * Returns an empty Response.
+     * Returns a 404 Response.
      *
      * @param RequestInterface $request The request to send.
      *
      * @return ResponseInterface
      */
-    public function send(RequestInterface $request)
+    public function __invoke(RequestInterface $request)
     {
         $this->request = $request;
-        return new Response('php://memory', 200);
+        $stream = fopen('php://temp', 'r+');
+        fwrite(
+            $stream,
+            json_encode(
+                [
+                    'code' => 'ResourceNotFound',
+                    'message' => "{$request->getUri()} was not found",
+                ]
+            )
+        );
+
+        return new Response(
+            new Stream($stream),
+            404,
+            [
+                'Content-Type' => 'application/json',
+            ]
+        );
     }
 
     /**

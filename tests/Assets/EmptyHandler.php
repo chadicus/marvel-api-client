@@ -7,9 +7,9 @@ use Zend\Diactoros\Response;
 use Zend\Diactoros\Stream;
 
 /**
- * Adapter implementation that only returns empty responses.
+ * Mock handler that only returns empty responses.
  */
-final class EmptyAdapter implements AdapterInterface
+final class EmptyHandler
 {
     /**
      * Returns an empty Response.
@@ -18,7 +18,7 @@ final class EmptyAdapter implements AdapterInterface
      *
      * @return ResponseInterface
      */
-    public function send(RequestInterface $request)
+    public function __invoke(RequestInterface $request)
     {
         $this->request = $request;
 
