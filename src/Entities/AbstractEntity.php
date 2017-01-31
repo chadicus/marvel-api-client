@@ -43,7 +43,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @throws UndefinedPropertyException Throw if this class does not contain the $name'd property.
      */
-    final public function __get($name)
+    final public function __get(string $name)
     {
         if (!array_key_exists($name, $this->data)) {
             $class = get_called_class();
@@ -63,7 +63,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @throws \BadMethodCallException Thrown if the property being accessed does not exist.
      */
-    final public function __call($name, array $arguments = [])
+    final public function __call(string $name, array $arguments = [])
     {
         if (substr($name, 0, 3) !== 'get') {
             $class = get_called_class();

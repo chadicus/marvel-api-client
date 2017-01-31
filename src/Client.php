@@ -2,7 +2,6 @@
 
 namespace Chadicus\Marvel\Api;
 
-use DominionEnterprises\Util;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use Psr\Http\Message\RequestInterface;
@@ -58,13 +57,11 @@ class Client implements ClientInterface
      * @param Cache\CacheInterface  $cache         Implementation of Cache.
      */
     final public function __construct(
-        $privateApiKey,
-        $publicApiKey,
+        string $privateApiKey,
+        string $publicApiKey,
         GuzzleClientInterface $guzzleClient = null,
         Cache\CacheInterface $cache = null
     ) {
-        Util::throwIfNotType(['string' => [$privateApiKey, $publicApiKey]], true);
-
         $this->privateApiKey = $privateApiKey;
         $this->publicApiKey = $publicApiKey;
         $this->guzzleClient = $guzzleClient ?: new GuzzleClient();
@@ -81,12 +78,8 @@ class Client implements ClientInterface
      *
      * @throws \InvalidArgumentException Thrown if $resource is empty or not a string.
      */
-    final public function search($resource, array $filters = [])
+    final public function search(string $resource, array $filters = [])
     {
-        if (!is_string($resource) || trim($resource) == '') {
-            throw new \InvalidArgumentException('$resource must be a non-empty string');
-        }
-
         $filters['apikey'] = $this->publicApiKey;
         $timestamp = time();
         $filters['ts'] = $timestamp;
@@ -104,10 +97,8 @@ class Client implements ClientInterface
      *
      * @return ResponseInterface
      */
-    final public function get($resource, $id)
+    final public function get(string $resource, int $id)
     {
-        Util::throwIfNotType(['string' => [$resource], 'int' => [$id]], true);
-
         $timestamp = time();
         $query = [
             'apikey' => $this->publicApiKey,
@@ -167,7 +158,7 @@ class Client implements ClientInterface
      *
      * @return Collection|EntityInterface
      */
-    final public function __call($name, array $arguments)
+    final public function __call(string $name, array $arguments)
     {
         $resource = strtolower($name);
         $parameters = array_shift($arguments);

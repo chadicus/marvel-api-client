@@ -142,10 +142,8 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
     public function badConstructorData()
     {
         return [
-            'defaultTimeToLive is not an integer' => ['a string'],
             'defaultTimeToLive is less than 1' => [-1],
             'defaultTimeToLive is greater than CacheInterface::MAX_TTL' => [CacheInterface::MAX_TTL + 1],
-            'defaultTimeToLive is null' => [null],
         ];
     }
 }

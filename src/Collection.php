@@ -80,7 +80,7 @@ class Collection implements \Iterator, \Countable
      * @param array    $filters  A key value pair array of search filters.
      * @param callable $loader   A custom callable to use when iterating over the collection.
      */
-    final public function __construct(Client $client, $resource, array $filters = [], callable $loader = null)
+    final public function __construct(Client $client, string $resource, array $filters = [], callable $loader = null)
     {
         Util::throwIfNotType(['string' => [$resource]], true);
 

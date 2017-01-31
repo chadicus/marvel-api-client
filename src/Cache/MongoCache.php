@@ -28,7 +28,7 @@ final class MongoCache extends AbstractCache implements CacheInterface
      * @param Collection $collection        The collection containing the cached data.
      * @param integer    $defaultTimeToLive The default time to live in seconds.
      */
-    public function __construct(Collection $collection, $defaultTimeToLive = CacheInterface::MAX_TTL)
+    public function __construct(Collection $collection, int $defaultTimeToLive = CacheInterface::MAX_TTL)
     {
         $this->setDefaultTTL($defaultTimeToLive);
         $this->collection = $collection;
@@ -46,7 +46,7 @@ final class MongoCache extends AbstractCache implements CacheInterface
      *
      * @throws \InvalidArgumentException Throw if $timeToLive is not an integer between 0 and 86400.
      */
-    public function set(RequestInterface $request, ResponseInterface $response, $timeToLive = null)
+    public function set(RequestInterface $request, ResponseInterface $response, int $timeToLive = null)
     {
         $timeToLive = self::ensureTTL($timeToLive ?: $this->getDefaultTTL());
 

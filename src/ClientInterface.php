@@ -17,7 +17,7 @@ interface ClientInterface
      *
      * @throws \InvalidArgumentException Thrown if $resource is empty or not a string.
      */
-    public function search($resource, array $filters = []);
+    public function search(string $resource, array $filters = []);
 
     /**
      * Execute a GET request against the Marvel API for a single resource.
@@ -27,5 +27,5 @@ interface ClientInterface
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function get($resource, $id);
+    public function get(string $resource, int $id);
 }
