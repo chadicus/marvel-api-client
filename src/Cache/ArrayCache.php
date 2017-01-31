@@ -27,7 +27,7 @@ final class ArrayCache extends AbstractCache implements CacheInterface
      *
      * @throws \InvalidArgumentException Throw if $defaultTimeToLive is not an integer between 0 and 86400.
      */
-    public function __construct($defaultTimeToLive = CacheInterface::MAX_TTL)
+    public function __construct(int $defaultTimeToLive = CacheInterface::MAX_TTL)
     {
         $this->setDefaultTTL($defaultTimeToLive);
         $this->cache = [];
@@ -44,7 +44,7 @@ final class ArrayCache extends AbstractCache implements CacheInterface
      *
      * @throws \InvalidArgumentException Throw if $timeToLive is not an integer between 0 and 86400.
      */
-    public function set(RequestInterface $request, ResponseInterface $response, $timeToLive = null)
+    public function set(RequestInterface $request, ResponseInterface $response, int $timeToLive = null)
     {
         $timeToLive = self::ensureTTL($timeToLive ?: $this->getDefaultTTL());
 

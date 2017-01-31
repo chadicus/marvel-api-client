@@ -69,80 +69,6 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Verify proper exceptions thrown when Client is constructed with bad data.
-     *
-     * @param string $privateApiKey The private api key issued by Marvel.
-     * @param string $publicApiKey  The public api key issued by Marvel.
-     * @param Client $client        Implementation of a Guzzle HTTP client.
-     *
-     * @test
-     * @covers ::__construct
-     * @dataProvider badConstructorData
-     * @expectedException \InvalidArgumentException
-     *
-     * @return void
-     */
-    public function constructWithBadData($privateApiKey, $publicApiKey, GuzzleClient $adapter)
-    {
-        new Client($privateApiKey, $publicApiKey, $adapter);
-    }
-
-    /**
-     * Data adapter for constructWithBadData test.
-     *
-     * @return array
-     */
-    public function badConstructorData()
-    {
-        return [
-            // privateApiKey
-            'privateApiKey is null' => [null, 'a public key', new GuzzleClient()],
-            'privateApiKey is empty' => ['', 'a public key', new GuzzleClient()],
-            'privateApiKey is whitespace' => [" \n\t", 'a public key', new GuzzleClient()],
-            'privateApiKey is not a string' => [true, 'a public key', new GuzzleClient()],
-            // publicApiKey
-            'publicApiKey is null' => ['a private key', null, new GuzzleClient()],
-            'publicApiKey is empty' => ['a private key', '', new GuzzleClient()],
-            'publicApiKey is whitespace' => ['a private key', "\n \t", new GuzzleClient()],
-            'publicApiKey is not a string' => ['a private key', false, new GuzzleClient()],
-        ];
-    }
-
-    /**
-     * Verify proper exceptions thrown when Client is constructed with bad data.
-     *
-     * @param string $resource The API resource to search for.
-     * @param array  $filters  Array of search criteria to use in request.
-     *
-     * @test
-     * @covers ::search
-     * @dataProvider badSearchData
-     * @expectedException \InvalidArgumentException
-     *
-     * @return void
-     */
-    public function searchtWithBadData($resource, array $filters)
-    {
-        (new Client('not under test', 'not under test', new GuzzleClient()))->search($resource, $filters);
-    }
-
-    /**
-     * Data adapter for searchWithBadData test.
-     *
-     * @return array
-     */
-    public function badSearchData()
-    {
-        return [
-            // resource
-            'resource is null' => [null, []],
-            'resource is empty' => ['', []],
-            'resource is whitespace' => [" \n\t", []],
-            'resource is not a string' => [true, []],
-        ];
-    }
-
-    /**
      * Verify basic behavior of get().
      *
      * @test
@@ -179,43 +105,6 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('GET', $request->getMethod());
         $this->assertSame($expectedUrl, (string)$request->getUri());
-    }
-
-    /**
-     * Verify proper exceptions thrown when Client is constructed with bad data.
-     *
-     * @param string  $resource The API resource to search for.
-     * @param integer $id       The id of the API resource.
-     *
-     * @test
-     * @covers ::get
-     * @dataProvider badGetData
-     * @expectedException \InvalidArgumentException
-     *
-     * @return void
-     */
-    public function gettWithBadData($resource, $id)
-    {
-        (new Client('not under test', 'not under test', new GuzzleClient()))->get($resource, $id);
-    }
-
-    /**
-     * Data adapter for getWithBadData test.
-     *
-     * @return array
-     */
-    public function badGetData()
-    {
-        return [
-            // resource
-            'resource is null' => [null, 1],
-            'resource is empty' => ['',1],
-            'resource is whitespace' => [" \n\t",1],
-            'resource is not a string' => [true,1],
-            // id
-            'id is null' => ['a resource', null],
-            'id is not an integer' => ['a resource', true],
-        ];
     }
 
     /**

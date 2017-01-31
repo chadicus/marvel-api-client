@@ -146,13 +146,11 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
     public function badConstructorData()
     {
         return [
-            'defaultTimeToLive is not an integer' => [self::getMongoCollection(), 'a string'],
             'defaultTimeToLive is less than 1' => [self::getMongoCollection(), -1],
             'defaultTimeToLive is greater than CacheInterface::MAX_TTL' => [
                 self::getMongoCollection(),
                 CacheInterface::MAX_TTL + 1
             ],
-            'defaultTimeToLive is null' => [self::getMongoCollection(), null],
         ];
     }
 

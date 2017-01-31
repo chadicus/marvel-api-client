@@ -26,7 +26,7 @@ interface CacheInterface
      *
      * @return void
      */
-    public function set(RequestInterface $request, ResponseInterface $response, $timeToLive = null);
+    public function set(RequestInterface $request, ResponseInterface $response, int $timeToLive = null);
 
     /**
      * Retrieve the cached results of the api $request.
