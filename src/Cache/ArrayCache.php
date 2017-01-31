@@ -2,8 +2,10 @@
 
 namespace Chadicus\Marvel\Api\Cache;
 
-use Chadicus\Marvel\Api\RequestInterface;
-use Chadicus\Marvel\Api\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Zend\Diactoros\Request;
+use Zend\Diactoros\Response;
 use DominionEnterprises\Util\Arrays;
 
 /**
@@ -46,7 +48,7 @@ final class ArrayCache extends AbstractCache implements CacheInterface
     {
         $timeToLive = self::ensureTTL($timeToLive ?: $this->getDefaultTTL());
 
-        $this->cache[$request->getUrl()] = ['response' => $response, 'expires' => time() + $timeToLive];
+        $this->cache[(string)$request->getUri()] = ['response' => $response, 'expires' => time() + $timeToLive];
     }
 
     /**
@@ -58,7 +60,7 @@ final class ArrayCache extends AbstractCache implements CacheInterface
      */
     public function get(RequestInterface $request)
     {
-        $id = $request->getUrl();
+        $id = (string)$request->getUri();
         $cache = Arrays::get($this->cache, $id);
         if ($cache === null) {
             return null;

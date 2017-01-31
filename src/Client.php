@@ -3,6 +3,9 @@
 namespace Chadicus\Marvel\Api;
 
 use DominionEnterprises\Util;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Zend\Diactoros\Request;
 
 /**
  * PHP Client for the Marvel API.
@@ -88,7 +91,7 @@ class Client implements ClientInterface
         $filters['hash'] = md5($timestamp . $this->privateApiKey . $this->publicApiKey);
         $url = self::BASE_URL . urlencode($resource) . '?' . http_build_query($filters);
 
-        return $this->send(new Request($url, 'GET', ['Accept' =>  'application/json']));
+        return $this->send(new Request($url, 'GET', 'php://temp', ['Accept' =>  'application/json']));
     }
 
     /**
@@ -112,7 +115,7 @@ class Client implements ClientInterface
 
         $url = self::BASE_URL . urlencode($resource) . "/{$id}?" . http_build_query($query);
 
-        return $this->send(new Request($url, 'GET', ['Accept' =>  'application/json']));
+        return $this->send(new Request($url, 'GET', 'php://temp', ['Accept' =>  'application/json']));
     }
 
     /**
@@ -171,7 +174,13 @@ class Client implements ClientInterface
         }
 
         $response = $this->get($resource, $parameters);
-        $results = $response->getDataWrapper()->getData()->getResults();
+        if ($response->getStatusCode() !== 200) {
+            return null;
+        }
+
+        $json = (string)$response->getBody();
+        $dataWrapper = new DataWrapper(json_decode($json, true));
+        $results = $dataWrapper->getData()->getResults();
         if (empty($results)) {
             return null;
         }

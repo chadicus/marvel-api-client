@@ -3,8 +3,9 @@ namespace Chadicus\Marvel\Api\Assets;
 
 use Chadicus\Marvel\Api\Adapter\AdapterInterface;
 use Chadicus\Marvel\Api\Client;
-use Chadicus\Marvel\Api\RequestInterface;
-use Chadicus\Marvel\Api\Response;
+use Psr\Http\Message\RequestInterface;
+use Zend\Diactoros\Response;
+use Zend\Diactoros\Stream;
 
 /**
  * Adapter that returns multiple items.
@@ -195,7 +196,7 @@ final class CharacterAdapter implements AdapterInterface
             ],
         ];
 
-        $queryString = parse_url($request->getUrl(), PHP_URL_QUERY);
+        $queryString = $request->getUri()->getQuery();
         $queryParams = [];
         parse_str($queryString, $queryParams);
         $this->parameters = $queryParams;
@@ -204,21 +205,30 @@ final class CharacterAdapter implements AdapterInterface
         $limit = (int)$queryParams['limit'];
         $results = array_slice($allResults, $offset, $limit);
         $count = count($results);
+
+        $stream = fopen('php://temp', 'r+');
+        fwrite(
+            $stream,
+            json_encode(
+                [
+                    'code' => 200,
+                    'status' => 'ok',
+                    'etag' => 'an etag',
+                    'data' => [
+                        'offset' => $offset,
+                        'limit' => $limit,
+                        'total' => 5,
+                        'count' => $count,
+                        'results' => $results,
+                    ],
+                ]
+            )
+        );
+
         return new Response(
+            new Stream($stream),
             200,
-            ['Content-type' => 'application/json', 'etag' => 'an etag'],
-            [
-                'code' => 200,
-                'status' => 'ok',
-                'etag' => 'an etag',
-                'data' => [
-                    'offset' => $offset,
-                    'limit' => $limit,
-                    'total' => 5,
-                    'count' => $count,
-                    'results' => $results,
-                ],
-            ]
+            ['Content-type' => 'application/json', 'etag' => 'an etag']
         );
     }
 }

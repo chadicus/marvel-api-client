@@ -2,7 +2,7 @@
 
 namespace Chadicus\Marvel\Api\Adapter;
 
-use Chadicus\Marvel\Api\RequestInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * Simple interface for a client adapter.
@@ -14,7 +14,7 @@ interface AdapterInterface
      *
      * @param RequestInterface $request The request to send.
      *
-     * @return \Chadicus\Marvel\Api\ResponseInterface
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function send(RequestInterface $request);
 }

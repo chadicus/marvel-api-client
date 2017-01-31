@@ -2,9 +2,10 @@
 
 namespace Chadicus\Marvel\Api\Cache;
 
-use Chadicus\Marvel\Api\Response;
-use Chadicus\Marvel\Api\ResponseInterface;
-use Chadicus\Marvel\Api\RequestInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Zend\Diactoros\Response;
+use Zend\Diactoros\Stream;
 use MongoDB\BSON\UTCDateTime;
 use MongoDB\Collection;
 use MongoDB\Model\BSONArray;
@@ -49,10 +50,10 @@ final class MongoCache extends AbstractCache implements CacheInterface
     {
         $timeToLive = self::ensureTTL($timeToLive ?: $this->getDefaultTTL());
 
-        $id = $request->getUrl();
+        $id = (string)$request->getUri();
         $cache = [
-            'httpCode' => $response->getHttpCode(),
-            'body' => $response->getBody(),
+            'httpCode' => $response->getStatusCode(),
+            'body' => (string)$response->getBody(),
             'headers' => $response->getHeaders(),
             'expires' => new UTCDateTime(time() + $timeToLive),
         ];
@@ -69,7 +70,7 @@ final class MongoCache extends AbstractCache implements CacheInterface
      */
     public function get(RequestInterface $request)
     {
-        $cached = $this->collection->findOne(['_id' => $request->getUrl()]);
+        $cached = $this->collection->findOne(['_id' => (string)$request->getUri()]);
         if ($cached === null) {
             return null;
         }
@@ -80,10 +81,10 @@ final class MongoCache extends AbstractCache implements CacheInterface
         }
 
         $body = $cached['body'];
-        if ($body instanceof BSONArray) {
-            $body = $body->getArrayCopy();
-        }
+        $stream = fopen('php://temp', 'r+');
+        fwrite($stream, $body);
+        rewind($stream);
 
-        return new Response($cached['httpCode'], $headers, $body);
+        return new Response(new Stream($stream), $cached['httpCode'], $headers);
     }
 }

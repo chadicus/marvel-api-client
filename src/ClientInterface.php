@@ -13,7 +13,7 @@ interface ClientInterface
      * @param string $resource The API resource to search for.
      * @param array  $filters  Array of search criteria to use in request.
      *
-     * @return ResponseInterface
+     * @return \Psr\Http\Message\ResponseInterface
      *
      * @throws \InvalidArgumentException Thrown if $resource is empty or not a string.
      */
@@ -25,7 +25,7 @@ interface ClientInterface
      * @param string  $resource The API resource to search for.
      * @param integer $id       The id of the API resource.
      *
-     * @return ResponseInterface
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function get($resource, $id);
 }

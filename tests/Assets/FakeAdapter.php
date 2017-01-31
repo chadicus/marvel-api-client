@@ -2,8 +2,8 @@
 namespace Chadicus\Marvel\Api\Assets;
 
 use Chadicus\Marvel\Api\Adapter\AdapterInterface;
-use Chadicus\Marvel\Api\RequestInterface;
-use Chadicus\Marvel\Api\Response;
+use Psr\Http\Message\RequestInterface;
+use Zend\Diactoros\Response;
 
 /**
  * Adapter implementation that only returns empty responses.
@@ -27,8 +27,7 @@ final class FakeAdapter implements AdapterInterface
     public function send(RequestInterface $request)
     {
         $this->request = $request;
-
-        return new Response(200, [], []);
+        return new Response('php://memory', 200);
     }
 
     /**
