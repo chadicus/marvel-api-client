@@ -2,7 +2,8 @@
 namespace Chadicus\Marvel\Api\Entities;
 
 use Chadicus\Marvel\Api\Client;
-use Chadicus\Marvel\Api\Assets\CharacterAdapter;
+use Chadicus\Marvel\Api\Assets\CharacterHandler;
+use GuzzleHttp\Client as GuzzleClient;
 
 /**
  * Unit tests for the Character class.
@@ -21,7 +22,8 @@ final class CharacterTest extends \PHPUnit_Framework_TestCase
      */
     public function construct()
     {
-        $client = new Client('not under test', 'not under test', new CharacterAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new CharacterHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
 
         $now = new \DateTime();
 
@@ -109,7 +111,8 @@ final class CharacterTest extends \PHPUnit_Framework_TestCase
      */
     public function findAll()
     {
-        $client = new Client('not under test', 'not under test', new CharacterAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new CharacterHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $characters = Character::findAll($client);
 
         $this->assertSame(5, $characters->count());
@@ -140,8 +143,9 @@ final class CharacterTest extends \PHPUnit_Framework_TestCase
             'stories' => [7,8,9],
             'orderBy' => 'name',
         ];
-        $adapter = new CharacterAdapter();
-        $client = new Client('not under test', 'not under test', $adapter);
+        $handler = new CharacterHandler();
+        $guzzleClient = new GuzzleClient(['handler' => $handler]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $characters = Character::findAll($client, $criteria);
 
         $characters->next();
@@ -157,7 +161,7 @@ final class CharacterTest extends \PHPUnit_Framework_TestCase
         ];
 
         foreach ($expectedParameters as $key => $value) {
-            $this->assertSame($value, $adapter->parameters[$key]);
+            $this->assertSame($value, $handler->parameters[$key]);
         }
     }
 }

@@ -1,17 +1,23 @@
 <?php
 namespace Chadicus\Marvel\Api\Assets;
 
-use Chadicus\Marvel\Api\Adapter\AdapterInterface;
 use Chadicus\Marvel\Api\Client;
 use Psr\Http\Message\RequestInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Stream;
 
 /**
- * Adapter implementation that only returns a responses with one item.
+ * Mock handler that only returns a responses with one item.
  */
-final class SingleAdapter implements AdapterInterface
+final class SingleHandler
 {
+    /**
+     * The last HTTP request sent to the handler.
+     *
+     * @var RequestInterface
+     */
+    public $request;
+
     /**
      * Returns an empty Response.
      *
@@ -19,7 +25,7 @@ final class SingleAdapter implements AdapterInterface
      *
      * @return ResponseInterface
      */
-    public function send(RequestInterface $request)
+    public function __invoke(RequestInterface $request)
     {
         $this->request = $request;
 

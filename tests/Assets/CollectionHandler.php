@@ -8,9 +8,9 @@ use Zend\Diactoros\Response;
 use Zend\Diactoros\Stream;
 
 /**
- * Adapter that returns multiple items.
+ * Mock Handler for guzzle client.
  */
-final class CollectionAdapter implements AdapterInterface
+final class CollectionHandler
 {
     /**
      * Simulate sending a request to the API.
@@ -19,7 +19,7 @@ final class CollectionAdapter implements AdapterInterface
      *
      * @return ResponseInterface
      */
-    public function send(RequestInterface $request)
+    public function __invoke(RequestInterface $request)
     {
         $allResults = [
             ['id' => 0, 'title' => 'a title for comic 0', 'resourceURI' => Client::BASE_URL . 'comics/0'],

@@ -3,6 +3,8 @@
 namespace Chadicus\Marvel\Api;
 
 use DominionEnterprises\Util;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Request;
@@ -27,11 +29,11 @@ class Client implements ClientInterface
     private $privateApiKey;
 
     /**
-     * Adapter implementation.
+     * Guzzle HTTP Client implementation.
      *
-     * @var Adapter\AdapterInterface
+     * @var GuzzleClientInterface
      */
-    private $adapter;
+    private $guzzleClient;
 
     /**
      * Cache implementation.
@@ -50,22 +52,22 @@ class Client implements ClientInterface
     /**
      * Construct a new Client.
      *
-     * @param string                   $privateApiKey The private api key issued by Marvel.
-     * @param string                   $publicApiKey  The public api key issued by Marvel.
-     * @param Adapter\AdapterInterface $adapter       Implementation of a client adapter.
-     * @param Cache\CacheInterface     $cache         Implementation of Cache.
+     * @param string                $privateApiKey The private api key issued by Marvel.
+     * @param string                $publicApiKey  The public api key issued by Marvel.
+     * @param GuzzleClientInterface $guzzleClient  Implementation of a Guzzle HTTP client.
+     * @param Cache\CacheInterface  $cache         Implementation of Cache.
      */
     final public function __construct(
         $privateApiKey,
         $publicApiKey,
-        Adapter\AdapterInterface $adapter = null,
+        GuzzleClientInterface $guzzleClient = null,
         Cache\CacheInterface $cache = null
     ) {
         Util::throwIfNotType(['string' => [$privateApiKey, $publicApiKey]], true);
 
         $this->privateApiKey = $privateApiKey;
         $this->publicApiKey = $publicApiKey;
-        $this->adapter = $adapter ?: new Adapter\CurlAdapter();
+        $this->guzzleClient = $guzzleClient ?: new GuzzleClient();
         $this->cache = $cache;
     }
 
@@ -132,7 +134,7 @@ class Client implements ClientInterface
             return $response;
         }
 
-        $response = $this->adapter->send($request);
+        $response = $this->guzzleClient->send($request);
 
         if ($this->cache !== null) {
             $this->cache->set($request, $response);

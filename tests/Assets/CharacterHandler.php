@@ -8,9 +8,9 @@ use Zend\Diactoros\Response;
 use Zend\Diactoros\Stream;
 
 /**
- * Adapter that returns multiple items.
+ * Mock handler for guzzle clients.
  */
-final class CharacterAdapter implements AdapterInterface
+final class CharacterHandler
 {
     /**
      * The parameters sent with the last request.
@@ -26,7 +26,7 @@ final class CharacterAdapter implements AdapterInterface
      *
      * @return ResponseInterface
      */
-    public function send(RequestInterface $request)
+    public function __invoke(RequestInterface $request)
     {
         $allResults = [
             [

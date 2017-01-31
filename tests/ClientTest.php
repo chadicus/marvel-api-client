@@ -2,8 +2,10 @@
 
 namespace Chadicus\Marvel\Api;
 
-use Chadicus\Marvel\Api\Assets;
-use Chadicus\Marvel\Api\Adapter\AdapterInterface;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
 use Zend\Diactoros\Request;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Stream;
@@ -45,10 +47,20 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
             }
         );
 
-        $adapter = new Assets\FakeAdapter();
-        $client = new Client('aPrivateKey', 'aPublicKey', $adapter);
+        $guzzleResponse = new Response('php://memory', 200);
+        $mockHandler = new MockHandler([$guzzleResponse]);
+        $container = [];
+        $history = Middleware::history($container);
+        $stack = HandlerStack::create($mockHandler);
+        $stack->push($history);
+        $guzzleClient = new GuzzleClient(['handler' => $stack]);
+
+        $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient);
         $client->search('a Resource', ['key' => 'value']);
-        $request = $adapter->getRequest();
+
+        $this->assertCount(1, $container);
+        $request = $container[0]['request'];
+
         $hash = md5('1aPrivateKeyaPublicKey');
         $expectedUrl = Client::BASE_URL . "a+Resource?key=value&apikey=aPublicKey&ts=1&hash={$hash}";
 
@@ -59,9 +71,9 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      * Verify proper exceptions thrown when Client is constructed with bad data.
      *
-     * @param string           $privateApiKey The private api key issued by Marvel.
-     * @param string           $publicApiKey  The public api key issued by Marvel.
-     * @param AdapterInterface $adapter       Implementation of a client adapter.
+     * @param string $privateApiKey The private api key issued by Marvel.
+     * @param string $publicApiKey  The public api key issued by Marvel.
+     * @param Client $client        Implementation of a Guzzle HTTP client.
      *
      * @test
      * @covers ::__construct
@@ -70,7 +82,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function constructWithBadData($privateApiKey, $publicApiKey, AdapterInterface $adapter)
+    public function constructWithBadData($privateApiKey, $publicApiKey, GuzzleClient $adapter)
     {
         new Client($privateApiKey, $publicApiKey, $adapter);
     }
@@ -84,15 +96,15 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
     {
         return [
             // privateApiKey
-            'privateApiKey is null' => [null, 'a public key', new Assets\FakeAdapter()],
-            'privateApiKey is empty' => ['', 'a public key', new Assets\FakeAdapter()],
-            'privateApiKey is whitespace' => [" \n\t", 'a public key', new Assets\FakeAdapter()],
-            'privateApiKey is not a string' => [true, 'a public key', new Assets\FakeAdapter()],
+            'privateApiKey is null' => [null, 'a public key', new GuzzleClient()],
+            'privateApiKey is empty' => ['', 'a public key', new GuzzleClient()],
+            'privateApiKey is whitespace' => [" \n\t", 'a public key', new GuzzleClient()],
+            'privateApiKey is not a string' => [true, 'a public key', new GuzzleClient()],
             // publicApiKey
-            'publicApiKey is null' => ['a private key', null, new Assets\FakeAdapter()],
-            'publicApiKey is empty' => ['a private key', '', new Assets\FakeAdapter()],
-            'publicApiKey is whitespace' => ['a private key', "\n \t", new Assets\FakeAdapter()],
-            'publicApiKey is not a string' => ['a private key', false, new Assets\FakeAdapter()],
+            'publicApiKey is null' => ['a private key', null, new GuzzleClient()],
+            'publicApiKey is empty' => ['a private key', '', new GuzzleClient()],
+            'publicApiKey is whitespace' => ['a private key', "\n \t", new GuzzleClient()],
+            'publicApiKey is not a string' => ['a private key', false, new GuzzleClient()],
         ];
     }
 
@@ -111,7 +123,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function searchtWithBadData($resource, array $filters)
     {
-        (new Client('not under test', 'not under test', new Assets\FakeAdapter()))->search($resource, $filters);
+        (new Client('not under test', 'not under test', new GuzzleClient()))->search($resource, $filters);
     }
 
     /**
@@ -149,10 +161,19 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
             }
         );
 
-        $adapter = new Assets\FakeAdapter();
-        $client = new Client('aPrivateKey', 'aPublicKey', $adapter);
+        $guzzleResponse = new Response('php://memory', 200);
+        $mockHandler = new MockHandler([$guzzleResponse]);
+        $container = [];
+        $history = Middleware::history($container);
+        $stack = HandlerStack::create($mockHandler);
+        $stack->push($history);
+        $guzzleClient = new GuzzleClient(['handler' => $stack]);
+
+        $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient);
         $client->get('a Resource', 1);
-        $request = $adapter->getRequest();
+
+        $this->assertCount(1, $container);
+        $request = $container[0]['request'];
         $hash = md5('1aPrivateKeyaPublicKey');
         $expectedUrl = Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}";
 
@@ -175,7 +196,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function gettWithBadData($resource, $id)
     {
-        (new Client('not under test', 'not under test', new Assets\FakeAdapter()))->get($resource, $id);
+        (new Client('not under test', 'not under test', new GuzzleClient()))->get($resource, $id);
     }
 
     /**
@@ -224,15 +245,25 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
             new Request(Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}", 'GET'),
             new Response($stream, 599, ['custom' => 'header'])
         );
-        $adapter = new Assets\FakeAdapter();
-        $client = new Client('aPrivateKey', 'aPublicKey', $adapter, $cache);
+
+        $guzzleResponse = new Response('php://memory', 200);
+        $mockHandler = new MockHandler([$guzzleResponse]);
+        $container = [];
+        $history = Middleware::history($container);
+        $stack = HandlerStack::create($mockHandler);
+        $stack->push($history);
+        $guzzleClient = new GuzzleClient(['handler' => $stack]);
+
+        $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient, $cache);
+        $client->get('a Resource', 1);
+
         $response = $client->get('a Resource', 1);
         $this->assertSame(599, $response->getStatusCode());
         $this->assertSame(['custom' => ['header']], $response->getHeaders());
         $this->assertSame(json_encode(['key' => 'value']), (string)$response->getBody());
 
         // assert the adapter was not used
-        $this->assertNull($adapter->getRequest());
+        $this->assertCount(0, $container);
     }
 
     /**
@@ -257,8 +288,13 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
         $request = new Request(Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}", 'GET');
 
         $cache = new Cache\ArrayCache();
-        $adapter = new Assets\FakeAdapter();
-        $client = new Client('aPrivateKey', 'aPublicKey', $adapter, $cache);
+
+        $guzzleResponse = new Response('php://memory', 200);
+        $mockHandler = new MockHandler([$guzzleResponse]);
+        $stack = HandlerStack::create($mockHandler);
+        $guzzleClient = new GuzzleClient(['handler' => $stack]);
+
+        $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient, $cache);
         $response = $client->get('a Resource', 1);
 
         $cachedResponse = $cache->get($request);
@@ -277,7 +313,8 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function callEntity()
     {
-        $client = new Client('not under test', 'not under test', new Assets\ComicAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\ComicHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $comic = $client->comics(2);
         $this->assertInstanceOf('Chadicus\Marvel\Api\Entities\Comic', $comic);
         $this->assertSame(2, $comic->getId());
@@ -293,7 +330,8 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function callEntityNotFound()
     {
-        $client = new Client('not under test', 'not under test', new Assets\EmptyAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\EmptyHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $comic = $client->comics(1);
         $this->assertNull($comic);
     }
@@ -308,7 +346,8 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function callInvalidEntity()
     {
-        $client = new Client('not under test', 'not under test', new Assets\ErrorAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\ErrorHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $result = $client->batman(1);
         $this->assertNull($result);
     }
@@ -323,7 +362,8 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function callCollection()
     {
-        $client = new Client('not under test', 'not under test', new Assets\ComicAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\ComicHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $comics = $client->comics();
         $this->assertInstanceOf('Chadicus\Marvel\Api\Collection', $comics);
         $this->assertSame(5, $comics->count());
