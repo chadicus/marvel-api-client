@@ -15,7 +15,8 @@
         "dominionenterprises/util" : "^2.0",
         "dominionenterprises/filter" : "^2.0",
         "chadicus/spl-types": "^1.0",
-        "chadicus/spl-exceptions": "^1.0"
+        "chadicus/spl-exceptions": "^1.0",
+        "zendframework/zend-diactoros": "^1.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.5",

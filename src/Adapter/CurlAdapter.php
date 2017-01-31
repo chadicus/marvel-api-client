@@ -2,8 +2,9 @@
 
 namespace Chadicus\Marvel\Api\Adapter;
 
-use Chadicus\Marvel\Api\RequestInterface;
-use Chadicus\Marvel\Api\Response;
+use Psr\Http\Message\RequestInterface;
+use Zend\Diactoros\Response;
+use Zend\Diactoros\Stream;
 use DominionEnterprises\Util;
 use DominionEnterprises\Util\Arrays;
 use DominionEnterprises\Util\Http;
@@ -18,7 +19,7 @@ final class CurlAdapter implements AdapterInterface
      *
      * @param RequestInterface $request The request to send.
      *
-     * @return ResponseInterface
+     * @return Psr\Http\Message\ResponseInterface
      *
      * @throws \Exception Throws on error.
      */
@@ -26,11 +27,11 @@ final class CurlAdapter implements AdapterInterface
     {
         $curlHeaders = ['Expect:'];//stops curl automatically putting in expect 100.
         foreach ($request->getHeaders() as $key => $value) {
-            $curlHeaders[] = "{$key}: {$value}";
+            $curlHeaders[] = "{$key}: {$request->getHeaderLine($key)}";
         }
 
         $curlOptions = [
-            CURLOPT_URL => $request->getUrl(),
+            CURLOPT_URL => (string)$request->getUri(),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_VERBOSE => false,
             CURLOPT_HEADER => true,
@@ -62,20 +63,12 @@ final class CurlAdapter implements AdapterInterface
         );
 
         $headers = Http::parseHeaders(substr($result, 0, $headerSize - 1));
-        $body = json_decode(substr($result, $headerSize), true);
-        $error = Arrays::get(
-            [
-                JSON_ERROR_DEPTH => 'The maximum stack depth has been exceeded',
-                JSON_ERROR_STATE_MISMATCH => ' Invalid or malformed JSON',
-                JSON_ERROR_CTRL_CHAR => 'Control character error, possibly incorrectly encoded',
-                JSON_ERROR_SYNTAX => 'Syntax error',
-                JSON_ERROR_UTF8 => 'Malformed UTF-8 characters, possibly incorrectly encoded',
-            ],
-            json_last_error()
-        );
+        unset($headers['Response Code']);
+        unset($headers['Response Status']);
 
-        Util::ensure(null, $error, "Unable to parse response: {$error}");
-
-        return new Response($httpCode, $headers, $body ?: []);
+        $body = trim(substr($result, $headerSize));
+        $stream = new Stream('php://temp', 'r+');
+        $stream->write($body);
+        return new Response($stream, $httpCode, $headers);
     }
 }

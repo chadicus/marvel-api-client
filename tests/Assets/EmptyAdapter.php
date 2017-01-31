@@ -2,8 +2,9 @@
 namespace Chadicus\Marvel\Api\Assets;
 
 use Chadicus\Marvel\Api\Adapter\AdapterInterface;
-use Chadicus\Marvel\Api\RequestInterface;
-use Chadicus\Marvel\Api\Response;
+use Psr\Http\Message\RequestInterface;
+use Zend\Diactoros\Response;
+use Zend\Diactoros\Stream;
 
 /**
  * Adapter implementation that only returns empty responses.
@@ -21,21 +22,30 @@ final class EmptyAdapter implements AdapterInterface
     {
         $this->request = $request;
 
+        $stream = fopen('php://temp', 'r+');
+        fwrite(
+            $stream,
+            json_encode(
+                [
+                    'code' => 200,
+                    'status' => 'ok',
+                    'etag' => 'an etag',
+                    'data' => [
+                        'offset' => 0,
+                        'limit' => 20,
+                        'total' => 0,
+                        'count' => 0,
+                        'results' => [],
+                    ],
+                ]
+            )
+        );
+        rewind($stream);
+
         return new Response(
+            new Stream($stream),
             200,
-            ['Content-type' => 'application/json', 'etag' => 'an etag'],
-            [
-                'code' => 200,
-                'status' => 'ok',
-                'etag' => 'an etag',
-                'data' => [
-                    'offset' => 0,
-                    'limit' => 20,
-                    'total' => 0,
-                    'count' => 0,
-                    'results' => [],
-                ],
-            ]
+            ['Content-type' => 'application/json', 'etag' => 'an etag']
         );
     }
 }

@@ -3,8 +3,9 @@ namespace Chadicus\Marvel\Api\Assets;
 
 use Chadicus\Marvel\Api\Adapter\AdapterInterface;
 use Chadicus\Marvel\Api\Client;
-use Chadicus\Marvel\Api\RequestInterface;
-use Chadicus\Marvel\Api\Response;
+use Psr\Http\Message\RequestInterface;
+use Zend\Diactoros\Response;
+use Zend\Diactoros\Stream;
 
 /**
  * Adapter that returns multiple items.
@@ -28,7 +29,7 @@ final class CollectionAdapter implements AdapterInterface
             ['id' => 4, 'title' => 'a title for comic 4', 'resourceURI' => Client::BASE_URL . 'comics/4'],
         ];
 
-        $queryString = parse_url($request->getUrl(), PHP_URL_QUERY);
+        $queryString = parse_url($request->getUri(), PHP_URL_QUERY);
         $queryParams = [];
         parse_str($queryString, $queryParams);
 
@@ -36,21 +37,30 @@ final class CollectionAdapter implements AdapterInterface
         $limit = (int)$queryParams['limit'];
         $results = array_slice($allResults, $offset, $limit);
         $count = count($results);
+
+        $stream = fopen('php://temp', 'r+');
+        fwrite(
+            $stream,
+            json_encode(
+             	[
+                 	'code' => 200,
+                 	'status' => 'ok',
+                 	'etag' => 'an etag',
+                 	'data' => [
+                     	'offset' => $offset,
+                     	'limit' => $limit,
+                     	'total' => 5,
+                     	'count' => $count,
+                     	'results' => $results,
+                 	],
+             	]
+            )
+        );
+
         return new Response(
+            new Stream($stream),
             200,
-            ['Content-type' => 'application/json', 'etag' => 'an etag'],
-            [
-                'code' => 200,
-                'status' => 'ok',
-                'etag' => 'an etag',
-                'data' => [
-                    'offset' => $offset,
-                    'limit' => $limit,
-                    'total' => 5,
-                    'count' => $count,
-                    'results' => $results,
-                ],
-            ]
+            ['Content-type' => 'application/json', 'etag' => 'an etag']
         );
     }
 }

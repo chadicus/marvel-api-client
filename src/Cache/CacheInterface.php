@@ -2,8 +2,8 @@
 
 namespace Chadicus\Marvel\Api\Cache;
 
-use Chadicus\Marvel\Api\RequestInterface;
-use Chadicus\Marvel\Api\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Interface for caching API responses

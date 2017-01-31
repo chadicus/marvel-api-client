@@ -1,8 +1,8 @@
 <?php
 namespace Chadicus\Marvel\Api\Cache;
 
-use Chadicus\Marvel\Api\Request;
-use Chadicus\Marvel\Api\Response;
+use Zend\Diactoros\Request;
+use Zend\Diactoros\Response;
 use MongoDB\Collection;
 
 /**
@@ -44,11 +44,7 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function setTtlIsLessThanOne()
     {
-        (new MongoCache(self::getMongoCollection()))->set(
-            new Request('not under test', 'not under test', [], []),
-            new Response(200, [], []),
-            -1
-        );
+        (new MongoCache(self::getMongoCollection()))->set(new Request(), new Response(), -1);
     }
 
     /**
@@ -63,11 +59,7 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function setTtlIsGreaterThanMax()
     {
-        (new MongoCache(self::getMongoCollection()))->set(
-            new Request('not under test', 'not under test', [], []),
-            new Response(200, [], []),
-            CacheInterface::MAX_TTL + 1
-        );
+        (new MongoCache(self::getMongoCollection()))->set(new Request(), new Response(), CacheInterface::MAX_TTL + 1);
     }
 
     /**
@@ -81,7 +73,7 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
     public function getNotFound()
     {
         $cache = new MongoCache(self::getMongoCollection());
-        $request = new Request('not under test', 'not under test', [], []);
+        $request = new Request();
         $this->assertNull($cache->get($request));
     }
 
@@ -107,8 +99,8 @@ final class MongoCacheTest extends \PHPUnit_Framework_TestCase
 
         $collection = self::getMongoCollection();
         $cache = new MongoCache($collection);
-        $request = new Request('not under test', 'not under test', [], []);
-        $cache->set($request, new Response(200, [], []));
+        $request = new Request();
+        $cache->set($request, new Response('php://memory', 200));
         $this->assertNotNull($cache->get($request));
         $endTime = \time() + 60;
         while (\time() <= $endTime) {

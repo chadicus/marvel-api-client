@@ -4,6 +4,9 @@ namespace Chadicus\Marvel\Api;
 
 use Chadicus\Marvel\Api\Assets;
 use Chadicus\Marvel\Api\Adapter\AdapterInterface;
+use Zend\Diactoros\Request;
+use Zend\Diactoros\Response;
+use Zend\Diactoros\Stream;
 
 /**
  * Unit tests for the Client class.
@@ -50,7 +53,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
         $expectedUrl = Client::BASE_URL . "a+Resource?key=value&apikey=aPublicKey&ts=1&hash={$hash}";
 
         $this->assertSame('GET', $request->getMethod());
-        $this->assertSame($expectedUrl, $request->getUrl());
+        $this->assertSame($expectedUrl, (string)$request->getUri());
     }
 
     /**
@@ -154,7 +157,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
         $expectedUrl = Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}";
 
         $this->assertSame('GET', $request->getMethod());
-        $this->assertSame($expectedUrl, $request->getUrl());
+        $this->assertSame($expectedUrl, (string)$request->getUri());
     }
 
     /**
@@ -212,18 +215,21 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
             }
         );
 
+        $stream = new Stream('php://temp', 'r+');
+        $stream->write(json_encode(['key' => 'value']));
+
         $hash = md5('1aPrivateKeyaPublicKey');
         $cache = new Cache\ArrayCache();
         $cache->set(
             new Request(Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}", 'GET'),
-            new Response(599, ['custom' => 'header'], ['key' => 'value'])
+            new Response($stream, 599, ['custom' => 'header'])
         );
         $adapter = new Assets\FakeAdapter();
         $client = new Client('aPrivateKey', 'aPublicKey', $adapter, $cache);
         $response = $client->get('a Resource', 1);
-        $this->assertSame(599, $response->getHttpCode());
-        $this->assertSame(['custom' => 'header'], $response->getHeaders());
-        $this->assertSame(['key' => 'value'], $response->getBody());
+        $this->assertSame(599, $response->getStatusCode());
+        $this->assertSame(['custom' => ['header']], $response->getHeaders());
+        $this->assertSame(json_encode(['key' => 'value']), (string)$response->getBody());
 
         // assert the adapter was not used
         $this->assertNull($adapter->getRequest());
@@ -256,9 +262,9 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
         $response = $client->get('a Resource', 1);
 
         $cachedResponse = $cache->get($request);
-        $this->assertSame($response->getHttpCode(), $cachedResponse->getHttpCode());
+        $this->assertSame($response->getStatusCode(), $cachedResponse->getStatusCode());
         $this->assertSame($response->getHeaders(), $cachedResponse->getHeaders());
-        $this->assertSame($response->getBody(), $cachedResponse->getBody());
+        $this->assertSame((string)$response->getBody(), (string)$cachedResponse->getBody());
     }
 
     /**
