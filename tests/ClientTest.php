@@ -47,7 +47,9 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
             }
         );
 
-        $guzzleResponse = new Response('php://memory', 200);
+        $stream = new Stream('php://memory', 'r+');
+        $stream->write(json_encode([]));
+        $guzzleResponse = new Response($stream, 200);
         $mockHandler = new MockHandler([$guzzleResponse]);
         $container = [];
         $history = Middleware::history($container);
@@ -87,7 +89,10 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
             }
         );
 
-        $guzzleResponse = new Response('php://memory', 200);
+        $stream = new Stream('php://memory', 'r+');
+        $stream->write(json_encode([]));
+
+        $guzzleResponse = new Response($stream, 200);
         $mockHandler = new MockHandler([$guzzleResponse]);
         $container = [];
         $history = Middleware::history($container);
@@ -126,13 +131,30 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
         );
 
         $stream = new Stream('php://temp', 'r+');
-        $stream->write(json_encode(['key' => 'value']));
+        $stream->write(
+            json_encode(
+                [
+                   'code' => 200,
+                   'status' => 'OK',
+                   'attributionText' => 'a attributionText',
+                   'attributionHTML' => 'a attributionHTML',
+                   'etag' => 'a etag',
+                   'data' =>  [
+                       'offset' => 0,
+                       'limit' => 1,
+                       'total' => 1,
+                       'count' => 1,
+                       'results' => [['id' => 1, 'resourceURI' => Client::BASE_URL . 'characters/1']],
+                   ],
+                ]
+            )
+        );
 
         $hash = md5('1aPrivateKeyaPublicKey');
         $cache = new Cache\ArrayCache();
         $cache->set(
             new Request(Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}", 'GET'),
-            new Response($stream, 599, ['custom' => 'header'])
+            new Response($stream, 200, ['custom' => 'header'])
         );
 
         $guzzleResponse = new Response('php://memory', 200);
@@ -146,10 +168,10 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
         $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient, $cache);
         $client->get('a Resource', 1);
 
-        $response = $client->get('a Resource', 1);
-        $this->assertSame(599, $response->getStatusCode());
-        $this->assertSame(['custom' => ['header']], $response->getHeaders());
-        $this->assertSame(json_encode(['key' => 'value']), (string)$response->getBody());
+        $dataWrapper = $client->get('a Resource', 1);
+        $this->assertSame(200, $dataWrapper->getCode());
+        $this->assertSame('OK', $dataWrapper->getStatus());
+        $this->assertSame(1, $dataWrapper->getData()->getCount());
 
         // assert the adapter was not used
         $this->assertCount(0, $container);
@@ -178,18 +200,16 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
 
         $cache = new Cache\ArrayCache();
 
-        $guzzleResponse = new Response('php://memory', 200);
-        $mockHandler = new MockHandler([$guzzleResponse]);
-        $stack = HandlerStack::create($mockHandler);
-        $guzzleClient = new GuzzleClient(['handler' => $stack]);
+        $handler = new Assets\FakeHandler();
+        $guzzleClient = new GuzzleClient(['handler' => $handler]);
 
         $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient, $cache);
-        $response = $client->get('a Resource', 1);
+        $client->get('a Resource', 1);
 
         $cachedResponse = $cache->get($request);
-        $this->assertSame($response->getStatusCode(), $cachedResponse->getStatusCode());
-        $this->assertSame($response->getHeaders(), $cachedResponse->getHeaders());
-        $this->assertSame((string)$response->getBody(), (string)$cachedResponse->getBody());
+        $this->assertSame($handler->response->getStatusCode(), $cachedResponse->getStatusCode());
+        $this->assertSame($handler->response->getHeaders(), $cachedResponse->getHeaders());
+        $this->assertSame((string)$handler->response->getBody(), (string)$cachedResponse->getBody());
     }
 
     /**

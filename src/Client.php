@@ -86,7 +86,12 @@ class Client implements ClientInterface
         $filters['hash'] = md5($timestamp . $this->privateApiKey . $this->publicApiKey);
         $url = self::BASE_URL . urlencode($resource) . '?' . http_build_query($filters);
 
-        return $this->send(new Request($url, 'GET', 'php://temp', ['Accept' =>  'application/json']));
+        $response = $this->send(new Request($url, 'GET', 'php://temp', ['Accept' =>  'application/json']));
+        if ($response->getStatusCode() !== 200) {
+            return null;
+        }
+
+        return DataWrapper::fromJson((string)$response->getBody());
     }
 
     /**
@@ -95,7 +100,7 @@ class Client implements ClientInterface
      * @param string  $resource The API resource to search for.
      * @param integer $id       The id of the API resource.
      *
-     * @return ResponseInterface
+     * @return DataWrapperInterface
      */
     final public function get(string $resource, int $id)
     {
@@ -108,7 +113,12 @@ class Client implements ClientInterface
 
         $url = self::BASE_URL . urlencode($resource) . "/{$id}?" . http_build_query($query);
 
-        return $this->send(new Request($url, 'GET', 'php://temp', ['Accept' =>  'application/json']));
+        $response =  $this->send(new Request($url, 'GET', 'php://temp', ['Accept' =>  'application/json']));
+        if ($response->getStatusCode() !== 200) {
+            return null;
+        }
+
+        return DataWrapper::fromJson((string)$response->getBody());
     }
 
     /**
@@ -116,7 +126,7 @@ class Client implements ClientInterface
      *
      * @param RequestInterface $request The request to send.
      *
-     * @return ResponseInterface
+     * @return DataWrapperInterface
      */
     final private function send(RequestInterface $request)
     {
@@ -166,13 +176,11 @@ class Client implements ClientInterface
             return new Collection($this, $resource, $parameters ?: []);
         }
 
-        $response = $this->get($resource, $parameters);
-        if ($response->getStatusCode() !== 200) {
+        $dataWrapper = $this->get($resource, $parameters);
+        if ($dataWrapper === null) {
             return null;
         }
 
-        $json = (string)$response->getBody();
-        $dataWrapper = new DataWrapper(json_decode($json, true));
         $results = $dataWrapper->getData()->getResults();
         if (empty($results)) {
             return null;
