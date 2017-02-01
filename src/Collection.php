@@ -165,12 +165,7 @@ class Collection implements \Iterator, \Countable
         $this->offset += $this->limit;
         $this->filters['offset'] = $this->offset;
         $this->filters['limit'] = $this->limit === 0 ? 20 : $this->limit;
-        $indexResponse = $this->client->search($this->resource, $this->filters);
-
-        $httpCode = $indexResponse->getStatusCode();
-        Util::ensure(200, $httpCode, "Did not receive 200 from API. Instead received {$httpCode}");
-        $data = json_decode((string)$indexResponse->getBody(), true);
-        $dataWrapper = new DataWrapper($data);
+        $dataWrapper = $this->client->search($this->resource, $this->filters);
 
         $this->limit = $dataWrapper->getData()->getLimit();
         $this->total = $dataWrapper->getData()->getTotal();

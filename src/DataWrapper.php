@@ -86,6 +86,18 @@ class DataWrapper implements DataWrapperInterface
     }
 
     /**
+     * Construct a DataWrapper from the given JSON string.
+     *
+     * @param string $json The json encoded data.
+     *
+     * @return static
+     */
+    public static function fromJson(string $json)
+    {
+        return new static(json_decode($json, true));
+    }
+
+    /**
      * Returns the HTTP status code of the returned result.
      *
      * @return integer
