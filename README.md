@@ -40,12 +40,12 @@ $privateApiKey = getenv('PRIVATE_KEY');
 
 $client = new Client($privateApiKey, $publicApiKey);
 
-$response = $client->get('characters', 1009351);
+$dataWrapper = $client->get('characters', 1009351);
 
 //Text to display for attribution requirements
 $attributionText = $response->getDataWrapper()->getAttributionText();
 
-$character = $response->getDataWrapper()->getData()->getResults()[0];
+$character = $dataWrapper->getData()->getResults()[0];
 
 echo "{$character->getName()}\n";
 echo "{$character->getDescription()}\n";
