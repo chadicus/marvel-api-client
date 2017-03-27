@@ -11,7 +11,7 @@ use GuzzleHttp\Client as GuzzleClient;
  * @coversDefaultClass \Chadicus\Marvel\Api\Entities\Comic
  * @covers ::<protected>
  */
-final class ComicTest extends \PHPUnit_Framework_TestCase
+final class ComicTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify basic behavior of getId.

@@ -7,7 +7,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * @coversDefaultClass \Chadicus\Marvel\Api\Entities\Url
  * @covers ::<protected>
  */
-final class UrlTest extends \PHPUnit_Framework_TestCase
+final class UrlTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify basic behavior of getUrl.

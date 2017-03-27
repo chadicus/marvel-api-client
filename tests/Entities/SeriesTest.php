@@ -7,7 +7,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * @covers ::<protected>
  *
  */
-final class SeriesTest extends \PHPUnit_Framework_TestCase
+final class SeriesTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verifies basic behaviour of the Series class

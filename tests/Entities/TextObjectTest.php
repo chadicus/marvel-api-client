@@ -7,7 +7,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * @coversDefaultClass \Chadicus\Marvel\Api\Entities\TextObject
  * @covers ::<protected>
  */
-final class TextObjectTest extends \PHPUnit_Framework_TestCase
+final class TextObjectTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify basic behavior of fromArray().

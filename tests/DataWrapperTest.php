@@ -7,7 +7,7 @@ namespace Chadicus\Marvel\Api;
  * @covers ::<protected>
  * @covers ::__construct
  */
-final class DataWrapperTest extends \PHPUnit_Framework_TestCase
+final class DataWrapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify basic behaviour of the DataWrapper class

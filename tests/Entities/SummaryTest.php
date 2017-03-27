@@ -7,7 +7,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * @coversDefaultClass \Chadicus\Marvel\Api\Entities\Summary
  * @covers ::<protected>
  */
-final class SummaryTest extends \PHPUnit_Framework_TestCase
+final class SummaryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify basic behavior of fromArray().

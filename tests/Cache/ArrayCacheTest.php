@@ -9,7 +9,7 @@ use Zend\Diactoros\Response;
  *
  * @coversDefaultClass \Chadicus\Marvel\Api\Cache\ArrayCache
  */
-final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
+final class ArrayCacheTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Tear down each test.

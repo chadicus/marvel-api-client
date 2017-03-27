@@ -11,7 +11,7 @@ use GuzzleHttp\Client as GuzzleClient;
  * @coversDefaultClass \Chadicus\Marvel\Api\Entities\Character
  * @covers ::<protected>
  */
-final class CharacterTest extends \PHPUnit_Framework_TestCase
+final class CharacterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify properties are set properly.
