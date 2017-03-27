@@ -9,14 +9,7 @@ $privateApiKey = getenv('PRIVATE_KEY');
 $client = new Client($privateApiKey, $publicApiKey);
 
 //1009165 is the character id for the Avangers
-$response = $client->search('comics', ['characters' => 1009165]);
-
-echo "Response Headers\n";
-foreach ($response->getHeaders() as $key => $value) {
-    echo "{$key}: {$value}\n";
-}
-
-$wrapper = $response->getDataWrapper();
+$wrapper = $client->search('comics', ['characters' => 1009165]);
 
 echo "{$wrapper->getAttributionText()}\n";
 

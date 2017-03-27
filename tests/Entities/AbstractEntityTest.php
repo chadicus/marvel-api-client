@@ -8,7 +8,7 @@ use DominionEnterprises\Util;
  *
  * @coversDefaultClass \Chadicus\Marvel\Api\Entities\AbstractEntity
  */
-final class AbstractEntityTest extends \PHPUnit_Framework_TestCase
+final class AbstractEntityTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify basic functionality of fromArrays()

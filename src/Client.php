@@ -2,7 +2,11 @@
 
 namespace Chadicus\Marvel\Api;
 
-use DominionEnterprises\Util;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\ClientInterface as GuzzleClientInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Zend\Diactoros\Request;
 
 /**
  * PHP Client for the Marvel API.
@@ -24,11 +28,11 @@ class Client implements ClientInterface
     private $privateApiKey;
 
     /**
-     * Adapter implementation.
+     * Guzzle HTTP Client implementation.
      *
-     * @var Adapter\AdapterInterface
+     * @var GuzzleClientInterface
      */
-    private $adapter;
+    private $guzzleClient;
 
     /**
      * Cache implementation.
@@ -47,22 +51,20 @@ class Client implements ClientInterface
     /**
      * Construct a new Client.
      *
-     * @param string                   $privateApiKey The private api key issued by Marvel.
-     * @param string                   $publicApiKey  The public api key issued by Marvel.
-     * @param Adapter\AdapterInterface $adapter       Implementation of a client adapter.
-     * @param Cache\CacheInterface     $cache         Implementation of Cache.
+     * @param string                $privateApiKey The private api key issued by Marvel.
+     * @param string                $publicApiKey  The public api key issued by Marvel.
+     * @param GuzzleClientInterface $guzzleClient  Implementation of a Guzzle HTTP client.
+     * @param Cache\CacheInterface  $cache         Implementation of Cache.
      */
     final public function __construct(
-        $privateApiKey,
-        $publicApiKey,
-        Adapter\AdapterInterface $adapter = null,
+        string $privateApiKey,
+        string $publicApiKey,
+        GuzzleClientInterface $guzzleClient = null,
         Cache\CacheInterface $cache = null
     ) {
-        Util::throwIfNotType(['string' => [$privateApiKey, $publicApiKey]], true);
-
         $this->privateApiKey = $privateApiKey;
         $this->publicApiKey = $publicApiKey;
-        $this->adapter = $adapter ?: new Adapter\CurlAdapter();
+        $this->guzzleClient = $guzzleClient ?: new GuzzleClient();
         $this->cache = $cache;
     }
 
@@ -76,19 +78,20 @@ class Client implements ClientInterface
      *
      * @throws \InvalidArgumentException Thrown if $resource is empty or not a string.
      */
-    final public function search($resource, array $filters = [])
+    final public function search(string $resource, array $filters = [])
     {
-        if (!is_string($resource) || trim($resource) == '') {
-            throw new \InvalidArgumentException('$resource must be a non-empty string');
-        }
-
         $filters['apikey'] = $this->publicApiKey;
         $timestamp = time();
         $filters['ts'] = $timestamp;
         $filters['hash'] = md5($timestamp . $this->privateApiKey . $this->publicApiKey);
         $url = self::BASE_URL . urlencode($resource) . '?' . http_build_query($filters);
 
-        return $this->send(new Request($url, 'GET', ['Accept' =>  'application/json']));
+        $response = $this->send(new Request($url, 'GET', 'php://temp', ['Accept' =>  'application/json']));
+        if ($response->getStatusCode() !== 200) {
+            return null;
+        }
+
+        return DataWrapper::fromJson((string)$response->getBody());
     }
 
     /**
@@ -97,12 +100,10 @@ class Client implements ClientInterface
      * @param string  $resource The API resource to search for.
      * @param integer $id       The id of the API resource.
      *
-     * @return ResponseInterface
+     * @return DataWrapperInterface
      */
-    final public function get($resource, $id)
+    final public function get(string $resource, int $id)
     {
-        Util::throwIfNotType(['string' => [$resource], 'int' => [$id]], true);
-
         $timestamp = time();
         $query = [
             'apikey' => $this->publicApiKey,
@@ -112,7 +113,12 @@ class Client implements ClientInterface
 
         $url = self::BASE_URL . urlencode($resource) . "/{$id}?" . http_build_query($query);
 
-        return $this->send(new Request($url, 'GET', ['Accept' =>  'application/json']));
+        $response =  $this->send(new Request($url, 'GET', 'php://temp', ['Accept' =>  'application/json']));
+        if ($response->getStatusCode() !== 200) {
+            return null;
+        }
+
+        return DataWrapper::fromJson((string)$response->getBody());
     }
 
     /**
@@ -120,7 +126,7 @@ class Client implements ClientInterface
      *
      * @param RequestInterface $request The request to send.
      *
-     * @return ResponseInterface
+     * @return DataWrapperInterface
      */
     final private function send(RequestInterface $request)
     {
@@ -129,7 +135,7 @@ class Client implements ClientInterface
             return $response;
         }
 
-        $response = $this->adapter->send($request);
+        $response = $this->guzzleClient->send($request);
 
         if ($this->cache !== null) {
             $this->cache->set($request, $response);
@@ -162,7 +168,7 @@ class Client implements ClientInterface
      *
      * @return Collection|EntityInterface
      */
-    final public function __call($name, array $arguments)
+    final public function __call(string $name, array $arguments)
     {
         $resource = strtolower($name);
         $parameters = array_shift($arguments);
@@ -170,8 +176,12 @@ class Client implements ClientInterface
             return new Collection($this, $resource, $parameters ?: []);
         }
 
-        $response = $this->get($resource, $parameters);
-        $results = $response->getDataWrapper()->getData()->getResults();
+        $dataWrapper = $this->get($resource, $parameters);
+        if ($dataWrapper === null) {
+            return null;
+        }
+
+        $results = $dataWrapper->getData()->getResults();
         if (empty($results)) {
             return null;
         }

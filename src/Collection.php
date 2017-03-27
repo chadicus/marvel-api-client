@@ -80,7 +80,7 @@ class Collection implements \Iterator, \Countable
      * @param array    $filters  A key value pair array of search filters.
      * @param callable $loader   A custom callable to use when iterating over the collection.
      */
-    final public function __construct(Client $client, $resource, array $filters = [], callable $loader = null)
+    final public function __construct(Client $client, string $resource, array $filters = [], callable $loader = null)
     {
         Util::throwIfNotType(['string' => [$resource]], true);
 
@@ -165,14 +165,11 @@ class Collection implements \Iterator, \Countable
         $this->offset += $this->limit;
         $this->filters['offset'] = $this->offset;
         $this->filters['limit'] = $this->limit === 0 ? 20 : $this->limit;
-        $indexResponse = $this->client->search($this->resource, $this->filters);
+        $dataWrapper = $this->client->search($this->resource, $this->filters);
 
-        $httpCode = $indexResponse->getHttpCode();
-        Util::ensure(200, $httpCode, "Did not receive 200 from API. Instead received {$httpCode}");
-
-        $this->limit = $indexResponse->getDataWrapper()->getData()->getLimit();
-        $this->total = $indexResponse->getDataWrapper()->getData()->getTotal();
-        $this->results = $indexResponse->getDataWrapper()->getData()->getResults();
+        $this->limit = $dataWrapper->getData()->getLimit();
+        $this->total = $dataWrapper->getData()->getTotal();
+        $this->results = $dataWrapper->getData()->getResults();
         $this->position = 0;
     }
 

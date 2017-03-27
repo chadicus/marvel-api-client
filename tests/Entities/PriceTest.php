@@ -7,7 +7,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * @coversDefaultClass \Chadicus\Marvel\Api\Entities\Price
  * @covers ::<protected>
  */
-final class PriceTest extends \PHPUnit_Framework_TestCase
+final class PriceTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify invalid constructor parameters cause exceptions.

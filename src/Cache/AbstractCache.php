@@ -21,7 +21,7 @@ abstract class AbstractCache implements CacheInterface
      *
      * @return void
      */
-    final public function setDefaultTTL($defaultTimeToLive)
+    final public function setDefaultTTL(int $defaultTimeToLive)
     {
         $this->defaultTimeToLive = self::ensureTTL($defaultTimeToLive);
     }
@@ -45,7 +45,7 @@ abstract class AbstractCache implements CacheInterface
      *
      * @throws \InvalidArgumentException Thrown if $ttl is < 1 or > CacheInterface::MAX_TTL.
      */
-    final protected static function ensureTTL($ttl)
+    final protected static function ensureTTL(int $ttl)
     {
         if ($ttl < 1 || $ttl > CacheInterface::MAX_TTL) {
             throw new \InvalidArgumentException('TTL value must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL);

@@ -2,8 +2,8 @@
 
 namespace Chadicus\Marvel\Api\Cache;
 
-use Chadicus\Marvel\Api\RequestInterface;
-use Chadicus\Marvel\Api\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Interface for caching API responses
@@ -26,7 +26,7 @@ interface CacheInterface
      *
      * @return void
      */
-    public function set(RequestInterface $request, ResponseInterface $response, $timeToLive = null);
+    public function set(RequestInterface $request, ResponseInterface $response, int $timeToLive = null);
 
     /**
      * Retrieve the cached results of the api $request.

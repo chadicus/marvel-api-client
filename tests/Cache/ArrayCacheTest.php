@@ -1,15 +1,15 @@
 <?php
 namespace Chadicus\Marvel\Api\Cache;
 
-use Chadicus\Marvel\Api\Request;
-use Chadicus\Marvel\Api\Response;
+use Zend\Diactoros\Request;
+use Zend\Diactoros\Response;
 
 /**
  * Defines unit tests for the ArrayCache class.
  *
  * @coversDefaultClass \Chadicus\Marvel\Api\Cache\ArrayCache
  */
-final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
+final class ArrayCacheTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Tear down each test.
@@ -33,7 +33,7 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function setTtlIsLessThanOne()
     {
-        (new ArrayCache())->set(new Request('not under test', 'not under test', [], []), new Response(200, [], []), -1);
+        (new ArrayCache())->set(new Request(), new Response(), -1);
     }
 
     /**
@@ -49,8 +49,8 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
     public function setTtlIsGreaterThanMax()
     {
         (new ArrayCache())->set(
-            new Request('not under test', 'not under test', [], []),
-            new Response(200, [], []),
+            new Request(),
+            new Response(),
             CacheInterface::MAX_TTL + 1
         );
     }
@@ -66,7 +66,7 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
     public function getNotFound()
     {
         $cache = new ArrayCache();
-        $request = new Request('not under test', 'not under test', [], []);
+        $request = new Request();
         $this->assertNull($cache->get($request));
     }
 
@@ -83,8 +83,8 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
     public function getExpired()
     {
         $cache = new ArrayCache();
-        $request = new Request('not under test', 'not under test', [], []);
-        $cache->set($request, new Response(200, [], []));
+        $request = new Request();
+        $cache->set($request, new Response());
         $this->assertNotNull($cache->get($request));
 
         \Chadicus\FunctionRegistry::set(
@@ -109,8 +109,8 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
     public function clear()
     {
         $cache = new ArrayCache();
-        $request = new Request('not under test', 'not under test', [], []);
-        $cache->set($request, new Response(200, [], []));
+        $request = new Request();
+        $cache->set($request, new Response());
         $this->assertNotNull($cache->get($request));
         $cache->clear();
         $this->assertNull($cache->get($request));
@@ -142,10 +142,8 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
     public function badConstructorData()
     {
         return [
-            'defaultTimeToLive is not an integer' => ['a string'],
             'defaultTimeToLive is less than 1' => [-1],
             'defaultTimeToLive is greater than CacheInterface::MAX_TTL' => [CacheInterface::MAX_TTL + 1],
-            'defaultTimeToLive is null' => [null],
         ];
     }
 }

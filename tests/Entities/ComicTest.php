@@ -2,7 +2,8 @@
 namespace Chadicus\Marvel\Api\Entities;
 
 use Chadicus\Marvel\Api\Client;
-use Chadicus\Marvel\Api\Assets\ComicAdapter;
+use Chadicus\Marvel\Api\Assets\ComicHandler;
+use GuzzleHttp\Client as GuzzleClient;
 
 /**
  * Unit tests for the Comic class.
@@ -10,7 +11,7 @@ use Chadicus\Marvel\Api\Assets\ComicAdapter;
  * @coversDefaultClass \Chadicus\Marvel\Api\Entities\Comic
  * @covers ::<protected>
  */
-final class ComicTest extends \PHPUnit_Framework_TestCase
+final class ComicTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify basic behavior of getId.
@@ -492,7 +493,8 @@ final class ComicTest extends \PHPUnit_Framework_TestCase
      */
     public function findAll()
     {
-        $client = new Client('not under test', 'not under test', new ComicAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new ComicHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $comics = Comic::findAll($client, []);
 
         $this->assertSame(5, $comics->count());
@@ -526,8 +528,9 @@ final class ComicTest extends \PHPUnit_Framework_TestCase
             'toDate' => $toDate->format('r'),
             'fromDate' => $fromDate->format('r'),
         ];
-        $adapter = new ComicAdapter();
-        $client = new Client('not under test', 'not under test', $adapter);
+        $comicHandler = new ComicHandler();
+        $guzzleClient = new GuzzleClient(['handler' => $comicHandler]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $comics = Comic::findAll($client, $criteria);
 
         $comics->next();
@@ -545,7 +548,7 @@ final class ComicTest extends \PHPUnit_Framework_TestCase
         ];
 
         foreach ($expectedParameters as $key => $value) {
-            $this->assertSame($value, $adapter->parameters[$key]);
+            $this->assertSame($value, $comicHandler->parameters[$key]);
         }
     }
 

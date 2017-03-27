@@ -7,7 +7,7 @@ namespace Chadicus\Marvel\Api;
  * @coversDefaultClass \Chadicus\Marvel\Api\Filterer
  * @covers ::getFilterAliases
  */
-final class FiltererTest extends \PHPUnit_Framework_TestCase
+final class FiltererTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify basic behavior of filter()

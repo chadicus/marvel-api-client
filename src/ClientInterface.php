@@ -13,11 +13,11 @@ interface ClientInterface
      * @param string $resource The API resource to search for.
      * @param array  $filters  Array of search criteria to use in request.
      *
-     * @return ResponseInterface
+     * @return DataWrapperInterface
      *
      * @throws \InvalidArgumentException Thrown if $resource is empty or not a string.
      */
-    public function search($resource, array $filters = []);
+    public function search(string $resource, array $filters = []);
 
     /**
      * Execute a GET request against the Marvel API for a single resource.
@@ -25,7 +25,7 @@ interface ClientInterface
      * @param string  $resource The API resource to search for.
      * @param integer $id       The id of the API resource.
      *
-     * @return ResponseInterface
+     * @return DataWrapperInterface
      */
-    public function get($resource, $id);
+    public function get(string $resource, int $id);
 }

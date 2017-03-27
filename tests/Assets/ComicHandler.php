@@ -4,13 +4,14 @@ namespace Chadicus\Marvel\Api\Assets;
 use Chadicus\Marvel\Api\Adapter\AdapterInterface;
 use Chadicus\Marvel\Api\Entities;
 use Chadicus\Marvel\Api\Client;
-use Chadicus\Marvel\Api\RequestInterface;
-use Chadicus\Marvel\Api\Response;
+use Psr\Http\Message\RequestInterface;
+use Zend\Diactoros\Response;
+use Zend\Diactoros\Stream;
 
 /**
- * Adapter that returns multiple items.
+ * Mock handler for guzzle clients.
  */
-final class ComicAdapter implements AdapterInterface
+final class ComicHandler
 {
     /**
      * The parameters sent with the last request.
@@ -26,19 +27,19 @@ final class ComicAdapter implements AdapterInterface
      *
      * @return ResponseInterface
      */
-    public function send(RequestInterface $request)
+    public function __invoke(RequestInterface $request)
     {
         $allResults = self::getAllResults();
         $total = count($allResults);
 
-        $queryString = parse_url($request->getUrl(), PHP_URL_QUERY);
+        $queryString = parse_url((string)$request->getUri(), PHP_URL_QUERY);
         $queryParams = [];
         parse_str($queryString, $queryParams);
 
-        $path = parse_url($request->getUrl(), PHP_URL_PATH);
+        $path = $request->getUri()->getPath();
         if (substr($path, -6) !== 'comics') {
-            $parts = explode('/', $request->getUrl());
-            $id = array_pop($parts);
+            $parts = explode('/', (string)$request->getUri());
+            $id = (int)array_pop($parts);
             $queryParams['offset'] = $id - 1;
             $queryParams['limit'] = 1;
             $total = 1;
@@ -50,21 +51,31 @@ final class ComicAdapter implements AdapterInterface
         $limit = (int)$queryParams['limit'];
         $results = array_slice($allResults, $offset, $limit);
         $count = count($results);
+
+        $stream = fopen('php://temp', 'r+');
+        fwrite(
+			$stream,
+            json_encode(
+                [
+                    'code' => 200,
+                    'status' => 'ok',
+                    'etag' => 'an etag',
+                    'data' => [
+                        'offset' => $offset,
+                        'limit' => $limit,
+                        'total' => $total,
+                        'count' => $count,
+                        'results' => $results,
+                    ],
+                ]
+            )
+		);
+        rewind($stream);
+
         return new Response(
+            new Stream($stream),
             200,
-            ['Content-type' => 'application/json', 'etag' => 'an etag'],
-            [
-                'code' => 200,
-                'status' => 'ok',
-                'etag' => 'an etag',
-                'data' => [
-                    'offset' => $offset,
-                    'limit' => $limit,
-                    'total' => $total,
-                    'count' => $count,
-                    'results' => $results,
-                ],
-            ]
+            ['Content-type' => 'application/json', 'etag' => 'an etag']
         );
     }
 

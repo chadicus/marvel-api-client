@@ -7,7 +7,7 @@ namespace Chadicus\Marvel\Api;
  * @covers ::<private>
  * @covers ::__construct
  */
-final class DataContainerTest extends \PHPUnit_Framework_TestCase
+final class DataContainerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verifies basic behaviour of the DataContainer class
