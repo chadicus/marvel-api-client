@@ -16,7 +16,7 @@ use Zend\Diactoros\Stream;
  * @coversDefaultClass \Chadicus\Marvel\Api\Client
  * @covers ::<private>
  */
-final class ClientTest extends \PHPUnit_Framework_TestCase
+final class ClientTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Set up each test.

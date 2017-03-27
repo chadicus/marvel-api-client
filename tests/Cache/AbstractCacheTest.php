@@ -10,7 +10,7 @@ use Chadicus\Marvel\Api\Response;
  * @coversDefaultClass \Chadicus\Marvel\Api\Cache\AbstractCache
  * @covers ::<protected>
  */
-final class AbstractCacheTest extends \PHPUnit_Framework_TestCase
+final class AbstractCacheTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify basic functionality of getDefaultTTL and setDefaultTTL

@@ -10,7 +10,7 @@ use MongoDB\Collection;
  *
  * @coversDefaultClass \Chadicus\Marvel\Api\Cache\MongoCache
  */
-final class MongoCacheTest extends \PHPUnit_Framework_TestCase
+final class MongoCacheTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * set up each test.

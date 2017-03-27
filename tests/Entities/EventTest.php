@@ -7,7 +7,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * @covers ::<protected>
  *
  */
-final class EventTest extends \PHPUnit_Framework_TestCase
+final class EventTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verifies basic behaviour of the Event class

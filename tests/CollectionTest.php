@@ -10,7 +10,7 @@ use GuzzleHttp\Client as GuzzleClient;
  * @coversDefaultClass \Chadicus\Marvel\Api\Collection
  * @covers ::<private>
  */
-final class CollectionTest extends \PHPUnit_Framework_TestCase
+final class CollectionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Set up for all tests.

@@ -7,7 +7,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * @coversDefaultClass \Chadicus\Marvel\Api\Entities\ResourceList
  * @covers ::<protected>
  */
-final class ResourceListTest extends \PHPUnit_Framework_TestCase
+final class ResourceListTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify basic behavior of getAvailable().
