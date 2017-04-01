@@ -42,18 +42,18 @@ final class CollectionHandler
         fwrite(
             $stream,
             json_encode(
-             	[
-                 	'code' => 200,
-                 	'status' => 'ok',
-                 	'etag' => 'an etag',
-                 	'data' => [
-                     	'offset' => $offset,
-                     	'limit' => $limit,
-                     	'total' => 5,
-                     	'count' => $count,
-                     	'results' => $results,
-                 	],
-             	]
+                [
+                    'code' => 200,
+                    'status' => 'ok',
+                    'etag' => 'an etag',
+                    'data' => [
+                        'offset' => $offset,
+                        'limit' => $limit,
+                        'total' => 5,
+                        'count' => $count,
+                        'results' => $results,
+                    ],
+                ]
             )
         );
 
