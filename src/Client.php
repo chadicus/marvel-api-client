@@ -78,7 +78,7 @@ class Client implements ClientInterface
      *
      * @throws \InvalidArgumentException Thrown if $resource is empty or not a string.
      */
-    final public function search(string $resource, array $filters = [])
+    final public function search(string $resource, array $filters = []) : ResponseInterface
     {
         $filters['apikey'] = $this->publicApiKey;
         $timestamp = time();
@@ -102,7 +102,7 @@ class Client implements ClientInterface
      *
      * @return DataWrapperInterface
      */
-    final public function get(string $resource, int $id)
+    final public function get(string $resource, int $id) : DataWrapperInterface
     {
         $timestamp = time();
         $query = [
@@ -128,7 +128,7 @@ class Client implements ClientInterface
      *
      * @return DataWrapperInterface
      */
-    final private function send(RequestInterface $request)
+    final private function send(RequestInterface $request) : DataWrapperInterface
     {
         $response = $this->getFromCache($request);
         if ($response !== null) {
@@ -151,7 +151,7 @@ class Client implements ClientInterface
      *
      * @return ResponseInterface|null Returns the cached Response or null if it does not exist.
      */
-    final private function getFromCache(RequestInterface $request)
+    final private function getFromCache(RequestInterface $request) : ResponseInterface
     {
         if ($this->cache === null) {
             return null;
