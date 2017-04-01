@@ -1,7 +1,7 @@
 # Marvel API Client
-[![Build Status](https://travis-ci.org/chadicus/marvel-api-client.svg?branch=master)](https://travis-ci.org/chadicus/marvel-api-client)
-[![Code Quality](https://scrutinizer-ci.com/g/chadicus/marvel-api-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/chadicus/marvel-api-client/?branch=master)
-[![Code Coverage](https://coveralls.io/repos/github/chadicus/marvel-api-client/badge.svg?branch=master)](https://coveralls.io/github/chadicus/marvel-api-client?branch=master)
+[![Build Status](https://travis-ci.org/chadicus/marvel-api-client.svg?branch=v3.x)](https://travis-ci.org/chadicus/marvel-api-client)
+[![Code Quality](https://scrutinizer-ci.com/g/chadicus/marvel-api-client/badges/quality-score.png?b=v3.x)](https://scrutinizer-ci.com/g/chadicus/marvel-api-client/?branch=v3.x)
+[![Code Coverage](https://coveralls.io/repos/github/chadicus/marvel-api-client/badge.svg?branch=v3.x)](https://coveralls.io/github/chadicus/marvel-api-client?branch=v3.x)
 
 [![Latest Stable Version](https://poser.pugx.org/chadicus/marvel-api-client/v/stable)](https://packagist.org/packages/chadicus/marvel-api-client)
 [![Latest Unstable Version](https://poser.pugx.org/chadicus/marvel-api-client/v/unstable)](https://packagist.org/packages/chadicus/marvel-api-client)
@@ -24,7 +24,7 @@ To add the library as a local, per-project dependency use [Composer](http://getc
 composer require chadicus/marvel-api-client
 ```
 ## Examples
-Examples of use can be found [here](https://github.com/chadicus/marvel-api-client/tree/master/examples).
+Examples of use can be found [here](/examples)
 
 ### Basic Usage
 
