@@ -54,7 +54,7 @@ final class ComicHandler
 
         $stream = fopen('php://temp', 'r+');
         fwrite(
-			$stream,
+            $stream,
             json_encode(
                 [
                     'code' => 200,
@@ -69,7 +69,7 @@ final class ComicHandler
                     ],
                 ]
             )
-		);
+        );
         rewind($stream);
 
         return new Response(
@@ -218,6 +218,7 @@ final class ComicHandler
                 ],
             ];
         }
+
         return $allResults;
     }
 }

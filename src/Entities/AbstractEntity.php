@@ -118,7 +118,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @return boolean
      */
-    final public function offsetExists($offset)
+    final public function offsetExists($offset) //@codingStandardsIgnoreLine Ingore missing type-hint
     {
         return isset($this->data[$offset]);
     }
@@ -130,7 +130,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @return mixed
      */
-    final public function offsetGet($offset)
+    final public function offsetGet($offset) //@codingStandardsIgnoreLine Ingore missing type-hint
     {
         return $this->data[$offset];
     }
@@ -145,7 +145,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @throws NotAllowedException Ensure this object is immutable.
      */
-    final public function offsetSet($offset, $value)
+    final public function offsetSet($offset, $value) //@codingStandardsIgnoreLine Ingore missing type-hint
     {
         $class = get_called_class();
         throw new NotAllowedException("{$class}::\${$offset} is read-only");
@@ -160,7 +160,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @throws NotAllowedException Ensure this object is immutable.
      */
-    final public function offsetUnset($offset)
+    final public function offsetUnset($offset) //@codingStandardsIgnoreLine Ingore missing type-hint
     {
         $class = get_called_class();
         throw new NotAllowedException("{$class}::\${$offset} is read-only");
