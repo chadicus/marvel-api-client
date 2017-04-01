@@ -74,11 +74,11 @@ class Client implements ClientInterface
      * @param string $resource The API resource to search for.
      * @param array  $filters  Array of search criteria to use in request.
      *
-     * @return ResponseInterface
+     * @return DataWrapperInterface
      *
      * @throws \InvalidArgumentException Thrown if $resource is empty or not a string.
      */
-    final public function search(string $resource, array $filters = []) : ResponseInterface
+    final public function search(string $resource, array $filters = []) : DataWrapperInterface
     {
         $filters['apikey'] = $this->publicApiKey;
         $timestamp = time();
