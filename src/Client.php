@@ -2,8 +2,8 @@
 
 namespace Chadicus\Marvel\Api;
 
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\ClientInterface as GuzzleClientInterface;
+use GuzzleHttp;
+use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Request;
@@ -13,6 +13,15 @@ use Zend\Diactoros\Request;
  */
 class Client implements ClientInterface
 {
+    /**
+     * The default ttl for cached responses (24 hours).
+     *
+     * @link http://developer.marvel.com/documentation/attribution Marvel's rules for caching.
+     *
+     * @const integer
+     */
+    const MAX_TTL = 86400;
+
     /**
      * The public api key issued by Marvel.
      *
@@ -37,7 +46,7 @@ class Client implements ClientInterface
     /**
      * Cache implementation.
      *
-     * @var Cache\CacheInterface
+     * @var CacheInterface
      */
     private $cache;
 
@@ -51,21 +60,21 @@ class Client implements ClientInterface
     /**
      * Construct a new Client.
      *
-     * @param string                $privateApiKey The private api key issued by Marvel.
-     * @param string                $publicApiKey  The public api key issued by Marvel.
-     * @param GuzzleClientInterface $guzzleClient  Implementation of a Guzzle HTTP client.
-     * @param Cache\CacheInterface  $cache         Implementation of Cache.
+     * @param string                     $privateApiKey The private api key issued by Marvel.
+     * @param string                     $publicApiKey  The public api key issued by Marvel.
+     * @param GuzzleHttp\ClientInterface $guzzleClient  Implementation of a Guzzle HTTP client.
+     * @param CacheInterface             $cache         Implementation of Cache.
      */
     final public function __construct(
         string $privateApiKey,
         string $publicApiKey,
-        GuzzleClientInterface $guzzleClient = null,
-        Cache\CacheInterface $cache = null
+        GuzzleHttp\ClientInterface $guzzleClient = null,
+        CacheInterface $cache = null
     ) {
         $this->privateApiKey = $privateApiKey;
         $this->publicApiKey = $publicApiKey;
-        $this->guzzleClient = $guzzleClient ?: new GuzzleClient();
-        $this->cache = $cache;
+        $this->guzzleClient = $guzzleClient ?: new GuzzleHttp\Client();
+        $this->cache = $cache ?: new Cache\NullCache();
     }
 
     /**
@@ -74,11 +83,11 @@ class Client implements ClientInterface
      * @param string $resource The API resource to search for.
      * @param array  $filters  Array of search criteria to use in request.
      *
-     * @return DataWrapperInterface
+     * @return DataWrapperInterface|null
      *
      * @throws \InvalidArgumentException Thrown if $resource is empty or not a string.
      */
-    final public function search(string $resource, array $filters = []) : DataWrapperInterface
+    final public function search(string $resource, array $filters = [])
     {
         $filters['apikey'] = $this->publicApiKey;
         $timestamp = time();
@@ -100,9 +109,9 @@ class Client implements ClientInterface
      * @param string  $resource The API resource to search for.
      * @param integer $id       The id of the API resource.
      *
-     * @return DataWrapperInterface
+     * @return DataWrapperInterface|null
      */
-    final public function get(string $resource, int $id) : DataWrapperInterface
+    final public function get(string $resource, int $id)
     {
         $timestamp = time();
         $query = [
@@ -126,38 +135,19 @@ class Client implements ClientInterface
      *
      * @param RequestInterface $request The request to send.
      *
-     * @return DataWrapperInterface
+     * @return ResponseInterface
      */
-    final private function send(RequestInterface $request) : DataWrapperInterface
+    final private function send(RequestInterface $request) : ResponseInterface
     {
-        $response = $this->getFromCache($request);
+        $key = (string)$request->getUri();
+        $response = $this->cache->get($key);
         if ($response !== null) {
             return $response;
         }
 
         $response = $this->guzzleClient->send($request);
-
-        if ($this->cache !== null) {
-            $this->cache->set($request, $response);
-        }
-
+        $this->cache->set($key, $response, self::MAX_TTL);
         return $response;
-    }
-
-    /**
-     * Retrieve the Response for the given Request from cache.
-     *
-     * @param RequestInterface $request The request to send.
-     *
-     * @return ResponseInterface|null Returns the cached Response or null if it does not exist.
-     */
-    final private function getFromCache(RequestInterface $request) : ResponseInterface
-    {
-        if ($this->cache === null) {
-            return null;
-        }
-
-        return $this->cache->get($request);
     }
 
     /**
