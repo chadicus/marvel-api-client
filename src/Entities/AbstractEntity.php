@@ -87,7 +87,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @return AbstractEntity[]
      */
-    final public static function fromArrays(array $inputs)
+    final public static function fromArrays(array $inputs) : array
     {
         Util::throwIfNotType(['array' => $inputs]);
 
@@ -104,9 +104,9 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @param array $input The data for the AbstractEntity.
      *
-     * @return AbstractEntity
+     * @return EntityInterface
      */
-    final public static function fromArray(array $input)
+    final public static function fromArray(array $input) : EntityInterface
     {
         return new static($input);
     }
@@ -171,5 +171,5 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @return array
      */
-    abstract protected function getFilters();
+    abstract protected function getFilters() : array;
 }

@@ -57,7 +57,7 @@ class Comic extends AbstractEntity
      *
      * @return array
      */
-    final protected function getFilters()
+    final protected function getFilters() : array
     {
         return [
             'id' => [['int', true]],
@@ -100,7 +100,7 @@ class Comic extends AbstractEntity
      *
      * @return Api\Collection
      */
-    final public static function findAll(Api\Client $client, array $criteria = [])
+    final public static function findAll(Api\Client $client, array $criteria = []) : Api\Collection
     {
         $filters = [
             'format' => [

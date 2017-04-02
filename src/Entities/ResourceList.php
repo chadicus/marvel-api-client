@@ -18,7 +18,7 @@ class ResourceList extends AbstractEntity
      *
      * @return array
      */
-    final protected function getFilters()
+    final protected function getFilters() : array
     {
         return [
             'available' => [['int', true]],

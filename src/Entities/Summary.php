@@ -19,7 +19,7 @@ class Summary extends AbstractEntity
      *
      * @return array
      */
-    final protected function getFilters()
+    final protected function getFilters() : array
     {
         return [
             'resourceURI' => ['default' => null, ['string', true]],

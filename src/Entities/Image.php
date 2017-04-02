@@ -17,7 +17,7 @@ class Image extends AbstractEntity
      *
      * @return string
      */
-    final public function getUrl(ImageVariant $variant)
+    final public function getUrl(ImageVariant $variant) : string
     {
         return "{$this->path}/{$variant}.{$this->extension}";
     }
@@ -27,7 +27,7 @@ class Image extends AbstractEntity
      *
      * @return array
      */
-    final protected function getFilters()
+    final protected function getFilters() : array
     {
         return [
             'path' => ['default' => null, ['string', true, 0]],
