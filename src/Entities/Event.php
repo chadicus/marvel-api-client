@@ -29,7 +29,7 @@ class Event extends AbstractEntity
      *
      * @return array
      */
-    final protected function getFilters()
+    final protected function getFilters() : array
     {
         return [
             'id' => [['int', true]],

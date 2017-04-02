@@ -21,7 +21,7 @@ interface EntityInterface
      *
      * @return EntityInterface[]
      */
-    public static function fromArrays(array $inputs);
+    public static function fromArrays(array $inputs) : array;
 
     /**
      * Create a new AbstractEntity based on the given $input array.
@@ -30,5 +30,5 @@ interface EntityInterface
      *
      * @return EntityInterface
      */
-    public static function fromArray(array $input);
+    public static function fromArray(array $input) : EntityInterface;
 }
