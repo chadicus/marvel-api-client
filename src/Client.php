@@ -83,7 +83,7 @@ class Client implements ClientInterface
      * @param string $resource The API resource to search for.
      * @param array  $filters  Array of search criteria to use in request.
      *
-     * @return DataWrapperInterface|null
+     * @return null|DataWrapper
      *
      * @throws \InvalidArgumentException Thrown if $resource is empty or not a string.
      */
@@ -109,7 +109,7 @@ class Client implements ClientInterface
      * @param string  $resource The API resource to search for.
      * @param integer $id       The id of the API resource.
      *
-     * @return DataWrapperInterface|null
+     * @return null|DataWrapper
      */
     final public function get(string $resource, int $id)
     {
