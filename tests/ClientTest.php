@@ -153,7 +153,7 @@ final class ClientTest extends \PHPUnit\Framework\TestCase
         $hash = md5('1aPrivateKeyaPublicKey');
         $cache = new Cache\ArrayCache();
         $cache->set(
-            new Request(Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}", 'GET'),
+            Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}",
             new Response($stream, 200, ['custom' => 'header'])
         );
 
@@ -206,7 +206,7 @@ final class ClientTest extends \PHPUnit\Framework\TestCase
         $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient, $cache);
         $client->get('a Resource', 1);
 
-        $cachedResponse = $cache->get($request);
+        $cachedResponse = $cache->get((string)$request->getUri());
         $this->assertSame($handler->response->getStatusCode(), $cachedResponse->getStatusCode());
         $this->assertSame($handler->response->getHeaders(), $cachedResponse->getHeaders());
         $this->assertSame((string)$handler->response->getBody(), (string)$cachedResponse->getBody());

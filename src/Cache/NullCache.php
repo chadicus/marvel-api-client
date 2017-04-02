@@ -2,21 +2,13 @@
 
 namespace Chadicus\Marvel\Api\Cache;
 
-use DominionEnterprises\Util\Arrays;
 use Psr\SimpleCache\CacheInterface;
 
 /**
- * A PSR-16 implementation which stores data in an array.
+ * A PSR-16 implementation which does not save or store any data.
  */
-final class ArrayCache extends AbstractCache implements CacheInterface
+final class NullCache extends AbstractCache implements CacheInterface
 {
-    /**
-     * Array containing the cached data.
-     *
-     * @var array
-     */
-    private $cache = [];
-
     /**
      * Fetches a value from the cache.
      *
@@ -30,17 +22,7 @@ final class ArrayCache extends AbstractCache implements CacheInterface
     public function get($key, $default = null)
     {
         $this->verifyKey($key);
-        $cache = Arrays::get($this->cache, $key);
-        if ($cache === null) {
-            return $default;
-        }
-
-        if ($cache['expires'] < time()) {
-            unset($this->cache[$key]);
-            return $default;
-        }
-
-        return $cache['response'];
+        return $default;
     }
 
     /**
@@ -60,12 +42,6 @@ final class ArrayCache extends AbstractCache implements CacheInterface
     {
         $this->verifyKey($key);
         $this->verifyValue($value);
-
-        $this->cache[$key] = [
-            'response' => $value,
-            'expires' => $this->getExpires($ttl),
-        ];
-
         return true;
     }
 
@@ -81,7 +57,6 @@ final class ArrayCache extends AbstractCache implements CacheInterface
     public function delete($key)
     {
         $this->verifyKey($key);
-        unset($this->cache[$key]);
         return true;
     }
 
@@ -92,7 +67,6 @@ final class ArrayCache extends AbstractCache implements CacheInterface
      */
     public function clear()
     {
-        $this->cache = [];
         return true;
     }
 
@@ -108,9 +82,11 @@ final class ArrayCache extends AbstractCache implements CacheInterface
      */
     public function getMultiple($keys, $default = null)
     {
+        array_walk($keys, [$this, 'verifyKey']);
+
         $items = [];
         foreach ($keys as $key) {
-            $items[$key] = $this->get($key, $default);
+            $items[$key] = $default;
         }
 
         return $items;
@@ -131,10 +107,9 @@ final class ArrayCache extends AbstractCache implements CacheInterface
      */
     public function setMultiple($values, $ttl = null)
     {
-        foreach ($values as $key => $value) {
-            $this->set($key, $value, $ttl);
-        }
-
+        $keys = array_keys($values);
+        array_walk($keys, [$this, 'verifyKey']);
+        array_walk($values, [$this, 'verifyValue']);
         return true;
     }
 
@@ -150,10 +125,7 @@ final class ArrayCache extends AbstractCache implements CacheInterface
      */
     public function deleteMultiple($keys)
     {
-        foreach ($keys as $key) {
-            $this->delete($key);
-        }
-
+        array_walk($keys, [$this, 'verifyKey']);
         return true;
     }
 
@@ -174,32 +146,6 @@ final class ArrayCache extends AbstractCache implements CacheInterface
     public function has($key)
     {
         $this->verifyKey($key);
-        return isset($this->cache[$key]);
-    }
-
-    /**
-     * Converts the given time to live value to a epoch timestamp.
-     *
-     * @param mixed $ttl The time-to-live value to validate.
-     *
-     * @return void
-     *
-     * @throws InvalidArgumentException Thrown if the $ttl is not null, an integer or \DateInterval.
-     */
-    private function getExpires($ttl)
-    {
-        if ($ttl === null) {
-            return time() + 86400;
-        }
-
-        if (is_int($ttl)) {
-            return time() + $ttl;
-        }
-
-        if ($ttl instanceof \DateInterval) {
-            return time() + $ttl->s;
-        }
-
-        throw new InvalidArgumentException('$ttl must be null, an integer or \DateInterval instance');
+        return false;
     }
 }

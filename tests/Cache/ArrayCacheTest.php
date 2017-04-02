@@ -1,16 +1,34 @@
 <?php
+
 namespace Chadicus\Marvel\Api\Cache;
 
-use Zend\Diactoros\Request;
 use Zend\Diactoros\Response;
+use Zend\Diactoros\Stream;
 
 /**
- * Defines unit tests for the ArrayCache class.
- *
- * @coversDefaultClass \Chadicus\Marvel\Api\Cache\ArrayCache
+ * @coversDefaultClass Chadicus\Marvel\Api\Cache\ArrayCache
+ * @covers ::<private>
+ * @covers ::<protected>
  */
 final class ArrayCacheTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * ArrayCache instance to use in tests.
+     *
+     * @var ArrayCache
+     */
+    private $cache;
+
+    /**
+     * Prepare each test
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->cache = new ArrayCache();
+    }
+
     /**
      * Tear down each test.
      *
@@ -22,59 +40,23 @@ final class ArrayCacheTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Verify cache is removed when expired.
-     *
-     * @test
-     * @covers ::set
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage TTL value must be an integer >= 1 and <= 86400
-     *
-     * @return void
-     */
-    public function setTtlIsLessThanOne()
-    {
-        (new ArrayCache())->set(new Request(), new Response(), -1);
-    }
-
-    /**
-     * Verify cache is removed when expired.
-     *
-     * @test
-     * @covers ::set
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage TTL value must be an integer >= 1 and <= 86400
-     *
-     * @return void
-     */
-    public function setTtlIsGreaterThanMax()
-    {
-        (new ArrayCache())->set(
-            new Request(),
-            new Response(),
-            CacheInterface::MAX_TTL + 1
-        );
-    }
-
-    /**
-     * Verify cache is removed when expired.
+     * Verify behavior of get() when key is not found.
      *
      * @test
      * @covers ::get
      *
      * @return void
      */
-    public function getNotFound()
+    public function getKeyNotFound()
     {
-        $cache = new ArrayCache();
-        $request = new Request();
-        $this->assertNull($cache->get($request));
+        $default = new \StdClass();
+        $this->assertSame($default, $this->cache->get('key', $default));
     }
 
     /**
-     * Verify cache is removed when expired.
+     * Verify behavior of get() when cache has expired.
      *
      * @test
-     * @covers ::__construct
      * @covers ::set
      * @covers ::get
      *
@@ -82,24 +64,43 @@ final class ArrayCacheTest extends \PHPUnit\Framework\TestCase
      */
     public function getExpired()
     {
-        $cache = new ArrayCache();
-        $request = new Request();
-        $cache->set($request, new Response());
-        $this->assertNotNull($cache->get($request));
+        $default = new \StdClass();
+        $item = $this->getResponse();
+        $this->cache->set('key', $item, \DateInterval::createFromDateString('1 day'));
+
+        $this->assertSame($item, $this->cache->get('key', $default));
 
         \Chadicus\FunctionRegistry::set(
             __NAMESPACE__,
             'time',
             function () {
-                return strtotime('+1 year');
+                return \strtotime('+1 year');
             }
         );
 
-        $this->assertNull($cache->get($request));
+        $this->assertSame($default, $this->cache->get('key', $default));
     }
 
     /**
-     * Verify basic functionality of clear().
+     * Verify basic behavior of delete().
+     *
+     * @test
+     * @covers ::delete
+     *
+     * @return void
+     */
+    public function delete()
+    {
+        $default = new \StdClass();
+        $item = $this->getResponse();
+        $this->cache->set('key', $item, 86400);
+        $this->assertSame($item, $this->cache->get('key', $default));
+        $this->assertTrue($this->cache->delete('key'));
+        $this->assertSame($default, $this->cache->get('key', $default));
+    }
+
+    /**
+     * Verify basic behavior of clear().
      *
      * @test
      * @covers ::clear
@@ -108,42 +109,117 @@ final class ArrayCacheTest extends \PHPUnit\Framework\TestCase
      */
     public function clear()
     {
-        $cache = new ArrayCache();
-        $request = new Request();
-        $cache->set($request, new Response());
-        $this->assertNotNull($cache->get($request));
-        $cache->clear();
-        $this->assertNull($cache->get($request));
+        $default = new \StdClass();
+        $item = $this->getResponse();
+        $this->cache->set('key1', $item);
+        $this->cache->set('key2', $item);
+        $this->assertSame($item, $this->cache->get('key1', $default));
+        $this->assertSame($item, $this->cache->get('key2', $default));
+        $this->assertTrue($this->cache->clear());
+        $this->assertSame($default, $this->cache->get('key1', $default));
+        $this->assertSame($default, $this->cache->get('key2', $default));
     }
 
     /**
-     * Verify construct throws with invalid parameters.
-     *
-     * @param integer $defaultTimeToLive The default time to live in seconds.
+     * Verify basic behavior of getMultple().
      *
      * @test
-     * @covers ::__construct
-     * @dataProvider badConstructorData
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage TTL value must be an integer >= 1 and <= 86400
+     * @covers ::getMultiple
      *
      * @return void
      */
-    public function constructWithBadData($defaultTimeToLive)
+    public function getMultiple()
     {
-        new ArrayCache($defaultTimeToLive);
+        $default = new \StdClass();
+        $item = $this->getResponse();
+        $this->cache->set('key1', $item);
+        $this->assertSame(
+            $this->cache->getMultiple(['key1', 'key2'], $default),
+            ['key1' => $item, 'key2' => $default]
+        );
     }
 
     /**
-     * Data provider for constructWithBadData.
+     * Verify basic behavior of setMultiple().
      *
-     * @return array
+     * @test
+     * @covers ::setMultiple
+     *
+     * @return void
      */
-    public function badConstructorData()
+    public function setMultiple()
     {
-        return [
-            'defaultTimeToLive is less than 1' => [-1],
-            'defaultTimeToLive is greater than CacheInterface::MAX_TTL' => [CacheInterface::MAX_TTL + 1],
-        ];
+        $item1 = $this->getResponse();
+        $item2 = $this->getResponse();
+        $this->assertTrue($this->cache->setMultiple(['key1' => $item1, 'key2' => $item2]));
+        $this->assertSame($item1, $this->cache->get('key1'));
+        $this->assertSame($item2, $this->cache->get('key2'));
+    }
+
+    /**
+     * Verify basic behavior of deleteMultiple().
+     *
+     * @test
+     * @covers ::deleteMultiple
+     *
+     * @return void
+     */
+    public function deleteMultiple()
+    {
+        $item1 = $this->getResponse();
+        $item2 = $this->getResponse();
+        $this->cache->setMultiple(['key1' => $item1, 'key2' => $item2]);
+        $this->assertSame($item1, $this->cache->get('key1'));
+        $this->assertSame($item2, $this->cache->get('key2'));
+        $this->assertTrue($this->cache->deleteMultiple(['key1', 'key2']));
+        $this->assertNull($this->cache->get('key1'));
+        $this->assertNull($this->cache->get('key2'));
+    }
+
+    /**
+     * Verify basic behavior of has().
+     *
+     * @test
+     * @covers ::has
+     *
+     * @return void
+     */
+    public function has()
+    {
+        $this->assertFalse($this->cache->has('key'));
+        $this->cache->set('key', $this->getResponse());
+        $this->assertTrue($this->cache->has('key'));
+    }
+
+    /**
+     * Verify behavior of set() if invalid $ttl value is given.
+     *
+     * @test
+     * @covers ::set
+     * @expectedException \Psr\SimpleCache\InvalidArgumentException
+     * @expectedExceptionMessage $ttl must be null, an integer or \DateInterval instance
+     *
+     * @return void
+     */
+    public function setInvalidTTL()
+    {
+        $this->cache->set('key', $this->getResponse(), new \DateTime());
+    }
+
+    /**
+     * Helper method to create a Response instance to use in tests.
+     *
+     * @return Response
+     */
+    private function getResponse() : Response
+    {
+        $stream = fopen('php://temp', 'r+');
+        fwrite($stream, json_encode(['status' => 'ok']));
+
+        return new Response(
+            new Stream($stream),
+            200,
+            ['Content-type' => 'application/json', 'etag' => '"an etag"']
+        );
     }
 }

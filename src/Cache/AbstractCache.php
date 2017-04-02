@@ -3,54 +3,39 @@
 namespace Chadicus\Marvel\Api\Cache;
 
 /**
- * Base class for all cache objects.
+ * A PSR-16 implementation which does not save or store any data.
  */
-abstract class AbstractCache implements CacheInterface
+abstract class AbstractCache
 {
     /**
-     * Default time to live in seconds.
+     * Verifies the the given cache key is a legal value.
      *
-     * @var integer
-     */
-    private $defaultTimeToLive = CacheInterface::MAX_TTL;
-
-    /**
-     * Sets the default time to live in seconds.
-     *
-     * @param integer $defaultTimeToLive The time in seconds.
+     * @param mixed $key The cache key to validate.
      *
      * @return void
+     *
+     * @throws InvalidArgumentException Thrown if the $key string is not a legal value.
      */
-    final public function setDefaultTTL(int $defaultTimeToLive)
+    final protected function verifyKey($key)
     {
-        $this->defaultTimeToLive = self::ensureTTL($defaultTimeToLive);
-    }
-
-    /**
-     * Returns the default time to live in seconds.
-     *
-     * @return integer The time in seconds.
-     */
-    final public function getDefaultTTL()
-    {
-        return $this->defaultTimeToLive;
-    }
-
-    /**
-     * Helper method to check TTL value.
-     *
-     * @param integer $ttl The time value to check in seconds.
-     *
-     * @return integer The valid $ttl value.
-     *
-     * @throws \InvalidArgumentException Thrown if $ttl is < 1 or > CacheInterface::MAX_TTL.
-     */
-    final protected static function ensureTTL(int $ttl)
-    {
-        if ($ttl < 1 || $ttl > CacheInterface::MAX_TTL) {
-            throw new \InvalidArgumentException('TTL value must be an integer >= 1 and <= ' . CacheInterface::MAX_TTL);
+        if (!is_string($key) || $key === '') {
+            throw new InvalidArgumentException('$key must be a valid non-empty string');
         }
+    }
 
-        return $ttl;
+    /**
+     * Verify a given $value is an instance of PSR-7 ResponseInterface.
+     *
+     * @param mixed $value The PSR-7 Response to cache.
+     *
+     * @return void
+     *
+     * @throws InvalidArgumentException Thrown if $value is not a PSR-7 Response instance.
+     */
+    final protected function verifyValue($value)
+    {
+        if (!is_a($value, '\\Psr\\Http\\Message\\ResponseInterface')) {
+            throw new InvalidArgumentException('$value an instance of \\Psr\\Http\\Message\\ResponseInterface');
+        }
     }
 }
