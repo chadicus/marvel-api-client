@@ -17,16 +17,16 @@ A PHP client for use with the [Marvel API](http://developer.marvel.com/docs).
 
 The Marvel API Client requires PHP 7.0 (or later).
 
-##Composer
+## Composer
 To add the library as a local, per-project dependency use [Composer](http://getcomposer.org)! Simply add a dependency on `chadicus/marvel-api-client` to your project's `composer.json` file such as:
 
 ```sh
 composer require chadicus/marvel-api-client
 ```
-##Examples
+## Examples
 Examples of use can be found [here](/examples)
 
-###Basic Usage
+### Basic Usage
 
 ```php
 <?php
@@ -56,13 +56,13 @@ foreach ($character->getEvents()->getItems() as $event) {
 
 ```
 
-##Contact
+## Contact
 Developers may be contacted at:
 
  * [Pull Requests](https://github.com/chadicus/marvel-api-client/pulls)
  * [Issues](https://github.com/chadicus/marvel-api-client/issues)
 
-##Project Build
+## Project Build
 With a checkout of the code get [Composer](http://getcomposer.org) in your PATH and run:
 
 ```sh
