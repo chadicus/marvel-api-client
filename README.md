@@ -62,7 +62,7 @@ Developers may be contacted at:
  * [Pull Requests](https://github.com/chadicus/marvel-api-client/pulls)
  * [Issues](https://github.com/chadicus/marvel-api-client/issues)
 
-##Project Build
+## Project Build
 With a checkout of the code get [Composer](http://getcomposer.org) in your PATH and run:
 
 ```sh
