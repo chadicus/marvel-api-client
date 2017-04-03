@@ -13,6 +13,7 @@ use Zend\Diactoros\Stream;
  * @coversDefaultClass \Chadicus\Marvel\Api\Cache\MongoCache
  * @covers ::__construct
  * @covers ::<private>
+ * @covers ::<protected>
  */
 final class MongoCacheTest extends \PHPUnit\Framework\TestCase
 {
@@ -125,6 +126,21 @@ final class MongoCacheTest extends \PHPUnit\Framework\TestCase
     public function setInvalidTTL()
     {
         $this->cache->set('key', $this->getResponse(), new \DateTime());
+    }
+
+    /**
+     * Verify behavior of set() with illegal $value.
+     *
+     * @test
+     * @covers ::set
+     * @expectedException \Psr\SimpleCache\InvalidArgumentException
+     * @expectedExceptionMessage $value must be an instance of \Psr\Http\Message\ResponseInterface
+     *
+     * @return void
+     */
+    public function setInvalidValue()
+    {
+        $this->cache->set('key', new \StdClass());
     }
 
     /**

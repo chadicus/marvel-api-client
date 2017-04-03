@@ -71,6 +71,29 @@ final class ClientTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * Verify behavior of search when API returns non 200 response.
+     *
+     * @test
+     * @covers ::search
+     *
+     * @return void
+     */
+    public function searchNot200Reponse()
+    {
+        $stream = new Stream('php://memory', 'r+');
+        $stream->write(json_encode([]));
+        $guzzleResponse = new Response($stream, 503);
+        $mockHandler = new MockHandler([$guzzleResponse]);
+        $container = [];
+        $history = Middleware::history($container);
+        $stack = HandlerStack::create($mockHandler);
+        $stack->push($history);
+        $guzzleClient = new GuzzleClient(['handler' => $stack]);
+        $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient);
+        $this->assertNull($client->search('a Resource', ['key' => 'value']));
+    }
+
+    /**
      * Verify basic behavior of get().
      *
      * @test
@@ -110,6 +133,29 @@ final class ClientTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame('GET', $request->getMethod());
         $this->assertSame($expectedUrl, (string)$request->getUri());
+    }
+
+    /**
+     * Verify behavior of get() when API returns non 200 response.
+     *
+     * @test
+     * @covers ::get
+     *
+     * @return void
+     */
+    public function getNot200Reponse()
+    {
+        $stream = new Stream('php://memory', 'r+');
+        $stream->write(json_encode([]));
+        $guzzleResponse = new Response($stream, 503);
+        $mockHandler = new MockHandler([$guzzleResponse]);
+        $container = [];
+        $history = Middleware::history($container);
+        $stack = HandlerStack::create($mockHandler);
+        $stack->push($history);
+        $guzzleClient = new GuzzleClient(['handler' => $stack]);
+        $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient);
+        $this->assertNull($client->get('a Resource', 1));
     }
 
     /**

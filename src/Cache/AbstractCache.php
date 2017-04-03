@@ -35,7 +35,7 @@ abstract class AbstractCache
     final protected function verifyValue($value)
     {
         if (!is_a($value, '\\Psr\\Http\\Message\\ResponseInterface')) {
-            throw new InvalidArgumentException('$value an instance of \\Psr\\Http\\Message\\ResponseInterface');
+            throw new InvalidArgumentException('$value must be an instance of \\Psr\\Http\\Message\\ResponseInterface');
         }
     }
 }

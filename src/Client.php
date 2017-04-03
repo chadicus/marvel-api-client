@@ -6,7 +6,6 @@ use GuzzleHttp;
 use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Zend\Diactoros\Request;
 
 /**
  * PHP Client for the Marvel API.
@@ -95,7 +94,7 @@ class Client implements ClientInterface
         $filters['hash'] = md5($timestamp . $this->privateApiKey . $this->publicApiKey);
         $url = self::BASE_URL . urlencode($resource) . '?' . http_build_query($filters);
 
-        $response = $this->send(new Request($url, 'GET', 'php://temp', ['Accept' =>  'application/json']));
+        $response = $this->send($url);
         if ($response->getStatusCode() !== 200) {
             return null;
         }
@@ -121,8 +120,7 @@ class Client implements ClientInterface
         ];
 
         $url = self::BASE_URL . urlencode($resource) . "/{$id}?" . http_build_query($query);
-
-        $response =  $this->send(new Request($url, 'GET', 'php://temp', ['Accept' =>  'application/json']));
+        $response =  $this->send($url);
         if ($response->getStatusCode() !== 200) {
             return null;
         }
@@ -133,20 +131,26 @@ class Client implements ClientInterface
     /**
      * Send the given API Request.
      *
-     * @param RequestInterface $request The request to send.
+     * @param string $url The URL to request.
      *
      * @return ResponseInterface
      */
-    final private function send(RequestInterface $request) : ResponseInterface
+    final private function send(string $url) : ResponseInterface
     {
-        $key = (string)$request->getUri();
-        $response = $this->cache->get($key);
+        $response = $this->cache->get($url);
         if ($response !== null) {
             return $response;
         }
 
-        $response = $this->guzzleClient->send($request);
-        $this->cache->set($key, $response, self::MAX_TTL);
+        $response = $this->guzzleClient->request(
+            'GET',
+            $url,
+            [
+               'http_errors' => false,
+               'headers' => ['Accept' =>  'application/json'],
+            ]
+        );
+        $this->cache->set($url, $response, self::MAX_TTL);
         return $response;
     }
 
