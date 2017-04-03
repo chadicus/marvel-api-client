@@ -4,7 +4,6 @@ namespace Chadicus\Marvel\Api;
 
 use GuzzleHttp;
 use Psr\SimpleCache\CacheInterface;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -129,7 +128,7 @@ class Client implements ClientInterface
     }
 
     /**
-     * Send the given API Request.
+     * Send the given API url request.
      *
      * @param string $url The URL to request.
      *
