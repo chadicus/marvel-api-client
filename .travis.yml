@@ -3,12 +3,6 @@ php:
   - 7.0
   - 7.1
 services: mongodb
-addons:
-  apt:
-    sources:
-    - mongodb-3.0-precise
-    packages:
-    - mongodb-org-server
 before_script:
   - echo 'extension="mongodb.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - bash -c 'while ! exec 6<>/dev/tcp/localhost/27017; do echo "$(date) - still trying to connect to mongo"; sleep 1; done'
