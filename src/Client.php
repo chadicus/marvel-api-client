@@ -37,7 +37,7 @@ class Client implements ClientInterface
     /**
      * Guzzle HTTP Client implementation.
      *
-     * @var GuzzleClientInterface
+     * @var GuzzleHttp\ClientInterface
      */
     private $guzzleClient;
 
