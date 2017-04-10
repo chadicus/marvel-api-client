@@ -4,8 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d91616ad1a115b2f2a5a753797ed609b",
+    "content-hash": "a4c4e8959ec7c7a4388312a985c29009",
     "packages": [
+        {
+            "name": "chadicus/psr-cache-mongodb",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chadicus/psr-cache-mongodb.git",
+                "reference": "601e3050562cc21e497e6ce6aac33443826ad4c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chadicus/psr-cache-mongodb/zipball/601e3050562cc21e497e6ce6aac33443826ad4c6",
+                "reference": "601e3050562cc21e497e6ce6aac33443826ad4c6",
+                "shasum": ""
+            },
+            "require": {
+                "mongodb/mongodb": "^1.1",
+                "php": "^7.0",
+                "psr/simple-cache": "^1.0"
+            },
+            "require-dev": {
+                "chadicus/coding-standard": "^1.2",
+                "phpunit/phpunit": "^6.1",
+                "satooshi/php-coveralls": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Chadicus\\Psr\\SimpleCache\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chad Gray",
+                    "email": "chadwickgray@gmail.com",
+                    "homepage": "http://chadicus.org",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PSR-16 SimpleCache Implementation using MongoDB",
+            "keywords": [
+                "cache",
+                "mongo",
+                "psr",
+                "psr16"
+            ],
+            "time": "2017-04-10T18:41:09+00:00"
+        },
         {
             "name": "chadicus/spl-exceptions",
             "version": "v1.0.1",
@@ -680,6 +731,64 @@
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
+            "name": "mongodb/mongodb",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mongodb/mongo-php-library.git",
+                "reference": "a307dd60e71e1291c60927ea4f3a1905146063f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/a307dd60e71e1291c60927ea4f3a1905146063f5",
+                "reference": "a307dd60e71e1291c60927ea4f3a1905146063f5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mongodb": "^1.2.0",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MongoDB\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Mikola",
+                    "email": "jmikola@gmail.com"
+                },
+                {
+                    "name": "Hannes Magnusson",
+                    "email": "bjori@mongodb.com"
+                },
+                {
+                    "name": "Derick Rethans",
+                    "email": "github@derickrethans.nl"
+                }
+            ],
+            "description": "MongoDB driver library",
+            "homepage": "https://jira.mongodb.org/browse/PHPLIB",
+            "keywords": [
+                "database",
+                "driver",
+                "mongodb",
+                "persistence"
+            ],
+            "time": "2017-02-16T18:40:32+00:00"
+        },
+        {
             "name": "psr/http-message",
             "version": "1.0.1",
             "source": {
@@ -1063,64 +1172,6 @@
             ],
             "abandoned": "guzzlehttp/guzzle",
             "time": "2015-03-18T18:23:50+00:00"
-        },
-        {
-            "name": "mongodb/mongodb",
-            "version": "1.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mongodb/mongo-php-library.git",
-                "reference": "a307dd60e71e1291c60927ea4f3a1905146063f5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/a307dd60e71e1291c60927ea4f3a1905146063f5",
-                "reference": "a307dd60e71e1291c60927ea4f3a1905146063f5",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mongodb": "^1.2.0",
-                "php": ">=5.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "MongoDB\\": "src/"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Jeremy Mikola",
-                    "email": "jmikola@gmail.com"
-                },
-                {
-                    "name": "Hannes Magnusson",
-                    "email": "bjori@mongodb.com"
-                },
-                {
-                    "name": "Derick Rethans",
-                    "email": "github@derickrethans.nl"
-                }
-            ],
-            "description": "MongoDB driver library",
-            "homepage": "https://jira.mongodb.org/browse/PHPLIB",
-            "keywords": [
-                "database",
-                "driver",
-                "mongodb",
-                "persistence"
-            ],
-            "time": "2017-02-16T18:40:32+00:00"
         },
         {
             "name": "myclabs/deep-copy",
