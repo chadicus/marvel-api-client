@@ -182,7 +182,7 @@ final class ArrayCache extends AbstractCache implements CacheInterface
      *
      * @param mixed $ttl The time-to-live value to validate.
      *
-     * @return void
+     * @return integer
      *
      * @throws InvalidArgumentException Thrown if the $ttl is not null, an integer or \DateInterval.
      */
