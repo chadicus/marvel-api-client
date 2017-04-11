@@ -139,21 +139,6 @@ final class NullCacheTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Verify behavior of has() with illegal key.
-     *
-     * @test
-     * @covers ::has
-     * @expectedException \Psr\SimpleCache\InvalidArgumentException
-     * @expectedExceptionMessage $key must be a valid non-empty string
-     *
-     * @return void
-     */
-    public function hasIllegalKey()
-    {
-        $this->cache->has(true);
-    }
-
-    /**
      * Helper method to create a Response instance to use in tests.
      *
      * @return Response
