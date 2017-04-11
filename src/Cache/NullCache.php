@@ -66,7 +66,7 @@ final class NullCache implements CacheInterface
      * @param iterable $keys    A list of keys that can obtained in a single operation.
      * @param mixed    $default Default value to return for keys that do not exist.
      *
-     * @return iterable A list of key => value pairs. Cache keys that do not exist or are stale will have $default as value.
+     * @return array A list of key => value pairs. Cache keys that do not exist or are stale will have $default as value.
      */
     public function getMultiple($keys, $default = null)
     {
