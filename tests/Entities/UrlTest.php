@@ -58,8 +58,8 @@ final class UrlTest extends \PHPUnit\Framework\TestCase
     public function constructorBadData()
     {
         return [
-            'type is not a string' => [true, 'a url'],
-            'url is not a string' => ['a type', false],
+            'type is not a string' => [new \StdClass(), 'a url'],
+            'url is not a string' => ['a type', new \StdClass()],
         ];
     }
 
@@ -120,7 +120,7 @@ final class UrlTest extends \PHPUnit\Framework\TestCase
      */
     public function fromArrayWithInvalidInput()
     {
-        Url::fromArray(['type' => 'a type', 'url' => true]);
+        Url::fromArray(['type' => 'a type', 'url' => new \StdClass()]);
     }
 
     /**
@@ -159,7 +159,7 @@ final class UrlTest extends \PHPUnit\Framework\TestCase
         Url::fromArrays(
             [
                 ['type' => 'a type', 'url' => 'a url'],
-                ['type' => '', 'url' => 2],
+                ['type' => '', 'url' => new \StdClass()],
             ]
         );
     }

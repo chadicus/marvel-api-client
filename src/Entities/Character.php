@@ -56,7 +56,7 @@ class Character extends AbstractEntity
     {
         $filters = [
             'name' => [['string']],
-            'modifiedSince' => [['date', true], ['formatDate']],
+            'modifiedSince' => [['date', true], ['date-format', 'c']],
             'comics' => [['ofScalars', [['uint']]], ['implode', ',']],
             'series' => [['ofScalars', [['uint']]], ['implode', ',']],
             'events' => [['ofScalars', [['uint']]], ['implode', ',']],

@@ -53,12 +53,6 @@ abstract class Filterer
             'events' => '\Chadicus\Marvel\Api\Entities\Event::fromArrays',
             'stories' => '\Chadicus\Marvel\Api\Entities\Story::fromArrays',
             'creators' => '\Chadicus\Marvel\Api\Entities\Creator::fromArrays',
-            'boolToString' => function ($bool) {
-                return $bool ? 'true' : 'false';
-            },
-            'formatDate' => function ($date, $format = 'c') {
-                return $date instanceof \DateTime ? $date->format($format) : null;
-            },
         ];
     }
 }

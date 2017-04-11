@@ -74,8 +74,8 @@ final class ImageTest extends \PHPUnit\Framework\TestCase
     public function constructorBadData()
     {
         return [
-            'path is not a string' => [true, 'an extension'],
-            'extension is not a string' => ['a path', false],
+            'path is not a string' => [new \StdClass(), 'an extension'],
+            'extension is not a string' => ['a path', new \StdClass()],
         ];
     }
 
@@ -103,7 +103,7 @@ final class ImageTest extends \PHPUnit\Framework\TestCase
      */
     public function fromArrayInvalidPath()
     {
-        $image = Image::fromArray(['path' => 1, 'extension' => 'an extension']);
+        $image = Image::fromArray(['path' => new \StdClass(), 'extension' => 'an extension']);
     }
 
     /**
@@ -142,7 +142,7 @@ final class ImageTest extends \PHPUnit\Framework\TestCase
         Image::fromArrays(
             [
                 ['path' => 'a path', 'extension' => 'an extension'],
-                ['path' => 'another path', 'extension' => true],
+                ['path' => 'another path', 'extension' => new \StdClass()],
             ]
         );
     }

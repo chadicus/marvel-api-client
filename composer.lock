@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "14cf64a4d2437c5f0d7c5dd3afe1cfc1",
+    "content-hash": "9478b137519588ededab3f6aa788673b",
     "packages": [
         {
             "name": "chadicus/spl-exceptions",
@@ -104,24 +104,24 @@
         },
         {
             "name": "dominionenterprises/filter",
-            "version": "v2.0.1",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dominionenterprises/filter-php.git",
-                "reference": "88745a8385b0293460a8d0fc8db8a51e5a7d3b31"
+                "reference": "97d42e1fe9038f309e4bb3060f99081ab69a7fb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dominionenterprises/filter-php/zipball/88745a8385b0293460a8d0fc8db8a51e5a7d3b31",
-                "reference": "88745a8385b0293460a8d0fc8db8a51e5a7d3b31",
+                "url": "https://api.github.com/repos/dominionenterprises/filter-php/zipball/97d42e1fe9038f309e4bb3060f99081ab69a7fb6",
+                "reference": "97d42e1fe9038f309e4bb3060f99081ab69a7fb6",
                 "shasum": ""
             },
             "require": {
                 "php": "~5.6 || ~7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~5.0",
-                "satooshi/php-coveralls": "~0.6.1",
+                "phpunit/phpunit": "~5.5",
+                "satooshi/php-coveralls": "~1.0",
                 "squizlabs/php_codesniffer": "~2.0"
             },
             "suggest": {
@@ -152,13 +152,18 @@
                     "name": "Chad Gray",
                     "email": "chadwickgray@gmail.com",
                     "role": "Developer"
+                },
+                {
+                    "name": "Chris Ryan",
+                    "email": "xgbe@yahoo.com",
+                    "role": "Developer"
                 }
             ],
             "description": "A filtering implementation for verifying correct data and performing typical modifications to data",
             "keywords": [
                 "utility"
             ],
-            "time": "2016-08-23T00:40:18+00:00"
+            "time": "2017-02-08T22:00:15+00:00"
         },
         {
             "name": "dominionenterprises/util",
