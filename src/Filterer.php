@@ -18,7 +18,7 @@ abstract class Filterer
      *
      * @return array
      */
-    final public static function filter(array $spec, array $input, array $options = [])
+    final public static function filter(array $spec, array $input, array $options = []) : array
     {
         BaseFilterer::setFilterAliases(self::getFilterAliases() + BaseFilterer::getFilterAliases());
         return BaseFilterer::filter($spec, $input, $options);
@@ -29,7 +29,7 @@ abstract class Filterer
      *
      * @return array array where keys are aliases and values pass is_callable().
      */
-    final public static function getFilterAliases()
+    final public static function getFilterAliases() : array
     {
         return [
             '_date' => '\Chadicus\Marvel\Api\Entities\Date::fromArray',
