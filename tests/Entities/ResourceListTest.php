@@ -116,7 +116,7 @@ final class ResourceListTest extends \PHPUnit\Framework\TestCase
         return [
             'available is not an integer' => ['a string', 0, null, []],
             'returned is not an integer' => [0, 'a string', null, []],
-            'collectionURI is not a string' => [0, 0, true, []],
+            'collectionURI is not a string' => [0, 0, new \StdClass(), []],
         ];
     }
 

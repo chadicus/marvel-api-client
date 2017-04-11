@@ -13,7 +13,7 @@
     "require": {
         "php": "^7.0",
         "dominionenterprises/util" : "^2.0",
-        "dominionenterprises/filter" : "2.0.1",
+        "dominionenterprises/filter" : "2.1",
         "chadicus/spl-types": "^1.0",
         "chadicus/spl-exceptions": "^1.0",
         "guzzlehttp/guzzle": "^6.2",

@@ -21,8 +21,8 @@ final class FiltererTest extends \PHPUnit\Framework\TestCase
     {
         $filters = [
             'foo' => [['string']],
-            'date' => [['formatDate', 'Y-m-d']],
-            'bool' => [['boolToString']],
+            'date' => [['date-format', 'Y-m-d']],
+            'bool' => [['bool-convert']],
         ];
 
         $now = new \DateTime();
