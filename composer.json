@@ -21,7 +21,6 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0",
-        "zendframework/zend-diactoros": "^1.3",
         "satooshi/php-coveralls": "^1.0",
         "chadicus/coding-standard": "^1.2",
         "chadicus/test-helpers": "^1.0"

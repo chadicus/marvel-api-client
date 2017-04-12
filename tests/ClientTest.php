@@ -6,9 +6,8 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
-use Zend\Diactoros\Request;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Stream;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Unit tests for the Client class.
@@ -47,9 +46,7 @@ final class ClientTest extends \PHPUnit\Framework\TestCase
             }
         );
 
-        $stream = new Stream('php://memory', 'r+');
-        $stream->write(json_encode([]));
-        $guzzleResponse = new Response($stream, 200);
+        $guzzleResponse = new Response(200, [], json_encode([]));
         $mockHandler = new MockHandler([$guzzleResponse]);
         $container = [];
         $history = Middleware::history($container);
@@ -80,9 +77,7 @@ final class ClientTest extends \PHPUnit\Framework\TestCase
      */
     public function searchNot200Reponse()
     {
-        $stream = new Stream('php://memory', 'r+');
-        $stream->write(json_encode([]));
-        $guzzleResponse = new Response($stream, 503);
+        $guzzleResponse = new Response(503, [], json_encode([]));
         $mockHandler = new MockHandler([$guzzleResponse]);
         $container = [];
         $history = Middleware::history($container);
@@ -112,10 +107,7 @@ final class ClientTest extends \PHPUnit\Framework\TestCase
             }
         );
 
-        $stream = new Stream('php://memory', 'r+');
-        $stream->write(json_encode([]));
-
-        $guzzleResponse = new Response($stream, 200);
+        $guzzleResponse = new Response(200, [], json_encode([]));
         $mockHandler = new MockHandler([$guzzleResponse]);
         $container = [];
         $history = Middleware::history($container);
@@ -145,9 +137,7 @@ final class ClientTest extends \PHPUnit\Framework\TestCase
      */
     public function getNot200Reponse()
     {
-        $stream = new Stream('php://memory', 'r+');
-        $stream->write(json_encode([]));
-        $guzzleResponse = new Response($stream, 503);
+        $guzzleResponse = new Response(503, [], json_encode([]));
         $mockHandler = new MockHandler([$guzzleResponse]);
         $container = [];
         $history = Middleware::history($container);
@@ -176,34 +166,31 @@ final class ClientTest extends \PHPUnit\Framework\TestCase
             }
         );
 
-        $stream = new Stream('php://temp', 'r+');
-        $stream->write(
-            json_encode(
-                [
-                   'code' => 200,
-                   'status' => 'OK',
-                   'attributionText' => 'a attributionText',
-                   'attributionHTML' => 'a attributionHTML',
-                   'etag' => 'a etag',
-                   'data' =>  [
-                       'offset' => 0,
-                       'limit' => 1,
-                       'total' => 1,
-                       'count' => 1,
-                       'results' => [['id' => 1, 'resourceURI' => Client::BASE_URL . 'characters/1']],
-                   ],
-                ]
-            )
+        $body = json_encode(
+            [
+               'code' => 200,
+               'status' => 'OK',
+               'attributionText' => 'a attributionText',
+               'attributionHTML' => 'a attributionHTML',
+               'etag' => 'a etag',
+               'data' =>  [
+                   'offset' => 0,
+                   'limit' => 1,
+                   'total' => 1,
+                   'count' => 1,
+                   'results' => [['id' => 1, 'resourceURI' => Client::BASE_URL . 'characters/1']],
+               ],
+            ]
         );
 
         $hash = md5('1aPrivateKeyaPublicKey');
         $cache = new Assets\ArrayCache();
         $cache->set(
             Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}",
-            new Response($stream, 200, ['custom' => 'header'])
+            new Response(200, ['custom' => 'header'], $body)
         );
 
-        $guzzleResponse = new Response('php://memory', 200);
+        $guzzleResponse = new Response(200);
         $mockHandler = new MockHandler([$guzzleResponse]);
         $container = [];
         $history = Middleware::history($container);
@@ -242,7 +229,7 @@ final class ClientTest extends \PHPUnit\Framework\TestCase
         );
 
         $hash = md5('1aPrivateKeyaPublicKey');
-        $request = new Request(Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}", 'GET');
+        $request = new Request('GET', Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}");
 
         $cache = new Assets\ArrayCache();
 

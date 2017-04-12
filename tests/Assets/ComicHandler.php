@@ -5,8 +5,7 @@ use Chadicus\Marvel\Api\Adapter\AdapterInterface;
 use Chadicus\Marvel\Api\Entities;
 use Chadicus\Marvel\Api\Client;
 use Psr\Http\Message\RequestInterface;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Stream;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Mock handler for guzzle clients.
@@ -52,31 +51,22 @@ final class ComicHandler
         $results = array_slice($allResults, $offset, $limit);
         $count = count($results);
 
-        $stream = fopen('php://temp', 'r+');
-        fwrite(
-            $stream,
-            json_encode(
-                [
-                    'code' => 200,
-                    'status' => 'ok',
-                    'etag' => 'an etag',
-                    'data' => [
-                        'offset' => $offset,
-                        'limit' => $limit,
-                        'total' => $total,
-                        'count' => $count,
-                        'results' => $results,
-                    ],
-                ]
-            )
+        $body = json_encode(
+            [
+                'code' => 200,
+                'status' => 'ok',
+                'etag' => 'an etag',
+                'data' => [
+                    'offset' => $offset,
+                    'limit' => $limit,
+                    'total' => $total,
+                    'count' => $count,
+                    'results' => $results,
+                ],
+            ]
         );
-        rewind($stream);
 
-        return new Response(
-            new Stream($stream),
-            200,
-            ['Content-type' => 'application/json', 'etag' => 'an etag']
-        );
+        return new Response(200, ['Content-type' => 'application/json', 'etag' => 'an etag'], $body);
     }
 
     /**

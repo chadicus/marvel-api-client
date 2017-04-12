@@ -2,9 +2,8 @@
 namespace Chadicus\Marvel\Api\Assets;
 
 use Chadicus\Marvel\Api\Adapter\AdapterInterface;
+use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Stream;
 
 /**
  * Mock handler that only returns empty responses.
@@ -22,30 +21,21 @@ final class EmptyHandler
     {
         $this->request = $request;
 
-        $stream = fopen('php://temp', 'r+');
-        fwrite(
-            $stream,
-            json_encode(
-                [
-                    'code' => 200,
-                    'status' => 'ok',
-                    'etag' => 'an etag',
-                    'data' => [
-                        'offset' => 0,
-                        'limit' => 20,
-                        'total' => 0,
-                        'count' => 0,
-                        'results' => [],
-                    ],
-                ]
-            )
+        $body = json_encode(
+            [
+                'code' => 200,
+                'status' => 'ok',
+                'etag' => 'an etag',
+                'data' => [
+                    'offset' => 0,
+                    'limit' => 20,
+                    'total' => 0,
+                    'count' => 0,
+                    'results' => [],
+                ],
+            ]
         );
-        rewind($stream);
 
-        return new Response(
-            new Stream($stream),
-            200,
-            ['Content-type' => 'application/json', 'etag' => 'an etag']
-        );
+        return new Response(200, ['Content-type' => 'application/json', 'etag' => 'an etag'], $body);
     }
 }
