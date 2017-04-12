@@ -3,9 +3,8 @@ namespace Chadicus\Marvel\Api\Assets;
 
 use Chadicus\Marvel\Api\Adapter\AdapterInterface;
 use Chadicus\Marvel\Api\Client;
+use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Stream;
 
 /**
  * Mock Handler for guzzle client.
@@ -38,29 +37,21 @@ final class CollectionHandler
         $results = array_slice($allResults, $offset, $limit);
         $count = count($results);
 
-        $stream = fopen('php://temp', 'r+');
-        fwrite(
-            $stream,
-            json_encode(
-                [
-                    'code' => 200,
-                    'status' => 'ok',
-                    'etag' => 'an etag',
-                    'data' => [
-                        'offset' => $offset,
-                        'limit' => $limit,
-                        'total' => 5,
-                        'count' => $count,
-                        'results' => $results,
-                    ],
-                ]
-            )
+        $body = json_encode(
+            [
+                'code' => 200,
+                'status' => 'ok',
+                'etag' => 'an etag',
+                'data' => [
+                    'offset' => $offset,
+                    'limit' => $limit,
+                    'total' => 5,
+                    'count' => $count,
+                    'results' => $results,
+                ],
+            ]
         );
 
-        return new Response(
-            new Stream($stream),
-            200,
-            ['Content-type' => 'application/json', 'etag' => 'an etag']
-        );
+        return new Response(200, ['Content-type' => 'application/json', 'etag' => 'an etag'], $body);
     }
 }

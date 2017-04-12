@@ -2,8 +2,7 @@
 
 namespace Chadicus\Marvel\Api\Cache;
 
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Stream;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * @coversDefaultClass Chadicus\Marvel\Api\Cache\NullCache
@@ -145,13 +144,10 @@ final class NullCacheTest extends \PHPUnit\Framework\TestCase
      */
     private function getResponse() : Response
     {
-        $stream = fopen('php://temp', 'r+');
-        fwrite($stream, json_encode(['status' => 'ok']));
-
         return new Response(
-            new Stream($stream),
             200,
-            ['Content-type' => 'application/json', 'etag' => '"an etag"']
+            ['Content-type' => 'application/json', 'etag' => '"an etag"'],
+            json_encode(['status' => 'ok'])
         );
     }
 }

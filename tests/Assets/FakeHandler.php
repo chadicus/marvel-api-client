@@ -2,9 +2,8 @@
 namespace Chadicus\Marvel\Api\Assets;
 
 use Chadicus\Marvel\Api\Adapter\AdapterInterface;
+use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Stream;
 
 /**
  * Mock Handler that returns a fake response.
@@ -52,33 +51,22 @@ final class FakeHandler
     public function __invoke(RequestInterface $request)
     {
         $this->request = $request;
-        $stream = fopen('php://temp', 'r+');
-        fwrite(
-            $stream,
-            json_encode(
-                [
-                    'code' => 200,
-                    'status' => 'ok',
-                    'etag' => 'an etag',
-                    'data' => [
-                        'offset' => 0,
-                        'limit' => count($this->results),
-                        'total' => count($this->results),
-                        'count' => count($this->results),
-                        'results' => $this->results,
-                    ],
-                ]
-            )
-        );
-
-        $this->response = new Response(
-            new Stream($stream),
-            200,
+        $body = json_encode(
             [
-                'Content-Type' => 'application/json',
+                'code' => 200,
+                'status' => 'ok',
+                'etag' => 'an etag',
+                'data' => [
+                    'offset' => 0,
+                    'limit' => count($this->results),
+                    'total' => count($this->results),
+                    'count' => count($this->results),
+                    'results' => $this->results,
+                ],
             ]
         );
 
+        $this->response = new Response(200, ['Content-Type' => 'application/json'], $body);
         return $this->response;
     }
 }
