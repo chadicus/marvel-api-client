@@ -159,26 +159,23 @@ class Client implements ClientInterface
      * @param string $name      The name of the api resource.
      * @param array  $arguments The parameters to pass to get() or search().
      *
-     * @return Collection|EntityInterface
+     * @return Collection|EntityInterface|null
      */
     final public function __call(string $name, array $arguments)
     {
         $resource = strtolower($name);
-        $parameters = array_shift($arguments);
-        if ($parameters === null || is_array($parameters)) {
-            return new Collection($this, $resource, $parameters ?: []);
+        $idOrFilters = array_shift($arguments) ?: [];
+
+        if (is_array($idOrFilters)) {
+            return new Collection($this, $resource, $idOrFilters);
         }
 
-        $dataWrapper = $this->get($resource, $parameters);
+        $dataWrapper = $this->get($resource, $idOrFilters);
         if ($dataWrapper === null) {
             return null;
         }
 
         $results = $dataWrapper->getData()->getResults();
-        if (empty($results)) {
-            return null;
-        }
-
-        return $results[0];
+        return array_shift($results);
     }
 }
