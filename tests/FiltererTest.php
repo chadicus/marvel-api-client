@@ -5,7 +5,6 @@ namespace Chadicus\Marvel\Api;
  * Defines unit tests for the Filterer class.
  *
  * @coversDefaultClass \Chadicus\Marvel\Api\Filterer
- * @covers ::getFilterAliases
  */
 final class FiltererTest extends \PHPUnit\Framework\TestCase
 {
