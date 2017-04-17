@@ -7,7 +7,7 @@ use DominionEnterprises\Util;
 /**
  * Object representation of the API result data container.
  */
-class DataContainer implements DataContainerInterface
+final class DataContainer implements DataContainerInterface
 {
     /**
      * The requested offset (number of skipped results) of the call.
@@ -97,7 +97,7 @@ class DataContainer implements DataContainerInterface
      *
      * @return integer
      */
-    public function getOffset()
+    public function getOffset() : int
     {
         return $this->offset;
     }
@@ -107,7 +107,7 @@ class DataContainer implements DataContainerInterface
      *
      * @return integer
      */
-    public function getLimit()
+    public function getLimit() : int
     {
         return $this->limit;
     }
@@ -117,7 +117,7 @@ class DataContainer implements DataContainerInterface
      *
      * @return integer
      */
-    public function getTotal()
+    public function getTotal() : int
     {
         return $this->total;
     }
@@ -127,7 +127,7 @@ class DataContainer implements DataContainerInterface
      *
      * @return integer
      */
-    public function getCount()
+    public function getCount() : int
     {
         return $this->count;
     }
@@ -137,7 +137,7 @@ class DataContainer implements DataContainerInterface
      *
      * @return EntityInterface[]
      */
-    public function getResults()
+    public function getResults() : array
     {
         return $this->results;
     }

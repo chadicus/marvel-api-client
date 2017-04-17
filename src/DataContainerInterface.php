@@ -13,33 +13,33 @@ interface DataContainerInterface
      *
      * @return integer
      */
-    public function getOffset();
+    public function getOffset() : int;
 
     /**
      * Returns The requested result limit.
      *
      * @return integer
      */
-    public function getLimit();
+    public function getLimit() : int;
 
     /**
      * Returns The total number of resources available given the current filter set.
      *
      * @return integer
      */
-    public function getTotal();
+    public function getTotal() : int;
 
     /**
      * Returns The total number of results returned by this call.
      *
      * @return integer
      */
-    public function getCount();
+    public function getCount() : int;
 
     /**
      * Returns The list of creators returned by the call.
      *
      * @return EntityInterface[]
      */
-    public function getResults();
+    public function getResults() : array;
 }
