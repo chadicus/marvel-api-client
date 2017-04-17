@@ -35,15 +35,15 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Chadicus\Marvel\Api\Client;
 
-$publicApiKey = getenv('PUBLIC_KEY');
-$privateApiKey = getenv('PRIVATE_KEY');
+$publicApiKey = 'YOUR PUBLIC API KEY';
+$privateApiKey = 'YOUR PRIVATE API KEY';
 
 $client = new Client($privateApiKey, $publicApiKey);
 
 $dataWrapper = $client->get('characters', 1009351);
 
 //Text to display for attribution requirements
-$attributionText = $response->getDataWrapper()->getAttributionText();
+$attributionText = $dataWrapper->getAttributionText();
 
 $character = $dataWrapper->getData()->getResults()[0];
 
