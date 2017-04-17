@@ -82,8 +82,6 @@ class Collection implements \Iterator, \Countable
      */
     final public function __construct(Client $client, string $resource, array $filters = [], callable $loader = null)
     {
-        Util::throwIfNotType(['string' => [$resource]], true);
-
         $this->client = $client;
         $this->resource = $resource;
         $this->filters = $filters;
