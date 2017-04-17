@@ -87,13 +87,7 @@ class Client implements ClientInterface
      */
     final public function search(string $resource, array $filters = [])
     {
-        $filters['apikey'] = $this->publicApiKey;
-        $timestamp = time();
-        $filters['ts'] = $timestamp;
-        $filters['hash'] = md5($timestamp . $this->privateApiKey . $this->publicApiKey);
-        $url = self::BASE_URL . urlencode($resource) . '?' . http_build_query($filters);
-
-        $response = $this->send($url);
+        $response = $this->send($resource, null, $filters);
         if ($response->getStatusCode() !== 200) {
             return null;
         }
@@ -111,15 +105,7 @@ class Client implements ClientInterface
      */
     final public function get(string $resource, int $id)
     {
-        $timestamp = time();
-        $query = [
-            'apikey' => $this->publicApiKey,
-            'ts' => $timestamp,
-            'hash' => md5($timestamp . $this->privateApiKey . $this->publicApiKey),
-        ];
-
-        $url = self::BASE_URL . urlencode($resource) . "/{$id}?" . http_build_query($query);
-        $response =  $this->send($url);
+        $response =  $this->send($resource, $id);
         if ($response->getStatusCode() !== 200) {
             return null;
         }
@@ -130,26 +116,31 @@ class Client implements ClientInterface
     /**
      * Send the given API url request.
      *
-     * @param string $url The URL to request.
+     * @param string  $resource The API resource to search for.
+     * @param integer $id       The id of a specific API resource.
+     * @param array   $query    Array of search criteria to use in request.
      *
      * @return ResponseInterface
      */
-    final private function send(string $url) : ResponseInterface
+    final private function send(string $resource, int $id = null, array $query = []) : ResponseInterface
     {
+        $query['apikey'] = $this->publicApiKey;
+        $query['ts'] = time();
+        $query['hash'] = md5($query['ts'] . $this->privateApiKey . $this->publicApiKey);
+
+        $url = self::BASE_URL . urlencode($resource) . ($id !== null ? "/{$id}" : '') . '?' . http_build_query($query);
+
         $response = $this->cache->get($url);
-        if ($response !== null) {
-            return $response;
+        if ($response === null) {
+            $response = $this->guzzleClient->request(
+                'GET',
+                $url,
+                ['http_errors' => false, 'headers' => ['Accept' =>  'application/json']]
+            );
+
+            $this->cache->set($url, $response, self::MAX_TTL);
         }
 
-        $response = $this->guzzleClient->request(
-            'GET',
-            $url,
-            [
-               'http_errors' => false,
-               'headers' => ['Accept' =>  'application/json'],
-            ]
-        );
-        $this->cache->set($url, $response, self::MAX_TTL);
         return $response;
     }
 
