@@ -82,17 +82,10 @@ class Client implements ClientInterface
      * @param array  $filters  Array of search criteria to use in request.
      *
      * @return null|DataWrapper
-     *
-     * @throws \InvalidArgumentException Thrown if $resource is empty or not a string.
      */
     final public function search(string $resource, array $filters = [])
     {
-        $response = $this->send($resource, null, $filters);
-        if ($response->getStatusCode() !== 200) {
-            return null;
-        }
-
-        return DataWrapper::fromJson((string)$response->getBody());
+        return $this->send($resource, null, $filters);
     }
 
     /**
@@ -105,12 +98,7 @@ class Client implements ClientInterface
      */
     final public function get(string $resource, int $id)
     {
-        $response =  $this->send($resource, $id);
-        if ($response->getStatusCode() !== 200) {
-            return null;
-        }
-
-        return DataWrapper::fromJson((string)$response->getBody());
+        return $this->send($resource, $id);
     }
 
     /**
@@ -120,28 +108,27 @@ class Client implements ClientInterface
      * @param integer $id       The id of a specific API resource.
      * @param array   $query    Array of search criteria to use in request.
      *
-     * @return ResponseInterface
+     * @return null|DataWrapperInterface
      */
-    final private function send(string $resource, int $id = null, array $query = []) : ResponseInterface
+    final private function send(string $resource, int $id = null, array $query = [])
     {
         $query['apikey'] = $this->publicApiKey;
         $query['ts'] = time();
-        $query['hash'] = md5($query['ts'] . $this->privateApiKey . $this->publicApiKey);
-
+        $query['hash'] = md5("{$query['ts']}{$this->privateApiKey}{$this->publicApiKey}");
         $url = self::BASE_URL . urlencode($resource) . ($id !== null ? "/{$id}" : '') . '?' . http_build_query($query);
 
         $response = $this->cache->get($url);
         if ($response === null) {
-            $response = $this->guzzleClient->request(
-                'GET',
-                $url,
-                ['http_errors' => false, 'headers' => ['Accept' =>  'application/json']]
-            );
-
-            $this->cache->set($url, $response, self::MAX_TTL);
+            $response = $this->guzzleClient->request('GET', $url, ['http_errors' => false]);
         }
 
-        return $response;
+        if ($response->getStatusCode() !== 200) {
+            return null;
+        }
+
+        $this->cache->set($url, $response, self::MAX_TTL);
+
+        return DataWrapper::fromJson((string)$response->getBody());
     }
 
     /**
