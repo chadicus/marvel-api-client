@@ -129,7 +129,6 @@ class Collection implements \Iterator, \Countable
         }
 
         Util::ensure(false, empty($this->results), '\OutOfBoundsException', ['Collection contains no elements']);
-
         return $this->offset + $this->position;
     }
 
@@ -165,7 +164,8 @@ class Collection implements \Iterator, \Countable
         $this->filters['limit'] = $this->limit === 0 ? 20 : $this->limit;
         $dataWrapper = $this->client->search($this->resource, $this->filters);
 
-        $this->limit = $dataWrapper->getData()->getLimit();
+        //Limit should be the total number returned, not the specified limit in the query params
+        $this->limit = $dataWrapper->getData()->getCount();
         $this->total = $dataWrapper->getData()->getTotal();
         $this->results = $dataWrapper->getData()->getResults();
         $this->position = 0;
