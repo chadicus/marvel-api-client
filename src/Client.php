@@ -48,6 +48,19 @@ class Client implements ClientInterface
     private $cache;
 
     /**
+     * Default Guzzle request options.
+     *
+     * @var array
+     */
+    private static $guzzleRequestOptions = [
+        'http_errors' => false,
+        'headers' => [
+            'Accept' =>  'application/json',
+            'Accept-Encoding' => 'gzip,deflate',
+        ],
+    ];
+
+    /**
      * The Marvel API URL.
      *
      * @const string
@@ -118,7 +131,7 @@ class Client implements ClientInterface
 
         $response = $this->cache->get($url);
         if ($response === null) {
-            $response = $this->guzzleClient->request('GET', $url, ['http_errors' => false]);
+            $response = $this->guzzleClient->request('GET', $url, self::$guzzleRequestOptions);
         }
 
         if ($response->getStatusCode() !== 200) {
