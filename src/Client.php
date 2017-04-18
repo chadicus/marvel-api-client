@@ -21,14 +21,14 @@ class Client implements ClientInterface
     const MAX_TTL = 86400;
 
     /**
-     * The public api key issued by Marvel.
+     * The public API key issued by Marvel.
      *
      * @var string
      */
     private $publicApiKey;
 
     /**
-     * The private api key issued by Marvel.
+     * The private API key issued by Marvel.
      *
      * @var string
      */
@@ -58,8 +58,8 @@ class Client implements ClientInterface
     /**
      * Construct a new Client.
      *
-     * @param string                     $privateApiKey The private api key issued by Marvel.
-     * @param string                     $publicApiKey  The public api key issued by Marvel.
+     * @param string                     $privateApiKey The private API key issued by Marvel.
+     * @param string                     $publicApiKey  The public API key issued by Marvel.
      * @param GuzzleHttp\ClientInterface $guzzleClient  Implementation of a Guzzle HTTP client.
      * @param CacheInterface             $cache         Implementation of Cache.
      */
