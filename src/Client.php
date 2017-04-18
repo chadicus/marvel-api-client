@@ -49,7 +49,7 @@ class Client implements ClientInterface
     private $cache;
 
     /**
-     * The Marvel API url.
+     * The Marvel API URL.
      *
      * @const string
      */
@@ -102,7 +102,7 @@ class Client implements ClientInterface
     }
 
     /**
-     * Send the given API url request.
+     * Send the given API URL request.
      *
      * @param string  $resource The API resource to search for.
      * @param integer $id       The id of a specific API resource.
@@ -134,7 +134,7 @@ class Client implements ClientInterface
     /**
      * Allow calls such as $client->characters();
      *
-     * @param string $name      The name of the api resource.
+     * @param string $name      The name of the API resource.
      * @param array  $arguments The parameters to pass to get() or search().
      *
      * @return Collection|EntityInterface|null
