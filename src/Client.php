@@ -4,7 +4,6 @@ namespace Chadicus\Marvel\Api;
 
 use GuzzleHttp;
 use Psr\SimpleCache\CacheInterface;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * PHP Client for the Marvel API.
