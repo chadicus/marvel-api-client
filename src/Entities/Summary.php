@@ -7,10 +7,10 @@ use DominionEnterprises\Filterer;
 /**
  * Represents the Summary entity of the Marvel API.
  *
- * @property-read string $resourceURI The path to the individual api entity
- * @property-read string $name The canonical name of the api entity
- * @property-read string $type The type of the api entity (ex. interior or cover for story)
- * @property-read string $role The role of the api entity (ex. writer or artis for creator)
+ * @property-read string $resourceURI The path to the individual API entity
+ * @property-read string $name The canonical name of the API entity
+ * @property-read string $type The type of the API entity (ex. interior or cover for story)
+ * @property-read string $role The role of the API entity (ex. writer or artis for creator)
  */
 class Summary extends AbstractEntity
 {

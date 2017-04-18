@@ -46,7 +46,7 @@ use DominionEnterprises\Util;
 class Comic extends AbstractEntity
 {
     /**
-     * The name of the comic api resource
+     * The name of the comic API resource
      *
      * @const string
      */
