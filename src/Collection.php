@@ -129,7 +129,6 @@ class Collection implements \Iterator, \Countable
         }
 
         Util::ensure(false, empty($this->results), '\OutOfBoundsException', ['Collection contains no elements']);
-
         return $this->offset + $this->position;
     }
 
