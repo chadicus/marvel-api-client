@@ -170,7 +170,8 @@ class Collection implements \Iterator, \Countable
         $httpCode = $indexResponse->getHttpCode();
         Util::ensure(200, $httpCode, "Did not receive 200 from API. Instead received {$httpCode}");
 
-        $this->limit = $indexResponse->getDataWrapper()->getData()->getLimit();
+        //Limit should be the total number returned, not the specified limit in the query params
+        $this->limit = $indexResponse->getDataWrapper()->getData()->getCount();
         $this->total = $indexResponse->getDataWrapper()->getData()->getTotal();
         $this->results = $indexResponse->getDataWrapper()->getData()->getResults();
         $this->position = 0;
