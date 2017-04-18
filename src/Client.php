@@ -148,7 +148,7 @@ class Client implements ClientInterface
             return new Collection($this, $resource, $idOrFilters);
         }
 
-        $dataWrapper = $this->get($resource, $idOrFilters);
+        $dataWrapper = $this->send($resource, $idOrFilters);
         if ($dataWrapper === null) {
             return null;
         }
