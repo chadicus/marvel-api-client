@@ -8,7 +8,7 @@ before_commands:
 build:
     tests:
         override:
-            - phpcs-run --standard=./vendor/chadicus/coding-standard/Chadicus/ruleset.xml
+            - phpcs-run --standard=./vendor/chadicus/coding-standard/Chadicus/ruleset.xml src
 tools:
     php_analyzer: true
     php_mess_detector: true
