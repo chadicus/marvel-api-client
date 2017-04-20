@@ -17,7 +17,7 @@ final class NullCache implements CacheInterface
      *
      * @return mixed The value of the item from the cache, or $default in case of cache miss.
      */
-    public function get($key, $default = null)
+    public function get($key, $default = null)//@codingStandardsIgnoreLine  Interface does not define type-hints
     {
         return $default;
     }
@@ -25,15 +25,15 @@ final class NullCache implements CacheInterface
     /**
      * Persists data in the cache, uniquely referenced by a key with an optional expiration TTL time.
      *
-     * @param string                $key   The key of the item to store.
-     * @param mixed                 $value The value of the item to store, must be serializable.
-     * @param null|int|DateInterval $ttl   Optional. The TTL value of this item. If no value is sent and
-     *                                     the driver supports TTL then the library may set a default value
-     *                                     for it or let the driver take care of that.
+     * @param string                    $key   The key of the item to store.
+     * @param mixed                     $value The value of the item to store, must be serializable.
+     * @param null|integer|DateInterval $ttl   Optional. The TTL value of this item. If no value is sent and
+     *                                         the driver supports TTL then the library may set a default value
+     *                                         for it or let the driver take care of that.
      *
-     * @return bool True on success and false on failure.
+     * @return boolean True on success and false on failure.
      */
-    public function set($key, $value, $ttl = null)
+    public function set($key, $value, $ttl = null)//@codingStandardsIgnoreLine  Interface does not define type-hints
     {
         return true;
     }
@@ -43,9 +43,9 @@ final class NullCache implements CacheInterface
      *
      * @param string $key The unique cache key of the item to delete.
      *
-     * @return bool True if the item was successfully removed. False if there was an error.
+     * @return boolean True if the item was successfully removed. False if there was an error.
      */
-    public function delete($key)
+    public function delete($key)//@codingStandardsIgnoreLine  Interface does not define type-hints
     {
         return true;
     }
@@ -53,7 +53,7 @@ final class NullCache implements CacheInterface
     /**
      * Wipes clean the entire cache's keys.
      *
-     * @return bool True on success and false on failure.
+     * @return boolean True on success and false on failure.
      */
     public function clear()
     {
@@ -66,9 +66,9 @@ final class NullCache implements CacheInterface
      * @param iterable $keys    A list of keys that can obtained in a single operation.
      * @param mixed    $default Default value to return for keys that do not exist.
      *
-     * @return array A list of key => value pairs. Cache keys that do not exist or are stale will have $default as value.
+     * @return array A list of key => value pairs. Keys that do not exist or are stale will have $default as value.
      */
-    public function getMultiple($keys, $default = null)
+    public function getMultiple($keys, $default = null)//@codingStandardsIgnoreLine  Interface does not define type-hints
     {
         $items = [];
         foreach ($keys as $key) {
@@ -81,14 +81,14 @@ final class NullCache implements CacheInterface
     /**
      * Persists a set of key => value pairs in the cache, with an optional TTL.
      *
-     * @param iterable              $values A list of key => value pairs for a multiple-set operation.
-     * @param null|int|DateInterval $ttl    Optional. The TTL value of this item. If no value is sent and
-     *                                      the driver supports TTL then the library may set a default value
-     *                                      for it or let the driver take care of that.
+     * @param iterable                  $values A list of key => value pairs for a multiple-set operation.
+     * @param null|integer|DateInterval $ttl    Optional. The TTL value of this item. If no value is sent and
+     *                                          the driver supports TTL then the library may set a default value
+     *                                          for it or let the driver take care of that.
      *
-     * @return bool True on success and false on failure.
+     * @return boolean True on success and false on failure.
      */
-    public function setMultiple($values, $ttl = null)
+    public function setMultiple($values, $ttl = null)//@codingStandardsIgnoreLine  Interface does not define type-hints
     {
         return true;
     }
@@ -98,9 +98,9 @@ final class NullCache implements CacheInterface
      *
      * @param iterable $keys A list of string-based keys to be deleted.
      *
-     * @return bool True if the items were successfully removed. False if there was an error.
+     * @return boolean True if the items were successfully removed. False if there was an error.
      */
-    public function deleteMultiple($keys)
+    public function deleteMultiple($keys)//@codingStandardsIgnoreLine  Interface does not define type-hints
     {
         return true;
     }
@@ -115,9 +115,9 @@ final class NullCache implements CacheInterface
      *
      * @param string $key The cache item key.
      *
-     * @return bool
+     * @return boolean
      */
-    public function has($key)
+    public function has($key)//@codingStandardsIgnoreLine  Interface does not define type-hints
     {
         return false;
     }

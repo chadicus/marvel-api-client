@@ -107,14 +107,8 @@ class Comic extends AbstractEntity
                 [
                     'in',
                     [
-                        'comic',
-                        'hardcover',
-                        'trade paperback',
-                        'magazine',
-                        'digest',
-                        'graphic novel',
-                        'digital comic',
-                        'infinite comic',
+                        'comic', 'hardcover', 'trade paperback', 'magazine', 'digest',
+                        'graphic novel', 'digital comic', 'infinite comic',
                     ]
                 ],
             ],
@@ -136,16 +130,8 @@ class Comic extends AbstractEntity
                 [
                     'in',
                     [
-                        'focDate',
-                        'onsaleDate',
-                        'title',
-                        'issueNumber',
-                        'modified',
-                        '-focDate',
-                        '-onsaleDate',
-                        '-title',
-                        '-issueNumber',
-                        '-modified',
+                        'focDate', 'onsaleDate', 'title', 'issueNumber', 'modified',
+                        '-focDate', '-onsaleDate', '-title', '-issueNumber', '-modified',
                     ],
                 ]
             ],
@@ -154,7 +140,6 @@ class Comic extends AbstractEntity
 
         list($success, $filteredCriteria, $error) = Api\Filterer::filter($filters, $criteria);
         Util::ensure(true, $success, $error);
-
         $toDate = Util\Arrays::get($filteredCriteria, 'toDate');
         $fromDate = Util\Arrays::get($filteredCriteria, 'fromDate');
         if ($toDate !== null && $fromDate !== null) {
