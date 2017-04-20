@@ -85,7 +85,9 @@ class Collection implements \Iterator, \Countable
         $this->client = $client;
         $this->resource = $resource;
         $this->filters = $filters;
-        $this->loader = $loader;
+        $this->loader = $loader ?: function ($input) {
+            return $input;
+        };
         $this->rewind();
     }
 
@@ -188,10 +190,6 @@ class Collection implements \Iterator, \Countable
             '\OutOfBoundsException',
             ['Collection contains no element at current position']
         );
-
-        if ($this->loader === null) {
-            return $this->results[$this->position];
-        }
 
         return call_user_func_array($this->loader, [$this->results[$this->position]]);
     }
