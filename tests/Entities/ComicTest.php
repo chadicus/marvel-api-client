@@ -574,124 +574,52 @@ final class ComicTest extends \PHPUnit\Framework\TestCase
             'issn' => 'an issn',
             'format' => 'a format',
             'pageCount' => 4,
-            'textObjects' => [
-                [
-                    'type' => 'a text object type',
-                    'language' => 'a language',
-                    'text' => 'a text',
-                ],
-            ],
+            'textObjects' => [['type' => 'a text object type', 'language' => 'a language', 'text' => 'a text']],
             'resourceURI' => 'a resource URI',
-            'urls' => [
-                [
-                    'type' => 'a url type',
-                    'url' => 'a url',
-                ],
-            ],
-            'series' => [
-                'resourceURI' => 'a series resource URI',
-                'name' => 'a series name',
-                'type' => 'a series type',
-                'role' => 'a series role',
-            ],
+            'urls' => [['type' => 'a url type', 'url' => 'a url']],
+            'series' => self::getResourceArray('series'),
             'events' => [
                 'available' => 1,
                 'returned' => 1,
                 'collectionURI' => 'an events collection uri',
-                'items' => [
-                    [
-                        'resourceURI' => 'a event resource URI',
-                        'name' => 'a event name',
-                        'type' => 'a event type',
-                        'role' => 'a event role',
-                    ]
-                ],
+                'items' => [self::getResourceArray('event')],
             ],
             'stories' => [
                 'available' => 1,
                 'returned' => 1,
                 'collectionURI' => 'an stories collection uri',
-                'items' => [
-                    [
-                        'resourceURI' => 'a story resource URI',
-                        'name' => 'a story name',
-                        'type' => 'a story type',
-                        'role' => 'a story role',
-                    ]
-                ],
+                'items' => [self::getResourceArray('story')],
             ],
             'creators' => [
                 'available' => 1,
                 'returned' => 1,
                 'collectionURI' => 'an creators collection uri',
-                'items' => [
-                    [
-                        'resourceURI' => 'a creator resource URI',
-                        'name' => 'a creator name',
-                        'type' => 'a creator type',
-                        'role' => 'a creator role',
-                    ]
-                ],
+                'items' => [self::getResourceArray('creator')],
             ],
             'characters' => [
                 'available' => 1,
                 'returned' => 1,
                 'collectionURI' => 'an characters collection uri',
-                'items' => [
-                    [
-                        'resourceURI' => 'a character resource URI',
-                        'name' => 'a character name',
-                        'type' => 'a character type',
-                        'role' => 'a character role',
-                    ]
-                ],
+                'items' => [self::getResourceArray('character')],
             ],
-            'variants' => [
-                [
-                    'resourceURI' => 'a variant resource URI',
-                    'name' => 'a variant name',
-                    'type' => 'a variant type',
-                    'role' => 'a variant role',
-                ],
+            'variants' => [self::getResourceArray('variant')],
+            'collections' => [self::getResourceArray('collection resource')],
+            'collectedIssues' => [self::getResourceArray('collected issues')],
+            'dates' => [['type' => 'a date type', 'date' => 'Fri, 31 Jul 2015 08:53:11 -0400']],
+            'prices' => [['type' => 'a price type', 'price' => 1.1]],
+            'thumbnail' => ['path' => 'a thumbnail path', 'extension' => 'a thumbnail extension'],
+            'images' => [['path' => 'an image path', 'extension' => 'an image extension'],
             ],
-            'collections' => [
-                [
-                    'resourceURI' => 'a collection resource URI',
-                    'name' => 'a collection name',
-                    'type' => 'a collection type',
-                    'role' => 'a collection role',
-                ],
-            ],
-            'collectedIssues' => [
-                [
-                    'resourceURI' => 'a collected issues resource URI',
-                    'name' => 'a collected issues name',
-                    'type' => 'a collected issues type',
-                    'role' => 'a collected issues role',
-                ],
-            ],
-            'dates' => [
-                [
-                    'type' => 'a date type',
-                    'date' => 'Fri, 31 Jul 2015 08:53:11 -0400',
-                ],
-            ],
-            'prices' => [
-                [
-                    'type' => 'a price type',
-                    'price' => 1.1,
-                ],
-            ],
-            'thumbnail' => [
-                'path' => 'a thumbnail path',
-                'extension' => 'a thumbnail extension',
-            ],
-            'images' => [
-                [
-                    'path' => 'an image path',
-                    'extension' => 'an image extension',
-                ],
-            ],
+        ];
+    }
+
+    private static function getResourceArray(string $resource)
+    {
+        return [
+            'resourceURI' => "a {$resource} resource URI",
+            'name' => "a {$resource} name",
+            'type' => "a {$resource} type",
+            'role' => "a {$resource} role",
         ];
     }
 }
