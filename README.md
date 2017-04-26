@@ -56,9 +56,11 @@ foreach ($character->getEvents()->getItems() as $event) {
 
 ```
 
+## Community
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/marvel-api-client/Lobby#)
+
 ## Contact
 Developers may be contacted at:
-
  * [Pull Requests](https://github.com/chadicus/marvel-api-client/pulls)
  * [Issues](https://github.com/chadicus/marvel-api-client/issues)
 
