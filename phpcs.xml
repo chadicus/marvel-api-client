@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<ruleset name="PHP_CodeSniffer">
+    <file>.</file>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/examples/*</exclude-pattern>
+    <arg value="np" />
+    <rule ref="./vendor/chadicus/coding-standard/Chadicus"/>
+</ruleset>
