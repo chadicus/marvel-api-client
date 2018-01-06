@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "84d74011872f0d8ac21b569c92b8ccf9",
+    "content-hash": "354adb0730a4d5febdb2f398d185cd32",
     "packages": [
+        {
+            "name": "chadicus/psr-cache-helper",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chadicus/psr-cache-helper.git",
+                "reference": "9268fa7cdbbef610a7e1d27f4ec4c78dc556875e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chadicus/psr-cache-helper/zipball/9268fa7cdbbef610a7e1d27f4ec4c78dc556875e",
+                "reference": "9268fa7cdbbef610a7e1d27f4ec4c78dc556875e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0",
+                "psr/simple-cache": "^1.0"
+            },
+            "require-dev": {
+                "chadicus/coding-standard": "^1.2",
+                "php-coveralls/php-coveralls": "^1.0",
+                "phpunit/phpunit": "^6.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Chadicus\\Psr\\SimpleCache\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chad Gray",
+                    "email": "chadwickgray@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Utilities to assist with PSR-16 simple cache implementations",
+            "keywords": [
+                "cache",
+                "psr",
+                "psr16",
+                "trait",
+                "util"
+            ],
+            "time": "2017-11-02T17:47:44+00:00"
+        },
         {
             "name": "chadicus/spl-exceptions",
             "version": "v1.0.1",
