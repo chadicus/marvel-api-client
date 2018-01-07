@@ -1,0 +1,6 @@
+{
+    "require": {
+        "chadicus/psr-cache-mongodb": "^0.1.0",
+        "chadicus/marvel-api-client": "^3.0"
+    }
+}
