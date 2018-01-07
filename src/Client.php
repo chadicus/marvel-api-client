@@ -127,9 +127,10 @@ class Client implements ClientInterface
         $query['apikey'] = $this->publicApiKey;
         $query['ts'] = time();
         $query['hash'] = md5("{$query['ts']}{$this->privateApiKey}{$this->publicApiKey}");
-        $url = self::BASE_URL . urlencode($resource) . ($id !== null ? "/{$id}" : '') . '?' . http_build_query($query);
+        $cacheKey = urlencode($resource) . ($id !== null ? "/{$id}" : '') . '?' . http_build_query($query);
+        $url = self::BASE_URL . $cacheKey;
 
-        $response = $this->cache->get($url);
+        $response = $this->cache->get($cacheKey);
         if ($response === null) {
             $response = $this->guzzleClient->request('GET', $url, self::$guzzleRequestOptions);
         }
@@ -138,7 +139,7 @@ class Client implements ClientInterface
             return null;
         }
 
-        $this->cache->set($url, $response, self::MAX_TTL);
+        $this->cache->set($cacheKey, $response, self::MAX_TTL);
 
         return DataWrapper::fromJson((string)$response->getBody());
     }
