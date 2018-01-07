@@ -1,0 +1,5 @@
+{
+    "require": {
+        "chadicus/marvel-api-client": "^3.0"
+    }
+}
