@@ -7,7 +7,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * @covers ::<protected>
  *
  */
-final class CreatorTest extends \PHPUnit_Framework_TestCase
+final class CreatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verifies basic behaviour of the Creator class

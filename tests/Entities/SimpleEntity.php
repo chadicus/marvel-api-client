@@ -12,7 +12,7 @@ class SimpleEntity extends AbstractEntity
      *
      * @return array
      */
-    protected function getFilters()
+    protected function getFilters() : array
     {
         return ['field' => [['string']]];
     }

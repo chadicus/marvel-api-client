@@ -7,7 +7,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * @coversDefaultClass \Chadicus\Marvel\Api\Entities\Image
  * @covers ::<protected>
  */
-final class ImageTest extends \PHPUnit_Framework_TestCase
+final class ImageTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify basic behavior of getPath.
@@ -74,8 +74,8 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
     public function constructorBadData()
     {
         return [
-            'path is not a string' => [true, 'an extension'],
-            'extension is not a string' => ['a path', false],
+            'path is not a string' => [new \StdClass(), 'an extension'],
+            'extension is not a string' => ['a path', new \StdClass()],
         ];
     }
 
@@ -103,7 +103,7 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function fromArrayInvalidPath()
     {
-        $image = Image::fromArray(['path' => 1, 'extension' => 'an extension']);
+        $image = Image::fromArray(['path' => new \StdClass(), 'extension' => 'an extension']);
     }
 
     /**
@@ -142,7 +142,7 @@ final class ImageTest extends \PHPUnit_Framework_TestCase
         Image::fromArrays(
             [
                 ['path' => 'a path', 'extension' => 'an extension'],
-                ['path' => 'another path', 'extension' => true],
+                ['path' => 'another path', 'extension' => new \StdClass()],
             ]
         );
     }

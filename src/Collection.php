@@ -80,14 +80,14 @@ class Collection implements \Iterator, \Countable
      * @param array    $filters  A key value pair array of search filters.
      * @param callable $loader   A custom callable to use when iterating over the collection.
      */
-    final public function __construct(Client $client, $resource, array $filters = [], callable $loader = null)
+    final public function __construct(Client $client, string $resource, array $filters = [], callable $loader = null)
     {
-        Util::throwIfNotType(['string' => [$resource]], true);
-
         $this->client = $client;
         $this->resource = $resource;
         $this->filters = $filters;
-        $this->loader = $loader;
+        $this->loader = $loader ?: function ($input) {
+            return $input;
+        };
         $this->rewind();
     }
 
@@ -131,7 +131,6 @@ class Collection implements \Iterator, \Countable
         }
 
         Util::ensure(false, empty($this->results), '\OutOfBoundsException', ['Collection contains no elements']);
-
         return $this->offset + $this->position;
     }
 
@@ -165,15 +164,12 @@ class Collection implements \Iterator, \Countable
         $this->offset += $this->limit;
         $this->filters['offset'] = $this->offset;
         $this->filters['limit'] = $this->limit === 0 ? 20 : $this->limit;
-        $indexResponse = $this->client->search($this->resource, $this->filters);
-
-        $httpCode = $indexResponse->getHttpCode();
-        Util::ensure(200, $httpCode, "Did not receive 200 from API. Instead received {$httpCode}");
+        $dataWrapper = $this->client->search($this->resource, $this->filters);
 
         //Limit should be the total number returned, not the specified limit in the query params
-        $this->limit = $indexResponse->getDataWrapper()->getData()->getCount();
-        $this->total = $indexResponse->getDataWrapper()->getData()->getTotal();
-        $this->results = $indexResponse->getDataWrapper()->getData()->getResults();
+        $this->limit = $dataWrapper->getData()->getCount();
+        $this->total = $dataWrapper->getData()->getTotal();
+        $this->results = $dataWrapper->getData()->getResults();
         $this->position = 0;
     }
 
@@ -194,10 +190,6 @@ class Collection implements \Iterator, \Countable
             '\OutOfBoundsException',
             ['Collection contains no element at current position']
         );
-
-        if ($this->loader === null) {
-            return $this->results[$this->position];
-        }
 
         return call_user_func_array($this->loader, [$this->results[$this->position]]);
     }

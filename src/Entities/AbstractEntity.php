@@ -43,7 +43,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @throws UndefinedPropertyException Throw if this class does not contain the $name'd property.
      */
-    final public function __get($name)
+    final public function __get(string $name)
     {
         if (!array_key_exists($name, $this->data)) {
             $class = get_called_class();
@@ -63,7 +63,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @throws \BadMethodCallException Thrown if the property being accessed does not exist.
      */
-    final public function __call($name, array $arguments = [])
+    final public function __call(string $name, array $arguments = [])
     {
         if (substr($name, 0, 3) !== 'get') {
             $class = get_called_class();
@@ -87,7 +87,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @return AbstractEntity[]
      */
-    final public static function fromArrays(array $inputs)
+    final public static function fromArrays(array $inputs) : array
     {
         Util::throwIfNotType(['array' => $inputs]);
 
@@ -104,9 +104,9 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @param array $input The data for the AbstractEntity.
      *
-     * @return AbstractEntity
+     * @return EntityInterface
      */
-    final public static function fromArray(array $input)
+    final public static function fromArray(array $input) : EntityInterface
     {
         return new static($input);
     }
@@ -118,7 +118,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @return boolean
      */
-    final public function offsetExists($offset)
+    final public function offsetExists($offset) //@codingStandardsIgnoreLine Ingore missing type-hint
     {
         return isset($this->data[$offset]);
     }
@@ -130,7 +130,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @return mixed
      */
-    final public function offsetGet($offset)
+    final public function offsetGet($offset) //@codingStandardsIgnoreLine Ingore missing type-hint
     {
         return $this->data[$offset];
     }
@@ -145,7 +145,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @throws NotAllowedException Ensure this object is immutable.
      */
-    final public function offsetSet($offset, $value)
+    final public function offsetSet($offset, $value) //@codingStandardsIgnoreLine Ingore missing type-hint
     {
         $class = get_called_class();
         throw new NotAllowedException("{$class}::\${$offset} is read-only");
@@ -160,7 +160,7 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @throws NotAllowedException Ensure this object is immutable.
      */
-    final public function offsetUnset($offset)
+    final public function offsetUnset($offset) //@codingStandardsIgnoreLine Ingore missing type-hint
     {
         $class = get_called_class();
         throw new NotAllowedException("{$class}::\${$offset} is read-only");
@@ -171,5 +171,5 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @return array
      */
-    abstract protected function getFilters();
+    abstract protected function getFilters() : array;
 }

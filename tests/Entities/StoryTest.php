@@ -7,7 +7,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * @covers ::<protected>
  *
  */
-final class StoryTest extends \PHPUnit_Framework_TestCase
+final class StoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verifies basic behaviour of the Story class

@@ -1,16 +1,22 @@
 <?php
 namespace Chadicus\Marvel\Api\Assets;
 
-use Chadicus\Marvel\Api\Adapter\AdapterInterface;
 use Chadicus\Marvel\Api\Client;
-use Chadicus\Marvel\Api\RequestInterface;
-use Chadicus\Marvel\Api\Response;
+use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\RequestInterface;
 
 /**
- * Adapter implementation that only returns a responses with one item.
+ * Mock handler that only returns a responses with one item.
  */
-final class SingleAdapter implements AdapterInterface
+final class SingleHandler
 {
+    /**
+     * The last HTTP request sent to the handler.
+     *
+     * @var RequestInterface
+     */
+    public $request;
+
     /**
      * Returns an empty Response.
      *
@@ -18,13 +24,11 @@ final class SingleAdapter implements AdapterInterface
      *
      * @return ResponseInterface
      */
-    public function send(RequestInterface $request)
+    public function __invoke(RequestInterface $request)
     {
         $this->request = $request;
 
-        return new Response(
-            200,
-            ['Content-type' => 'application/json', 'etag' => 'an etag'],
+        $body = json_encode(
             [
                 'code' => 200,
                 'status' => 'ok',
@@ -44,5 +48,7 @@ final class SingleAdapter implements AdapterInterface
                 ],
             ]
         );
+
+        return new Response(200, ['Content-type' => 'application/json', 'etag' => 'an etag'], $body);
     }
 }

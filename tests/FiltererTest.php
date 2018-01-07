@@ -5,9 +5,8 @@ namespace Chadicus\Marvel\Api;
  * Defines unit tests for the Filterer class.
  *
  * @coversDefaultClass \Chadicus\Marvel\Api\Filterer
- * @covers ::getFilterAliases
  */
-final class FiltererTest extends \PHPUnit_Framework_TestCase
+final class FiltererTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify basic behavior of filter()
@@ -21,8 +20,8 @@ final class FiltererTest extends \PHPUnit_Framework_TestCase
     {
         $filters = [
             'foo' => [['string']],
-            'date' => [['formatDate', 'Y-m-d']],
-            'bool' => [['boolToString']],
+            'date' => [['date-format', 'Y-m-d']],
+            'bool' => [['bool-convert']],
         ];
 
         $now = new \DateTime();

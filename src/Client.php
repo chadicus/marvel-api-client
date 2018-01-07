@@ -2,7 +2,8 @@
 
 namespace Chadicus\Marvel\Api;
 
-use DominionEnterprises\Util;
+use GuzzleHttp;
+use Psr\SimpleCache\CacheInterface;
 
 /**
  * PHP Client for the Marvel API.
@@ -10,35 +11,57 @@ use DominionEnterprises\Util;
 class Client implements ClientInterface
 {
     /**
-     * The public api key issued by Marvel.
+     * The default ttl for cached responses (24 hours).
+     *
+     * @link http://developer.marvel.com/documentation/attribution Marvel's rules for caching.
+     *
+     * @const integer
+     */
+    const MAX_TTL = 86400;
+
+    /**
+     * The public API key issued by Marvel.
      *
      * @var string
      */
     private $publicApiKey;
 
     /**
-     * The private api key issued by Marvel.
+     * The private API key issued by Marvel.
      *
      * @var string
      */
     private $privateApiKey;
 
     /**
-     * Adapter implementation.
+     * Guzzle HTTP Client implementation.
      *
-     * @var Adapter\AdapterInterface
+     * @var GuzzleHttp\ClientInterface
      */
-    private $adapter;
+    private $guzzleClient;
 
     /**
      * Cache implementation.
      *
-     * @var Cache\CacheInterface
+     * @var CacheInterface
      */
     private $cache;
 
     /**
-     * The Marvel API url.
+     * Default Guzzle request options.
+     *
+     * @var array
+     */
+    private static $guzzleRequestOptions = [
+        'http_errors' => false,
+        'headers' => [
+            'Accept' =>  'application/json',
+            'Accept-Encoding' => 'gzip,deflate',
+        ],
+    ];
+
+    /**
+     * The Marvel API URL.
      *
      * @const string
      */
@@ -47,23 +70,21 @@ class Client implements ClientInterface
     /**
      * Construct a new Client.
      *
-     * @param string                   $privateApiKey The private api key issued by Marvel.
-     * @param string                   $publicApiKey  The public api key issued by Marvel.
-     * @param Adapter\AdapterInterface $adapter       Implementation of a client adapter.
-     * @param Cache\CacheInterface     $cache         Implementation of Cache.
+     * @param string                     $privateApiKey The private API key issued by Marvel.
+     * @param string                     $publicApiKey  The public API key issued by Marvel.
+     * @param GuzzleHttp\ClientInterface $guzzleClient  Implementation of a Guzzle HTTP client.
+     * @param CacheInterface             $cache         Implementation of Cache.
      */
     final public function __construct(
-        $privateApiKey,
-        $publicApiKey,
-        Adapter\AdapterInterface $adapter = null,
-        Cache\CacheInterface $cache = null
+        string $privateApiKey,
+        string $publicApiKey,
+        GuzzleHttp\ClientInterface $guzzleClient = null,
+        CacheInterface $cache = null
     ) {
-        Util::throwIfNotType(['string' => [$privateApiKey, $publicApiKey]], true);
-
         $this->privateApiKey = $privateApiKey;
         $this->publicApiKey = $publicApiKey;
-        $this->adapter = $adapter ?: new Adapter\CurlAdapter();
-        $this->cache = $cache;
+        $this->guzzleClient = $guzzleClient ?: new GuzzleHttp\Client();
+        $this->cache = $cache ?: new Cache\NullCache();
     }
 
     /**
@@ -72,23 +93,11 @@ class Client implements ClientInterface
      * @param string $resource The API resource to search for.
      * @param array  $filters  Array of search criteria to use in request.
      *
-     * @return ResponseInterface
-     *
-     * @throws \InvalidArgumentException Thrown if $resource is empty or not a string.
+     * @return null|DataWrapper
      */
-    final public function search($resource, array $filters = [])
+    final public function search(string $resource, array $filters = [])
     {
-        if (!is_string($resource) || trim($resource) == '') {
-            throw new \InvalidArgumentException('$resource must be a non-empty string');
-        }
-
-        $filters['apikey'] = $this->publicApiKey;
-        $timestamp = time();
-        $filters['ts'] = $timestamp;
-        $filters['hash'] = md5($timestamp . $this->privateApiKey . $this->publicApiKey);
-        $url = self::BASE_URL . urlencode($resource) . '?' . http_build_query($filters);
-
-        return $this->send(new Request($url, 'GET', ['Accept' =>  'application/json']));
+        return $this->send($resource, null, $filters);
     }
 
     /**
@@ -97,85 +106,67 @@ class Client implements ClientInterface
      * @param string  $resource The API resource to search for.
      * @param integer $id       The id of the API resource.
      *
-     * @return ResponseInterface
+     * @return null|DataWrapper
      */
-    final public function get($resource, $id)
+    final public function get(string $resource, int $id)
     {
-        Util::throwIfNotType(['string' => [$resource], 'int' => [$id]], true);
-
-        $timestamp = time();
-        $query = [
-            'apikey' => $this->publicApiKey,
-            'ts' => $timestamp,
-            'hash' => md5($timestamp . $this->privateApiKey . $this->publicApiKey),
-        ];
-
-        $url = self::BASE_URL . urlencode($resource) . "/{$id}?" . http_build_query($query);
-
-        return $this->send(new Request($url, 'GET', ['Accept' =>  'application/json']));
+        return $this->send($resource, $id);
     }
 
     /**
-     * Send the given API Request.
+     * Send the given API URL request.
      *
-     * @param RequestInterface $request The request to send.
+     * @param string  $resource The API resource to search for.
+     * @param integer $id       The id of a specific API resource.
+     * @param array   $query    Array of search criteria to use in request.
      *
-     * @return ResponseInterface
+     * @return null|DataWrapperInterface
      */
-    final private function send(RequestInterface $request)
+    final private function send(string $resource, int $id = null, array $query = [])
     {
-        $response = $this->getFromCache($request);
-        if ($response !== null) {
-            return $response;
+        $query['apikey'] = $this->publicApiKey;
+        $query['ts'] = time();
+        $query['hash'] = md5("{$query['ts']}{$this->privateApiKey}{$this->publicApiKey}");
+        $cacheKey = urlencode($resource) . ($id !== null ? "/{$id}" : '') . '?' . http_build_query($query);
+        $url = self::BASE_URL . $cacheKey;
+
+        $response = $this->cache->get($cacheKey);
+        if ($response === null) {
+            $response = $this->guzzleClient->request('GET', $url, self::$guzzleRequestOptions);
         }
 
-        $response = $this->adapter->send($request);
-
-        if ($this->cache !== null) {
-            $this->cache->set($request, $response);
-        }
-
-        return $response;
-    }
-
-    /**
-     * Retrieve the Response for the given Request from cache.
-     *
-     * @param RequestInterface $request The request to send.
-     *
-     * @return ResponseInterface|null Returns the cached Response or null if it does not exist.
-     */
-    final private function getFromCache(RequestInterface $request)
-    {
-        if ($this->cache === null) {
+        if ($response->getStatusCode() !== 200) {
             return null;
         }
 
-        return $this->cache->get($request);
+        $this->cache->set($cacheKey, $response, self::MAX_TTL);
+
+        return DataWrapper::fromJson((string)$response->getBody());
     }
 
     /**
      * Allow calls such as $client->characters();
      *
-     * @param string $name      The name of the api resource.
+     * @param string $name      The name of the API resource.
      * @param array  $arguments The parameters to pass to get() or search().
      *
-     * @return Collection|EntityInterface
+     * @return Collection|EntityInterface|null
      */
-    final public function __call($name, array $arguments)
+    final public function __call(string $name, array $arguments)
     {
         $resource = strtolower($name);
-        $parameters = array_shift($arguments);
-        if ($parameters === null || is_array($parameters)) {
-            return new Collection($this, $resource, $parameters ?: []);
+        $idOrFilters = array_shift($arguments) ?: [];
+
+        if (is_array($idOrFilters)) {
+            return new Collection($this, $resource, $idOrFilters);
         }
 
-        $response = $this->get($resource, $parameters);
-        $results = $response->getDataWrapper()->getData()->getResults();
-        if (empty($results)) {
+        $dataWrapper = $this->send($resource, $idOrFilters);
+        if ($dataWrapper === null) {
             return null;
         }
 
-        return $results[0];
+        $results = $dataWrapper->getData()->getResults();
+        return array_shift($results);
     }
 }

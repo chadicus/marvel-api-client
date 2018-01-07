@@ -1,9 +1,8 @@
 <?php
 namespace Chadicus\Marvel\Api;
 
-use Chadicus\Marvel\Api\Assets\CollectionAdapter;
-use Chadicus\Marvel\Api\Assets\EmptyAdapter;
-use Chadicus\Marvel\Api\Assets\SingleAdapter;
+use Chadicus\Marvel\Api\Assets;
+use GuzzleHttp\Client as GuzzleClient;
 
 /**
  * Unit tests for the Collection class.
@@ -11,7 +10,7 @@ use Chadicus\Marvel\Api\Assets\SingleAdapter;
  * @coversDefaultClass \Chadicus\Marvel\Api\Collection
  * @covers ::<private>
  */
-final class CollectionTest extends \PHPUnit_Framework_TestCase
+final class CollectionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Set up for all tests.
@@ -56,7 +55,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function directUsage()
     {
-        $client = new Client('not under tests', 'not under test', new CollectionAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\CollectionHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $collection = new Collection($client, 'not under tests', ['limit' => 3]);
         $collection->rewind();
         $iterations = 0;
@@ -80,7 +80,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function consecutiveRewind()
     {
-        $client = new Client('not under tests', 'not under test', new CollectionAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\CollectionHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $collection = new Collection($client, 'not under tests', ['limit' => 3]);
         $collection->rewind();
         $collection->rewind();
@@ -104,7 +105,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function consecutiveCurrent()
     {
-        $client = new Client('not under tests', 'not under test', new CollectionAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\CollectionHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $collection = new Collection($client, 'not under tests', ['limit' => 3]);
         $this->assertSame(0, $collection->current()->id);
         $this->assertSame(0, $collection->current()->id);
@@ -120,7 +122,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function consecutiveNext()
     {
-        $client = new Client('not under tests', 'not under test', new CollectionAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\CollectionHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $collection = new Collection($client, 'not under tests', ['limit' => 3]);
         $collection->next();
         $collection->next();
@@ -138,7 +141,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function countBasic()
     {
-        $client = new Client('not under tests', 'not under test', new CollectionAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\CollectionHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $collection = new Collection($client, 'not under tests', ['limit' => 3]);
         $this->assertSame(5, $collection->count());
     }
@@ -153,7 +157,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function key()
     {
-        $client = new Client('not under tests', 'not under test', new CollectionAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\CollectionHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $collection = new Collection($client, 'not under tests', ['limit' => 3]);
         $this->assertSame(0, $collection->key());
     }
@@ -168,7 +173,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function current()
     {
-        $client = new Client('not under tests', 'not under test', new CollectionAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\CollectionHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $collection = new Collection($client, 'not under tests', ['limit' => 3]);
         $this->assertSame(0, $collection->current()->getId());
         $this->assertSame('a title for comic 0', $collection->current()->getTitle());
@@ -185,7 +191,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function currentWithEmpty()
     {
-        $client = new Client('not under tests', 'not under test', new EmptyAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\EmptyHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $collection = new Collection($client, 'not under tests');
         $collection->current();
     }
@@ -201,7 +208,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function keyWithEmpty()
     {
-        $client = new Client('not under tests', 'not under test', new EmptyAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\EmptyHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $collection = new Collection($client, 'not under tests');
         $collection->key();
     }
@@ -215,7 +223,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function multiIteration()
     {
-        $client = new Client('not under tests', 'not under test', new CollectionAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\CollectionHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $collection = new Collection($client, 'not under tests', ['limit' => 3]);
 
         $iterations = 0;
@@ -246,7 +255,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function emptyResult()
     {
-        $client = new Client('not under tests', 'not under test', new EmptyAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\EmptyHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $collection = new Collection($client, 'not under tests');
         $this->assertFalse($collection->valid());
         $this->assertSame(0, $collection->count());
@@ -261,7 +271,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function oneItemCollection()
     {
-        $client = new Client('not under tests', 'not under test', new SingleAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\SingleHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $collection = new Collection($client, 'not under tests');
         foreach ($collection as $item) {
             $this->assertSame(0, $collection->current()->getId());
@@ -286,7 +297,8 @@ final class CollectionTest extends \PHPUnit_Framework_TestCase
             return $obj;
         };
 
-        $client = new Client('not under tests', 'not under test', new CollectionAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\CollectionHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $collection = new Collection($client, 'not under tests', ['limit' => 3], $loader);
 
         $iterations = 0;

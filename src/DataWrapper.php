@@ -7,7 +7,7 @@ use DominionEnterprises\Util;
 /**
  * Object representation of the API result data wrapper.
  */
-class DataWrapper implements DataWrapperInterface
+final class DataWrapper implements DataWrapperInterface
 {
     /**
      * The HTTP status code of the returned result.
@@ -54,7 +54,7 @@ class DataWrapper implements DataWrapperInterface
     /**
      * The results returned by the call.
      *
-     * @var DataContainer
+     * @var DataContainerInterface
      */
     private $data;
 
@@ -86,11 +86,23 @@ class DataWrapper implements DataWrapperInterface
     }
 
     /**
+     * Construct a DataWrapper from the given JSON string.
+     *
+     * @param string $json The json encoded data.
+     *
+     * @return static
+     */
+    public static function fromJson(string $json)
+    {
+        return new static(json_decode($json, true));
+    }
+
+    /**
      * Returns the HTTP status code of the returned result.
      *
      * @return integer
      */
-    public function getCode()
+    public function getCode() : int
     {
         return $this->code;
     }
@@ -100,7 +112,7 @@ class DataWrapper implements DataWrapperInterface
      *
      * @return string
      */
-    public function getStatus()
+    public function getStatus() : string
     {
         return $this->status;
     }
@@ -110,7 +122,7 @@ class DataWrapper implements DataWrapperInterface
      *
      * @return string
      */
-    public function getCopyright()
+    public function getCopyright() : string
     {
         return $this->copyright;
     }
@@ -120,7 +132,7 @@ class DataWrapper implements DataWrapperInterface
      *
      * @return string
      */
-    public function getAttributionText()
+    public function getAttributionText() : string
     {
         return $this->attributionText;
     }
@@ -130,7 +142,7 @@ class DataWrapper implements DataWrapperInterface
      *
      * @return string
      */
-    public function getAttributionHTML()
+    public function getAttributionHTML() : string
     {
         return $this->attributionHTML;
     }
@@ -140,7 +152,7 @@ class DataWrapper implements DataWrapperInterface
      *
      * @return string
      */
-    public function getEtag()
+    public function getEtag() : string
     {
         return $this->etag;
     }
@@ -148,9 +160,9 @@ class DataWrapper implements DataWrapperInterface
     /**
      * Returns the results returned by the call.
      *
-     * @return DataContainer
+     * @return DataContainerInterface
      */
-    public function getData()
+    public function getData() : DataContainerInterface
     {
         return $this->data;
     }

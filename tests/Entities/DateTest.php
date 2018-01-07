@@ -7,7 +7,7 @@ namespace Chadicus\Marvel\Api\Entities;
  * @coversDefaultClass \Chadicus\Marvel\Api\Entities\Date
  * @covers ::<protected>
  */
-final class DateTest extends \PHPUnit_Framework_TestCase
+final class DateTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Verify basic behavior of fromArray().

@@ -1,7 +1,7 @@
 # Marvel API Client
-[![Build Status](https://travis-ci.org/chadicus/marvel-api-client.svg?branch=master)](https://travis-ci.org/chadicus/marvel-api-client)
-[![Code Quality](https://scrutinizer-ci.com/g/chadicus/marvel-api-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/chadicus/marvel-api-client/?branch=master)
-[![Code Coverage](https://coveralls.io/repos/github/chadicus/marvel-api-client/badge.svg?branch=master)](https://coveralls.io/github/chadicus/marvel-api-client?branch=master)
+[![Build Status](https://travis-ci.org/chadicus/marvel-api-client.svg?branch=v3.x)](https://travis-ci.org/chadicus/marvel-api-client)
+[![Code Quality](https://scrutinizer-ci.com/g/chadicus/marvel-api-client/badges/quality-score.png?b=v3.x)](https://scrutinizer-ci.com/g/chadicus/marvel-api-client/?branch=v3.x)
+[![Code Coverage](https://coveralls.io/repos/github/chadicus/marvel-api-client/badge.svg?branch=v3.x)](https://coveralls.io/github/chadicus/marvel-api-client?branch=v3.x)
 
 [![Latest Stable Version](https://poser.pugx.org/chadicus/marvel-api-client/v/stable)](https://packagist.org/packages/chadicus/marvel-api-client)
 [![Latest Unstable Version](https://poser.pugx.org/chadicus/marvel-api-client/v/unstable)](https://packagist.org/packages/chadicus/marvel-api-client)
@@ -15,20 +15,16 @@ A PHP client for use with the [Marvel API](http://developer.marvel.com/docs).
 
 ## Requirements
 
-The Marvel API Client requires PHP 5.6 (or later).
+The Marvel API Client requires PHP 7.0 (or later).
 
 ## Composer
 To add the library as a local, per-project dependency use [Composer](http://getcomposer.org)! Simply add a dependency on `chadicus/marvel-api-client` to your project's `composer.json` file such as:
 
-```json
-{
-    "require": {
-        "chadicus/marvel-api-client": "^2.0"
-    }
-}
+```sh
+composer require chadicus/marvel-api-client
 ```
 ## Examples
-Examples of use can be found [here](https://github.com/chadicus/marvel-api-client/tree/master/examples).
+Examples of use can be found [here](/examples)
 
 ### Basic Usage
 
@@ -39,17 +35,17 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Chadicus\Marvel\Api\Client;
 
-$publicApiKey = getenv('PUBLIC_KEY');
-$privateApiKey = getenv('PRIVATE_KEY');
+$publicApiKey = 'YOUR PUBLIC API KEY';
+$privateApiKey = 'YOUR PRIVATE API KEY';
 
 $client = new Client($privateApiKey, $publicApiKey);
 
-$response = $client->get('characters', 1009351);
+$dataWrapper = $client->get('characters', 1009351);
 
 //Text to display for attribution requirements
-$attributionText = $response->getDataWrapper()->getAttributionText();
+$attributionText = $dataWrapper->getAttributionText();
 
-$character = $response->getDataWrapper()->getData()->getResults()[0];
+$character = $dataWrapper->getData()->getResults()[0];
 
 echo "{$character->getName()}\n";
 echo "{$character->getDescription()}\n";
@@ -60,13 +56,15 @@ foreach ($character->getEvents()->getItems() as $event) {
 
 ```
 
+## Community
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/marvel-api-client/Lobby#)
+
 ## Contact
 Developers may be contacted at:
-
  * [Pull Requests](https://github.com/chadicus/marvel-api-client/pulls)
  * [Issues](https://github.com/chadicus/marvel-api-client/issues)
 
-##Project Build
+## Project Build
 With a checkout of the code get [Composer](http://getcomposer.org) in your PATH and run:
 
 ```sh

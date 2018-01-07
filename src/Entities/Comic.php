@@ -46,7 +46,7 @@ use DominionEnterprises\Util;
 class Comic extends AbstractEntity
 {
     /**
-     * The name of the comic api resource
+     * The name of the comic API resource
      *
      * @const string
      */
@@ -57,7 +57,7 @@ class Comic extends AbstractEntity
      *
      * @return array
      */
-    final protected function getFilters()
+    final protected function getFilters() : array
     {
         return [
             'id' => [['int', true]],
@@ -100,31 +100,25 @@ class Comic extends AbstractEntity
      *
      * @return Api\Collection
      */
-    final public static function findAll(Api\Client $client, array $criteria = [])
+    final public static function findAll(Api\Client $client, array $criteria = []) : Api\Collection
     {
         $filters = [
             'format' => [
                 [
                     'in',
                     [
-                        'comic',
-                        'hardcover',
-                        'trade paperback',
-                        'magazine',
-                        'digest',
-                        'graphic novel',
-                        'digital comic',
-                        'infinite comic',
+                        'comic', 'hardcover', 'trade paperback', 'magazine', 'digest',
+                        'graphic novel', 'digital comic', 'infinite comic',
                     ]
                 ],
             ],
             'formatType' => [['in', ['comic', 'collection']]],
-            'noVariants' => [['bool'], ['boolToString']],
+            'noVariants' => [['bool'], ['bool-convert']],
             'dateDescriptor' => [['in', ['lastWeek', 'thisWeek', 'nextWeek', 'thisMonth']]],
             'fromDate' => [['date', true]],
             'toDate' => [['date', true]],
-            'hasDigitalIssue' => [['bool'], ['boolToString']],
-            'modifiedSince' => [['date', true], ['formatDate']],
+            'hasDigitalIssue' => [['bool'], ['bool-convert']],
+            'modifiedSince' => [['date', true], ['date-format', 'c']],
             'creators' => [['ofScalars', [['uint']]], ['implode', ',']],
             'characters' => [['ofScalars', [['uint']]], ['implode', ',']],
             'series' => [['ofScalars', [['uint']]], ['implode', ',']],
@@ -136,16 +130,8 @@ class Comic extends AbstractEntity
                 [
                     'in',
                     [
-                        'focDate',
-                        'onsaleDate',
-                        'title',
-                        'issueNumber',
-                        'modified',
-                        '-focDate',
-                        '-onsaleDate',
-                        '-title',
-                        '-issueNumber',
-                        '-modified',
+                        'focDate', 'onsaleDate', 'title', 'issueNumber', 'modified',
+                        '-focDate', '-onsaleDate', '-title', '-issueNumber', '-modified',
                     ],
                 ]
             ],
@@ -154,7 +140,6 @@ class Comic extends AbstractEntity
 
         list($success, $filteredCriteria, $error) = Api\Filterer::filter($filters, $criteria);
         Util::ensure(true, $success, $error);
-
         $toDate = Util\Arrays::get($filteredCriteria, 'toDate');
         $fromDate = Util\Arrays::get($filteredCriteria, 'fromDate');
         if ($toDate !== null && $fromDate !== null) {

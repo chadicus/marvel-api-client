@@ -27,7 +27,7 @@ class Character extends AbstractEntity
      *
      * @return array
      */
-    final protected function getFilters()
+    final protected function getFilters() : array
     {
         return [
             'id' => [['int', true]],
@@ -52,11 +52,11 @@ class Character extends AbstractEntity
      *
      * @return Api\Collection
      */
-    public static function findAll(Api\Client $client, array $criteria = [])
+    public static function findAll(Api\Client $client, array $criteria = []) : Api\Collection
     {
         $filters = [
             'name' => [['string']],
-            'modifiedSince' => [['date', true], ['formatDate']],
+            'modifiedSince' => [['date', true], ['date-format', 'c']],
             'comics' => [['ofScalars', [['uint']]], ['implode', ',']],
             'series' => [['ofScalars', [['uint']]], ['implode', ',']],
             'events' => [['ofScalars', [['uint']]], ['implode', ',']],

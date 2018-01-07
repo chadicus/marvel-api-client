@@ -1,106 +1,160 @@
 <?php
-namespace Chadicus\Marvel\Api\Cache;
 
-use Chadicus\Marvel\Api\Request;
-use Chadicus\Marvel\Api\Response;
+namespace ChadicusTest\Marvel\Api\Cache;
+
+use DateTime;
+use Chadicus\Marvel\Api\Cache\ArrayCache;
 
 /**
- * Defines unit tests for the ArrayCache class.
- *
  * @coversDefaultClass \Chadicus\Marvel\Api\Cache\ArrayCache
+ * @covers ::<private>
  */
-final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
+final class ArrayCacheTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * Tear down each test.
-     *
+     * @var ArrayCache
+     */
+    private $cache;
+
+    /**
      * @return void
      */
-    public function tearDown()
+    public function setUp()
     {
-        \Chadicus\FunctionRegistry::reset(__NAMESPACE__, ['date']);
+        $this->cache = new ArrayCache();
     }
 
     /**
-     * Verify cache is removed when expired.
-     *
-     * @test
-     * @covers ::set
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage TTL value must be an integer >= 1 and <= 86400
-     *
-     * @return void
-     */
-    public function setTtlIsLessThanOne()
-    {
-        (new ArrayCache())->set(new Request('not under test', 'not under test', [], []), new Response(200, [], []), -1);
-    }
-
-    /**
-     * Verify cache is removed when expired.
-     *
-     * @test
-     * @covers ::set
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage TTL value must be an integer >= 1 and <= 86400
-     *
-     * @return void
-     */
-    public function setTtlIsGreaterThanMax()
-    {
-        (new ArrayCache())->set(
-            new Request('not under test', 'not under test', [], []),
-            new Response(200, [], []),
-            CacheInterface::MAX_TTL + 1
-        );
-    }
-
-    /**
-     * Verify cache is removed when expired.
-     *
      * @test
      * @covers ::get
      *
      * @return void
      */
-    public function getNotFound()
+    public function get()
     {
-        $cache = new ArrayCache();
-        $request = new Request('not under test', 'not under test', [], []);
-        $this->assertNull($cache->get($request));
+        $dateTime = new DateTime();
+        $this->cache->set('foo', $dateTime);
+        $this->assertEquals($dateTime, $this->cache->get('foo'));
     }
 
     /**
-     * Verify cache is removed when expired.
-     *
      * @test
-     * @covers ::__construct
-     * @covers ::set
+     * @covers ::get
+     *
+     * @return void
+     */
+    public function getKeyNotFound()
+    {
+        $default = new \StdClass();
+        $this->assertSame($default, $this->cache->get('foo', $default));
+    }
+
+    /**
+     * @test
      * @covers ::get
      *
      * @return void
      */
     public function getExpired()
     {
-        $cache = new ArrayCache();
-        $request = new Request('not under test', 'not under test', [], []);
-        $cache->set($request, new Response(200, [], []));
-        $this->assertNotNull($cache->get($request));
-
-        \Chadicus\FunctionRegistry::set(
-            __NAMESPACE__,
-            'time',
-            function () {
-                return strtotime('+1 year');
-            }
-        );
-
-        $this->assertNull($cache->get($request));
+        $this->cache->set('foo', new DateTime(), -10);
+        $this->assertNull($this->cache->get('foo'));
     }
 
     /**
-     * Verify basic functionality of clear().
+     * @test
+     * @covers ::getMultiple
      *
+     * @return void
+     */
+    public function getMultple()
+    {
+        $default = new \StdClass();
+        $dateTime = new \DateTime();
+        $exception = new \RuntimeException();
+        $this->cache->set('foo', $dateTime);
+        $this->cache->set('bar', $exception);
+        $actual = $this->cache->getMultiple(['foo', 'baz', 'bar'], $default);
+        $this->assertEquals($dateTime, $actual['foo']);
+        $this->assertSame($default, $actual['baz']);
+        $this->assertEquals($exception, $actual['bar']);
+    }
+
+    /**
+     * @test
+     * @covers ::set
+     *
+     * @return void
+     */
+    public function setWithIntegerTTL()
+    {
+        $dateTime = new \DateTime();
+        $this->assertTrue($this->cache->set('foo', $dateTime, 3600));
+        $this->assertEquals($dateTime, $this->cache->get('foo'));
+    }
+
+    /**
+     * @test
+     * @covers ::set
+     *
+     * @return void
+     */
+    public function setWithNullTTL()
+    {
+        $dateTime = new \DateTime();
+        $this->assertTrue($this->cache->set('foo', $dateTime));
+        $this->assertEquals($dateTime, $this->cache->get('foo'));
+    }
+
+    /**
+     * @test
+     * @covers ::setMultiple
+     *
+     * @return void
+     */
+    public function setMultple()
+    {
+        $ttl = \DateInterval::createFromDateString('1 day');
+        $dateTime = new \DateTime();
+        $exception = new \RuntimeException();
+        $this->assertTrue($this->cache->setMultiple(['foo' => $dateTime, 'bar' => $exception], $ttl));
+        $this->assertEquals($dateTime, $this->cache->get('foo'));
+        $this->assertEquals($exception, $this->cache->get('bar'));
+    }
+
+    /**
+     * @test
+     * @covers ::delete
+     *
+     * @return void
+     */
+    public function delete()
+    {
+        $dateTime = new DateTime();
+        $this->cache->set('foo', $dateTime);
+        $this->cache->delete('foo');
+        $this->assertNull($this->cache->get('foo'));
+    }
+
+    /**
+     * @test
+     * @covers ::deleteMultiple
+     *
+     * @return void
+     */
+    public function deleteMultiple()
+    {
+        $this->cache->set('foo', 'foo');
+        $this->cache->set('bar', 'bar');
+        $this->cache->set('baz', 'baz');
+
+        $this->cache->deleteMultiple(['foo', 'bar']);
+        $this->assertNull($this->cache->get('foo'));
+        $this->assertNull($this->cache->get('bar'));
+        $this->assertSame('baz', $this->cache->get('baz'));
+    }
+
+    /**
      * @test
      * @covers ::clear
      *
@@ -108,44 +162,26 @@ final class ArrayCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function clear()
     {
-        $cache = new ArrayCache();
-        $request = new Request('not under test', 'not under test', [], []);
-        $cache->set($request, new Response(200, [], []));
-        $this->assertNotNull($cache->get($request));
-        $cache->clear();
-        $this->assertNull($cache->get($request));
+        $this->cache->set('foo', 'foo');
+        $this->cache->set('bar', 'bar');
+        $this->cache->set('baz', 'baz');
+
+        $this->cache->clear();
+        $this->assertNull($this->cache->get('foo'));
+        $this->assertNull($this->cache->get('bar'));
+        $this->assertNull($this->cache->get('baz'));
     }
 
     /**
-     * Verify construct throws with invalid parameters.
-     *
-     * @param integer $defaultTimeToLive The default time to live in seconds.
-     *
      * @test
-     * @covers ::__construct
-     * @dataProvider badConstructorData
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage TTL value must be an integer >= 1 and <= 86400
+     * @covers ::has
      *
      * @return void
      */
-    public function constructWithBadData($defaultTimeToLive)
+    public function has()
     {
-        new ArrayCache($defaultTimeToLive);
-    }
-
-    /**
-     * Data provider for constructWithBadData.
-     *
-     * @return array
-     */
-    public function badConstructorData()
-    {
-        return [
-            'defaultTimeToLive is not an integer' => ['a string'],
-            'defaultTimeToLive is less than 1' => [-1],
-            'defaultTimeToLive is greater than CacheInterface::MAX_TTL' => [CacheInterface::MAX_TTL + 1],
-            'defaultTimeToLive is null' => [null],
-        ];
+        $this->cache->set('foo', 'foo');
+        $this->assertTrue($this->cache->has('foo'));
+        $this->assertFalse($this->cache->has('bar'));
     }
 }

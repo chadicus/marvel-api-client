@@ -3,13 +3,13 @@ namespace Chadicus\Marvel\Api\Assets;
 
 use Chadicus\Marvel\Api\Adapter\AdapterInterface;
 use Chadicus\Marvel\Api\Client;
-use Chadicus\Marvel\Api\RequestInterface;
-use Chadicus\Marvel\Api\Response;
+use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\RequestInterface;
 
 /**
- * Adapter that returns multiple items.
+ * Mock Handler for guzzle client.
  */
-final class CollectionAdapter implements AdapterInterface
+final class CollectionHandler
 {
     /**
      * Simulate sending a request to the API.
@@ -18,7 +18,7 @@ final class CollectionAdapter implements AdapterInterface
      *
      * @return ResponseInterface
      */
-    public function send(RequestInterface $request)
+    public function __invoke(RequestInterface $request)
     {
         $allResults = [
             ['id' => 0, 'title' => 'a title for comic 0', 'resourceURI' => Client::BASE_URL . 'comics/0'],
@@ -28,7 +28,7 @@ final class CollectionAdapter implements AdapterInterface
             ['id' => 4, 'title' => 'a title for comic 4', 'resourceURI' => Client::BASE_URL . 'comics/4'],
         ];
 
-        $queryString = parse_url($request->getUrl(), PHP_URL_QUERY);
+        $queryString = parse_url($request->getUri(), PHP_URL_QUERY);
         $queryParams = [];
         parse_str($queryString, $queryParams);
 
@@ -36,9 +36,8 @@ final class CollectionAdapter implements AdapterInterface
         $limit = (int)$queryParams['limit'];
         $results = array_slice($allResults, $offset, $limit);
         $count = count($results);
-        return new Response(
-            200,
-            ['Content-type' => 'application/json', 'etag' => 'an etag'],
+
+        $body = json_encode(
             [
                 'code' => 200,
                 'status' => 'ok',
@@ -52,5 +51,7 @@ final class CollectionAdapter implements AdapterInterface
                 ],
             ]
         );
+
+        return new Response(200, ['Content-type' => 'application/json', 'etag' => 'an etag'], $body);
     }
 }

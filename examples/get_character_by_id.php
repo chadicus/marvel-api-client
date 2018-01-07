@@ -8,9 +8,7 @@ $privateApiKey = getenv('PRIVATE_KEY');
 
 $client = new Client($privateApiKey, $publicApiKey);
 
-$response = $client->get('characters', 1009351);
-
-$wrapper = $response->getDataWrapper();
+$wrapper = $client->get('characters', 1009351);
 
 $character = $wrapper->getData()->getResults()[0];
 

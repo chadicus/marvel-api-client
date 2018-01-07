@@ -2,8 +2,12 @@
 
 namespace Chadicus\Marvel\Api;
 
-use Chadicus\Marvel\Api\Assets;
-use Chadicus\Marvel\Api\Adapter\AdapterInterface;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Unit tests for the Client class.
@@ -11,7 +15,7 @@ use Chadicus\Marvel\Api\Adapter\AdapterInterface;
  * @coversDefaultClass \Chadicus\Marvel\Api\Client
  * @covers ::<private>
  */
-final class ClientTest extends \PHPUnit_Framework_TestCase
+final class ClientTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Set up each test.
@@ -42,89 +46,46 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
             }
         );
 
-        $adapter = new Assets\FakeAdapter();
-        $client = new Client('aPrivateKey', 'aPublicKey', $adapter);
+        $guzzleResponse = new Response(200, [], json_encode([]));
+        $mockHandler = new MockHandler([$guzzleResponse]);
+        $container = [];
+        $history = Middleware::history($container);
+        $stack = HandlerStack::create($mockHandler);
+        $stack->push($history);
+        $guzzleClient = new GuzzleClient(['handler' => $stack]);
+
+        $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient);
         $client->search('a Resource', ['key' => 'value']);
-        $request = $adapter->getRequest();
+
+        $this->assertCount(1, $container);
+        $request = $container[0]['request'];
+
         $hash = md5('1aPrivateKeyaPublicKey');
         $expectedUrl = Client::BASE_URL . "a+Resource?key=value&apikey=aPublicKey&ts=1&hash={$hash}";
 
         $this->assertSame('GET', $request->getMethod());
-        $this->assertSame($expectedUrl, $request->getUrl());
+        $this->assertSame($expectedUrl, (string)$request->getUri());
     }
 
     /**
-     * Verify proper exceptions thrown when Client is constructed with bad data.
-     *
-     * @param string           $privateApiKey The private api key issued by Marvel.
-     * @param string           $publicApiKey  The public api key issued by Marvel.
-     * @param AdapterInterface $adapter       Implementation of a client adapter.
-     *
-     * @test
-     * @covers ::__construct
-     * @dataProvider badConstructorData
-     * @expectedException \InvalidArgumentException
-     *
-     * @return void
-     */
-    public function constructWithBadData($privateApiKey, $publicApiKey, AdapterInterface $adapter)
-    {
-        new Client($privateApiKey, $publicApiKey, $adapter);
-    }
-
-    /**
-     * Data adapter for constructWithBadData test.
-     *
-     * @return array
-     */
-    public function badConstructorData()
-    {
-        return [
-            // privateApiKey
-            'privateApiKey is null' => [null, 'a public key', new Assets\FakeAdapter()],
-            'privateApiKey is empty' => ['', 'a public key', new Assets\FakeAdapter()],
-            'privateApiKey is whitespace' => [" \n\t", 'a public key', new Assets\FakeAdapter()],
-            'privateApiKey is not a string' => [true, 'a public key', new Assets\FakeAdapter()],
-            // publicApiKey
-            'publicApiKey is null' => ['a private key', null, new Assets\FakeAdapter()],
-            'publicApiKey is empty' => ['a private key', '', new Assets\FakeAdapter()],
-            'publicApiKey is whitespace' => ['a private key', "\n \t", new Assets\FakeAdapter()],
-            'publicApiKey is not a string' => ['a private key', false, new Assets\FakeAdapter()],
-        ];
-    }
-
-    /**
-     * Verify proper exceptions thrown when Client is constructed with bad data.
-     *
-     * @param string $resource The API resource to search for.
-     * @param array  $filters  Array of search criteria to use in request.
+     * Verify behavior of search when API returns non 200 response.
      *
      * @test
      * @covers ::search
-     * @dataProvider badSearchData
-     * @expectedException \InvalidArgumentException
      *
      * @return void
      */
-    public function searchtWithBadData($resource, array $filters)
+    public function searchNot200Reponse()
     {
-        (new Client('not under test', 'not under test', new Assets\FakeAdapter()))->search($resource, $filters);
-    }
-
-    /**
-     * Data adapter for searchWithBadData test.
-     *
-     * @return array
-     */
-    public function badSearchData()
-    {
-        return [
-            // resource
-            'resource is null' => [null, []],
-            'resource is empty' => ['', []],
-            'resource is whitespace' => [" \n\t", []],
-            'resource is not a string' => [true, []],
-        ];
+        $guzzleResponse = new Response(503, [], json_encode([]));
+        $mockHandler = new MockHandler([$guzzleResponse]);
+        $container = [];
+        $history = Middleware::history($container);
+        $stack = HandlerStack::create($mockHandler);
+        $stack->push($history);
+        $guzzleClient = new GuzzleClient(['handler' => $stack]);
+        $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient);
+        $this->assertNull($client->search('a Resource', ['key' => 'value']));
     }
 
     /**
@@ -146,52 +107,45 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
             }
         );
 
-        $adapter = new Assets\FakeAdapter();
-        $client = new Client('aPrivateKey', 'aPublicKey', $adapter);
+        $guzzleResponse = new Response(200, [], json_encode([]));
+        $mockHandler = new MockHandler([$guzzleResponse]);
+        $container = [];
+        $history = Middleware::history($container);
+        $stack = HandlerStack::create($mockHandler);
+        $stack->push($history);
+        $guzzleClient = new GuzzleClient(['handler' => $stack]);
+
+        $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient);
         $client->get('a Resource', 1);
-        $request = $adapter->getRequest();
+
+        $this->assertCount(1, $container);
+        $request = $container[0]['request'];
         $hash = md5('1aPrivateKeyaPublicKey');
         $expectedUrl = Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}";
 
         $this->assertSame('GET', $request->getMethod());
-        $this->assertSame($expectedUrl, $request->getUrl());
+        $this->assertSame($expectedUrl, (string)$request->getUri());
     }
 
     /**
-     * Verify proper exceptions thrown when Client is constructed with bad data.
-     *
-     * @param string  $resource The API resource to search for.
-     * @param integer $id       The id of the API resource.
+     * Verify behavior of get() when API returns non 200 response.
      *
      * @test
      * @covers ::get
-     * @dataProvider badGetData
-     * @expectedException \InvalidArgumentException
      *
      * @return void
      */
-    public function gettWithBadData($resource, $id)
+    public function getNot200Reponse()
     {
-        (new Client('not under test', 'not under test', new Assets\FakeAdapter()))->get($resource, $id);
-    }
-
-    /**
-     * Data adapter for getWithBadData test.
-     *
-     * @return array
-     */
-    public function badGetData()
-    {
-        return [
-            // resource
-            'resource is null' => [null, 1],
-            'resource is empty' => ['',1],
-            'resource is whitespace' => [" \n\t",1],
-            'resource is not a string' => [true,1],
-            // id
-            'id is null' => ['a resource', null],
-            'id is not an integer' => ['a resource', true],
-        ];
+        $guzzleResponse = new Response(503, [], json_encode([]));
+        $mockHandler = new MockHandler([$guzzleResponse]);
+        $container = [];
+        $history = Middleware::history($container);
+        $stack = HandlerStack::create($mockHandler);
+        $stack->push($history);
+        $guzzleClient = new GuzzleClient(['handler' => $stack]);
+        $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient);
+        $this->assertNull($client->get('a Resource', 1));
     }
 
     /**
@@ -212,21 +166,48 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
             }
         );
 
-        $hash = md5('1aPrivateKeyaPublicKey');
-        $cache = new Cache\ArrayCache();
-        $cache->set(
-            new Request(Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}", 'GET'),
-            new Response(599, ['custom' => 'header'], ['key' => 'value'])
+        $body = json_encode(
+            [
+               'code' => 200,
+               'status' => 'OK',
+               'attributionText' => 'a attributionText',
+               'attributionHTML' => 'a attributionHTML',
+               'etag' => 'a etag',
+               'data' =>  [
+                   'offset' => 0,
+                   'limit' => 1,
+                   'total' => 1,
+                   'count' => 1,
+                   'results' => [['id' => 1, 'resourceURI' => Client::BASE_URL . 'characters/1']],
+               ],
+            ]
         );
-        $adapter = new Assets\FakeAdapter();
-        $client = new Client('aPrivateKey', 'aPublicKey', $adapter, $cache);
-        $response = $client->get('a Resource', 1);
-        $this->assertSame(599, $response->getHttpCode());
-        $this->assertSame(['custom' => 'header'], $response->getHeaders());
-        $this->assertSame(['key' => 'value'], $response->getBody());
+
+        $hash = md5('1aPrivateKeyaPublicKey');
+        $cache = new Assets\ArrayCache();
+        $cache->set(
+            "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}",
+            new Response(200, ['custom' => 'header'], $body)
+        );
+
+        $guzzleResponse = new Response(200);
+        $mockHandler = new MockHandler([$guzzleResponse]);
+        $container = [];
+        $history = Middleware::history($container);
+        $stack = HandlerStack::create($mockHandler);
+        $stack->push($history);
+        $guzzleClient = new GuzzleClient(['handler' => $stack]);
+
+        $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient, $cache);
+        $client->get('a Resource', 1);
+
+        $dataWrapper = $client->get('a Resource', 1);
+        $this->assertSame(200, $dataWrapper->getCode());
+        $this->assertSame('OK', $dataWrapper->getStatus());
+        $this->assertSame(1, $dataWrapper->getData()->getCount());
 
         // assert the adapter was not used
-        $this->assertNull($adapter->getRequest());
+        $this->assertCount(0, $container);
     }
 
     /**
@@ -248,17 +229,20 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
         );
 
         $hash = md5('1aPrivateKeyaPublicKey');
-        $request = new Request(Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}", 'GET');
+        $request = new Request('GET', Client::BASE_URL . "a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}");
 
-        $cache = new Cache\ArrayCache();
-        $adapter = new Assets\FakeAdapter();
-        $client = new Client('aPrivateKey', 'aPublicKey', $adapter, $cache);
-        $response = $client->get('a Resource', 1);
+        $cache = new Assets\ArrayCache();
 
-        $cachedResponse = $cache->get($request);
-        $this->assertSame($response->getHttpCode(), $cachedResponse->getHttpCode());
-        $this->assertSame($response->getHeaders(), $cachedResponse->getHeaders());
-        $this->assertSame($response->getBody(), $cachedResponse->getBody());
+        $handler = new Assets\FakeHandler();
+        $guzzleClient = new GuzzleClient(['handler' => $handler]);
+
+        $client = new Client('aPrivateKey', 'aPublicKey', $guzzleClient, $cache);
+        $client->get('a Resource', 1);
+
+        $cachedResponse = $cache->get("a+Resource/1?apikey=aPublicKey&ts=1&hash={$hash}");
+        $this->assertSame($handler->response->getStatusCode(), $cachedResponse->getStatusCode());
+        $this->assertSame($handler->response->getHeaders(), $cachedResponse->getHeaders());
+        $this->assertSame((string)$handler->response->getBody(), (string)$cachedResponse->getBody());
     }
 
     /**
@@ -271,7 +255,8 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function callEntity()
     {
-        $client = new Client('not under test', 'not under test', new Assets\ComicAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\ComicHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $comic = $client->comics(2);
         $this->assertInstanceOf('Chadicus\Marvel\Api\Entities\Comic', $comic);
         $this->assertSame(2, $comic->getId());
@@ -287,7 +272,8 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function callEntityNotFound()
     {
-        $client = new Client('not under test', 'not under test', new Assets\EmptyAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\EmptyHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $comic = $client->comics(1);
         $this->assertNull($comic);
     }
@@ -302,7 +288,8 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function callInvalidEntity()
     {
-        $client = new Client('not under test', 'not under test', new Assets\ErrorAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\ErrorHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $result = $client->batman(1);
         $this->assertNull($result);
     }
@@ -317,7 +304,8 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function callCollection()
     {
-        $client = new Client('not under test', 'not under test', new Assets\ComicAdapter());
+        $guzzleClient = new GuzzleClient(['handler' => new Assets\ComicHandler()]);
+        $client = new Client('not under test', 'not under test', $guzzleClient);
         $comics = $client->comics();
         $this->assertInstanceOf('Chadicus\Marvel\Api\Collection', $comics);
         $this->assertSame(5, $comics->count());
