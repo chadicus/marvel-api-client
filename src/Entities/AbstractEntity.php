@@ -106,9 +106,9 @@ abstract class AbstractEntity implements EntityInterface, \ArrayAccess
      *
      * @return EntityInterface
      */
-    final public static function fromArray(array $input) : EntityInterface
+    final public static function fromArray(array $input = null) : EntityInterface
     {
-        return new static($input);
+        return new static($input ?? []);
     }
 
     /**
